@@ -49,6 +49,9 @@
   border-radius: 10px;
   /* border: solid red 1px; */
 }
+.table>:not(caption)>*>* {
+  padding: 0 !important;
+}
 
 .recnet-heading {
   display: flex;
@@ -78,7 +81,7 @@
   /* border: 1px solid black; */
   width: 100% !important;
   background-color: #f8f9f9 !important;
-  padding-left: 20px;
+  /* padding-left: 20px; */
   margin: 0 !important;
 
 }
@@ -141,7 +144,7 @@
 #paginationControls button {
   width: 40px;
   background-color: #fff;
-
+  height: 40px;
   font-size: 14px;
   font-weight: 500;
   color: #626c70;
