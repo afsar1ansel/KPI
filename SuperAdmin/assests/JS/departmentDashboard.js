@@ -147,6 +147,7 @@ const gridOptions = {
     {
       field: "department_name",
       headerName: "DEPARTMENT NAME",
+      maxWidth: 400,
       cellRenderer: (params) => {
         let data = JSON.stringify(params.data).replace(/"/g, "&quot;");
         let name = params.data.department_name;
@@ -159,6 +160,7 @@ const gridOptions = {
     {
       field: "STATUS",
       headerName: "APPROVAL STATUS",
+      maxWidth: 400,
       cellRenderer: (params) => {
         const value = params.data.STATUS;
         let content = "";
@@ -197,7 +199,7 @@ const gridOptions = {
     </div>`;
       },
     },
-    { field: "KPINumber", headerName: "No. OF KPI’S ASSIGNED" },
+    { field: "KPINumber", headerName: "No. OF KPI’S ASSIGNED", maxWidth: 300 },
 
     {
       field: "id",
