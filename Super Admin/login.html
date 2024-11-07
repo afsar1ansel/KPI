@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Log in</title>
+    <link rel="stylesheet" href="./assests/style/login.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400&display=swap" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="left">
+      <div class="leftImg">
+        <img src="../Department//assests/img/BG.svg" alt="logo" />
+      </div>
+    </div>
+    <div class="right">
+      <div class="rightTop">
+        <div class="logo">
+          <img src="../Department/assests/img/satyaMJ.svg" alt="logo" />
+          <img src="../Department/assests/img/EMRRI.svg" alt="withlogo" />
+        </div>
+        <div class="rightTopTag">
+          <img src="./assests/img/green_logo.svg" alt="" />
+          <div class="tagText">
+            <h1>KSAPCC</h1>
+            <h3>Monitoring</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="rightBottom">
+        <h1>KSAPCC Monitoring Portal</h1>
+        <div class="formBox">
+          <!-- <div class="form"> -->
+            <h3>Login to your account</h3>
+            <form id="login-form">
+                <div >
+                    <div class="form-group">
+                      <label for="email">Email ID</label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter email ID"
+                        required
+                      />
+                    </div>
+      
+                    <div class="form-group">
+                      <div
+                        style="
+                          display: flex;
+                          justify-content: space-between;
+                          align-items: center;
+                        "
+                      >
+                        <label for="password">Password</label>
+                        <label for="password">Forgot Password</label>
+                      </div>
+                      <div class="password-wrapper">
+                        <input
+                          type="password"
+                          id="password"
+                          name="password"
+                          placeholder="Password"
+                          required
+                        />
+                        <img
+                          src="./assests/img/Icon.svg"
+                          id="toggle-password"
+                          class="toggle-password"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+      
+                    <div class="form-group">
+                      <button class="login-btn" type="submit">Login</button>
+                    </div>
+                </div>
+            </form>
+            <p>
+              Don't have an account?
+              <a href="./registration.html">Click here to Register Now</a>
+            </p>
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="./assests/JS/login.js"></script>
+</html>

@@ -1,0 +1,91 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Public Sans";
+}
+
+
+/* --------- body ----------- */
+
+.body {
+  background-color: #f6f6f6;
+  padding-bottom: 100px;
+}
+
+/* helloadmin */
+
+.body .helloadmin {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  /* width: 100%; */
+  padding: 24px 80px;
+  gap: 10px;
+}
+
+.body .helloadmin h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #191b1c;
+  margin: 0;
+}
+
+.body .helloadmin p {
+  font-size: 14px;
+  font-weight: 400;
+  color: #626c70;
+  margin: 0;
+}
+
+/* download */
+
+.downloadingDiv{
+    display: flex;
+    width: 92vw;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 45px;
+    background-color: white;
+    border-radius: 8px;
+    margin: 0 auto;
+}
+
+.downloadingDiv div{
+    display: flex;
+    gap: 10px;
+    align-items: center
+}
+
+.downloadingDiv div h2{
+    color: #191b1c;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+
+}
+
+/* -------- mainDiv --------- */
+
+.mainDiv{
+    display: flex;
+    width: 92vw;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 45px;
+    /* background-color: white; */
+    border-radius: 8px;
+    margin: 10px auto;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.filter{
+    background-color: white;
+    padding: 20px;
+    width: 300px;
+}
+
+.form-select{
+    width: 95% !important; 
+    margin-left: 12px;
+}
