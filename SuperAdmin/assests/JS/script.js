@@ -1,1 +1,3 @@
-console.log("hello");
+window.onload = function () {
+  window.location.href = "./homePage.html";
+};
