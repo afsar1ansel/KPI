@@ -8,7 +8,81 @@
 /* ---- NAV ---- */
 
 #adminNav .navBar {
-    width: 90%;
+    /* width: 90%; */
 }
 /* ---- NAV END ---- */
 
+/* body */
+
+.body {
+  background-color: #f6f6f6;
+  padding-bottom: 100px;
+}
+
+/* helloadmin */
+
+.body .helloadmin {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 24px 80px;
+  gap: 10px;
+}
+
+.body .helloadmin h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #191b1c;
+  margin: 0;
+}
+
+.body .helloadmin p {
+  font-size: 14px;
+  font-weight: 400;
+  color: #626c70;
+  margin: 0;
+}
+
+/* helloadmin end */
+
+/* --- settings ----- */
+
+.line{
+  border: solid 1px #E5E7E8;
+  width: 100%;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.settings{
+  /* border: solid 1px #000; */
+  margin-left: 78px;
+  width: 1164px;
+  padding: 24px 80px;
+  background-color: white;
+  border-radius: 8px;
+}
+
+
+.userId{
+  display: flex;
+  /* border: solid 1px #000; */
+  align-items: center;
+  justify-content: space-between;
+}
+
+.userId div{
+  display: flex;
+  gap: 16px;
+  /* border: solid 1px #000; */
+}
+
+.mb-3{
+  display: flex;
+  flex-direction: column;
+  width: 265px;
+}
+
+.btn{
+  padding: 10px 20px !important ;
+}
