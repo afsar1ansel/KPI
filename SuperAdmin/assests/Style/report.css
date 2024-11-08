@@ -293,3 +293,14 @@
 
 /* kpi detail end */
 
+/* graph */
+
+.graphbox {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+
+}
+
