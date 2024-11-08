@@ -463,7 +463,7 @@ const gridOptions1 = {
         class="btn btn-outline-success rounded-pill"
         onclick="handleDetails(${data})"
       >
-        SEND UPDATED REMINDER
+        Send Update Remider
       </button>
     `;
       },
