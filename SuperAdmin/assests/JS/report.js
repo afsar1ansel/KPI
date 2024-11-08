@@ -4,6 +4,8 @@ const options = {
   container: document.getElementById("myChart"),
   title: {
     text: "KPI 1",
+    color: "#0F6609",
+    border: "1px solid #0F6609",
   },
   data: [
     { target: "Baseline Target", scale: 2.3 },
@@ -25,6 +27,7 @@ const options = {
       position: "bottom",
       title: {
         text: "Target achieved",
+        color: "#0F6609",
       },
     },
     {
@@ -32,6 +35,7 @@ const options = {
       position: "left",
       title: {
         text: "Scale (Lakh Hectares)",
+        color: "#0F6609",
       },
     },
   ],
@@ -63,6 +67,7 @@ const options1 = {
       position: "bottom",
       title: {
         text: "Target achieved",
+        color: "#0F6609",
       },
     },
     {
@@ -70,6 +75,7 @@ const options1 = {
       position: "left",
       title: {
         text: "Scale (Lakh Hectares)",
+        color: "#0F6609",
       },
     },
   ],
@@ -92,7 +98,9 @@ const options2 = {
       xKey: "target",
       yKey: "scale",
       yName: "Scale (Lakh Hectares)",
-      fill: "#FFD599",
+      fill: (param) => {
+        console.log({ param });
+      },
     },
   ],
   axes: [
@@ -101,6 +109,7 @@ const options2 = {
       position: "bottom",
       title: {
         text: "Target achieved",
+        color: "#0F6609",
       },
     },
     {
@@ -108,6 +117,7 @@ const options2 = {
       position: "left",
       title: {
         text: "Scale (Lakh Hectares)",
+        color: "#0F6609",
       },
     },
   ],
