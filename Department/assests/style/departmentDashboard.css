@@ -88,3 +88,52 @@
 
 /* ---- navigator ------ */
 
+/* body */
+.body {
+  background-color: #f6f6f6;
+  padding-bottom: 100px;
+}
+
+.line{
+    /* width: 100%;
+    height: 1px;
+    background-color: black;
+    border: 1px solid black; ; */
+}
+
+/* helloadmin */
+
+.body .helloadmin {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 24px 80px;
+  gap: 10px;
+}
+
+.body .helloadmin h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #191b1c;
+  margin: 0;
+}
+
+.body .helloadmin p {
+  font-size: 14px;
+  font-weight: 400;
+  color: #626c70;
+  margin: 0;
+}
+
+/* ---- helloadmin END ------ */
+/* card */
+
+.longCards{
+  margin: 24px 80px;
+  border: solid 1px rgb(0, 0, 0);
+}
+
+
+
+
+/* --------- body ----------- */

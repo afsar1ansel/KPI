@@ -1,28 +1,184 @@
+class StatusCellRenderer {
+  
+  init(params) {
+    console.log(params);
+    this.eGui = document.createElement("div");
+    const isChecked = params.value === 1 ? "checked" : "";
+
+    this.eGui.innerHTML = `
+      <label class="switch">
+        <input id=${params.data.id} type="checkbox" class="checkbox" ${isChecked}>
+        <div class="slider"></div>
+      </label>`;
+
+    const checkbox = this.eGui.querySelector('input[type="checkbox"]');
+
+    checkbox.addEventListener("change", async () => {
+      const newStatus = checkbox.checked ? 1 : 0;
+      const success = await toggleStatus(params.data.id, newStatus);
+      if (success) {
+        params.setValue(newStatus);
+      } else {
+        checkbox.checked = !checkbox.checked;
+      }
+    });
+  }
+
+  getGui() {
+    return this.eGui;
+  }
+
+  refresh(params) {
+    const checkbox = this.eGui.querySelector('input[type="checkbox"]');
+    checkbox.checked = params.value === 1;
+    return true;
+  }
+}
+
 const gridOptions = {
   // Row Data: The data to be displayed.
-  rowData : [
-    { id: 1, name: "Rahul Patel", email: "nqWbA@example.com", role: "Super Admin", status: "Active" },
-    { id: 2, name: "Rajesh Kumar", email: "rajesh@example.com", role: "Admin", status: "Inactive" },
-    { id: 3, name: "Amit Sharma", email: "amit.sharma@example.com", role: "User", status: "Active" },
-    { id: 4, name: "Priya Singh", email: "priya.singh@example.com", role: "User", status: "Inactive" },
-    { id: 5, name: "Sunil Yadav", email: "sunil.yadav@example.com", role: "Moderator", status: "Active" },
-    { id: 6, name: "Neha Joshi", email: "neha.joshi@example.com", role: "User", status: "Active" },
-    { id: 7, name: "Vikram Desai", email: "vikram.desai@example.com", role: "Admin", status: "Inactive" },
-    { id: 8, name: "Ayesha Khan", email: "ayesha.khan@example.com", role: "Moderator", status: "Active" },
-    { id: 9, name: "Siddharth Pandey", email: "sid.pandey@example.com", role: "User", status: "Inactive" },
-    { id: 10, name: "Kiran Mehta", email: "kiran.mehta@example.com", role: "Admin", status: "Active" },
-    { id: 11, name: "Ravi Narayan", email: "ravi.narayan@example.com", role: "Super Admin", status: "Inactive" },
-    { id: 12, name: "Sneha Bhat", email: "sneha.bhat@example.com", role: "User", status: "Active" },
-    { id: 13, name: "Anil Goel", email: "anil.goel@example.com", role: "User", status: "Inactive" },
-    { id: 14, name: "Komal Jain", email: "komal.jain@example.com", role: "Moderator", status: "Active" },
-    { id: 15, name: "Manish Rathi", email: "manish.rathi@example.com", role: "Admin", status: "Inactive" },
-    { id: 16, name: "Pooja Patel", email: "pooja.patel@example.com", role: "User", status: "Active" },
-    { id: 17, name: "Gaurav Sinha", email: "gaurav.sinha@example.com", role: "Moderator", status: "Inactive" },
-    { id: 18, name: "Shweta Mishra", email: "shweta.mishra@example.com", role: "Admin", status: "Active" },
-    { id: 19, name: "Ramesh Chandra", email: "ramesh.chandra@example.com", role: "User", status: "Inactive" },
-    { id: 20, name: "Kunal Agarwal", email: "kunal.agarwal@example.com", role: "Super Admin", status: "Active" }
-],
-
+  rowData: [
+    {
+      id: 1,
+      name: "Rahul Patel",
+      email: "nqWbA@example.com",
+      role: "Super Admin",
+      status: 1,
+    },
+    {
+      id: 2,
+      name: "Rajesh Kumar",
+      email: "rajesh@example.com",
+      role: "Admin",
+      status: 0,
+    },
+    {
+      id: 3,
+      name: "Amit Sharma",
+      email: "amit.sharma@example.com",
+      role: "User",
+      status: 1,
+    },
+    {
+      id: 4,
+      name: "Priya Singh",
+      email: "priya.singh@example.com",
+      role: "User",
+      status: 0,
+    },
+    {
+      id: 5,
+      name: "Sunil Yadav",
+      email: "sunil.yadav@example.com",
+      role: "Moderator",
+      status: 1,
+    },
+    {
+      id: 6,
+      name: "Neha Joshi",
+      email: "neha.joshi@example.com",
+      role: "User",
+      status: 1,
+    },
+    {
+      id: 7,
+      name: "Vikram Desai",
+      email: "vikram.desai@example.com",
+      role: "Admin",
+      status: 0,
+    },
+    {
+      id: 8,
+      name: "Ayesha Khan",
+      email: "ayesha.khan@example.com",
+      role: "Moderator",
+      status: 1,
+    },
+    {
+      id: 9,
+      name: "Siddharth Pandey",
+      email: "sid.pandey@example.com",
+      role: "User",
+      status: 0,
+    },
+    {
+      id: 10,
+      name: "Kiran Mehta",
+      email: "kiran.mehta@example.com",
+      role: "Admin",
+      status: 1,
+    },
+    {
+      id: 11,
+      name: "Ravi Narayan",
+      email: "ravi.narayan@example.com",
+      role: "Super Admin",
+      status: 0,
+    },
+    {
+      id: 12,
+      name: "Sneha Bhat",
+      email: "sneha.bhat@example.com",
+      role: "User",
+      status: 1,
+    },
+    {
+      id: 13,
+      name: "Anil Goel",
+      email: "anil.goel@example.com",
+      role: "User",
+      status: 0,
+    },
+    {
+      id: 14,
+      name: "Komal Jain",
+      email: "komal.jain@example.com",
+      role: "Moderator",
+      status: 1,
+    },
+    {
+      id: 15,
+      name: "Manish Rathi",
+      email: "manish.rathi@example.com",
+      role: "Admin",
+      status: 0,
+    },
+    {
+      id: 16,
+      name: "Pooja Patel",
+      email: "pooja.patel@example.com",
+      role: "User",
+      status: 1,
+    },
+    {
+      id: 17,
+      name: "Gaurav Sinha",
+      email: "gaurav.sinha@example.com",
+      role: "Moderator",
+      status: 0,
+    },
+    {
+      id: 18,
+      name: "Shweta Mishra",
+      email: "shweta.mishra@example.com",
+      role: "Admin",
+      status: 1,
+    },
+    {
+      id: 19,
+      name: "Ramesh Chandra",
+      email: "ramesh.chandra@example.com",
+      role: "User",
+      status: 0,
+    },
+    {
+      id: 20,
+      name: "Kunal Agarwal",
+      email: "kunal.agarwal@example.com",
+      role: "Super Admin",
+      status: 1,
+    },
+  ],
 
   columnDefs: [
     {
@@ -40,19 +196,19 @@ const gridOptions = {
     {
       field: "status",
       headerName: "STATUS",
-    // code need
+      cellRenderer: StatusCellRenderer,
     },
     {
       field: "id",
       headerName: "ACTION",
       cellRenderer: function (params) {
-     const dataId = params.data.id; 
-     return `
+        const dataId = params.data.id;
+        return `
     <i class="bi bi-pencil-square" onclick="handleEditClick(${dataId})"></i> 
     <i class="bi bi-trash" onclick="handleDeleteClick(${dataId})"></i>
   `;
       },
-    }
+    },
   ],
   defaultColDef: {
     sortable: true,
@@ -158,11 +314,15 @@ function handleDepartment(data) {
   console.log(departmentData);
 }
 
-
 function handleEditClick(id) {
   console.log("Edit clicked for ID:", id);
 }
 
 function handleDeleteClick(id) {
   console.log("Delete clicked for ID:", id);
+}
+
+ async function toggleStatus(customerId, newStatus) {
+  console.log("Toggle status clicked", customerId, newStatus);
+  return true;
 }

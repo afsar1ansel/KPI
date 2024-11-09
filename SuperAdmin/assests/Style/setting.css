@@ -16,7 +16,7 @@
 
 .body {
   background-color: #f6f6f6;
-  padding-bottom: 100px;
+  padding-bottom: 150px;
 }
 
 /* helloadmin */
@@ -66,16 +66,25 @@
 
 
 .settings{
-  /* border: solid 1px #000; */
   margin-left: 78px;
   width: 1164px;
-  padding: 24px 0px;
+  padding: 2px 0px;
   background-color: white;
   border-radius: 8px;
 }
 
 .settings p{
+  font-size: 16px;
+  font-weight: 500;
+  color: #191b1c;
   margin: 24px 80px;
+
+}
+
+.form-label{
+  font-size: 14px;
+  font-weight: 400;
+  color: #191b1c;
 
 }
 
