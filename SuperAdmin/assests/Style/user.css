@@ -217,9 +217,17 @@
 
 /* model 1 */
 
+#InputEmail1:focus,
+#userId:focus,
+#select:focus {
+   box-shadow: none !important;
+    border-color: #5ea776 !important;
+}
+
+
 .modal-content{
     /* border: solid red 1px !important ; */
-    width: 684px !important;
+    width: 584px !important;
 }
 
 .departModel {
@@ -238,4 +246,11 @@
     padding: 0;
 }
 
-/* model 2 */
+.modal-footer .btn {
+  width: 100%; /* Make the button full width */
+}
+
+.modal-footer {
+  margin-top: 32px;
+}
+
