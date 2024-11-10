@@ -69,21 +69,15 @@
   flex-direction: row;
   flex-wrap: nowrap !important;
   width: 100%;
-  /* justify-content: start; */
-  /* align-items: center; */
   padding: 32px 48px;
-  /* background-color: white; */
-  /* border-radius: 8px; */
-  /* margin: 0px; */
   flex-wrap: wrap;
   gap: 0 !important;
-  /* border: solid 1px rgb(0, 0, 0); */
   
 }
 
 .line {
   border: solid 1px #e5e7e8;
-  width: 102%;
+  /* width: 76vw; */
   margin: 24px 0px;
 }
 .filterDiv{
@@ -136,7 +130,7 @@
 }
 
 .card {
-  width: 100%;
+  width: 23vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -199,6 +193,8 @@
 }
 
 .cordinateDepartmentBox {
+  /* border: solid 1px black; */
+  width: 70.78vw;
   padding: 20px;
   background-color: white;
   border-radius: 8px;
@@ -255,6 +251,7 @@
 
 .kpicard1 {
   width: 24vw !important;
+  
 }
 
 .uprCardBody .cardbodyitems {
@@ -296,11 +293,11 @@
 /* graph */
 
 .graphbox {
-  width: 100%;
+  width: 95%;
   height: 400px;
   display: flex;
   justify-content: space-between;
   gap: 20px;
-
+  /* border: solid 1px red; */
 }
 
