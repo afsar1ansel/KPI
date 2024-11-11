@@ -1,7 +1,6 @@
-let expandedRows = {}; // Track expanded rows
+let expandedRows = {};
 
 const gridOptions = {
-  // Row Data: The data to be displayed.
   rowData: [
     {
       id: 1,
@@ -26,54 +25,73 @@ const gridOptions = {
         yr4: "33.20",
         yr5: "33.20",
       },
+      date: "24/10/2023",
     },
   ],
 
   columnDefs: [
     {
       field: "KPI_name",
-      headerName: "KPI Name",
-      maxWidth: 400,
+      headerName: "KPI NAME",
+      maxWidth: 190,
+      cellRenderer: function (params) {
+        const dataHead = params.data.KPI_name;
+        const date = params.data.date;
+        // console.log(params);
+        // console.log(dataHead, date);
+
+        return `<div><p>${dataHead}</p><p id="trackerDate">LAST UPDATED: ${date}</p></div>`;
+      }
     },
     {
       field: "baselineStatus",
       headerName: "BASELINE STATUS",
-      maxWidth: 400,
+      maxWidth: 120,
     },
     {
       field: "target_set",
       headerName: "TARGET SET for 5 YEARS",
-      maxWidth: 300,
+      maxWidth: 120,
     },
-
     {
       field: "coordinate_department",
       headerName: "COORDINATING DEPARTMENT",
-      maxWidth: 400,
+      maxWidth: 130,
     },
     {
       field: "strategies",
       headerName: "STRATEGIES",
-      maxWidth: 400,
+      maxWidth: 200,
+      // cellStyle: {
+      //   fontWeight: "500",
+      //   fontSize: "14px",
+      //   whiteSpace: "normal",
+      //   overFlow: "visible",
+      //   textOverflow: "clip",
+      //   lineHeight: "20px",
+      // },
     },
     {
       headerName: "ANNUAL TARGET",
+      headerClass: "annual-target-header",
       children: [
-        { field: "annual_target.yr1", headerName: "YR1", maxWidth: 100 },
-        { field: "annual_target.yr2", headerName: "YR2", maxWidth: 100 },
-        { field: "annual_target.yr3", headerName: "YR3", maxWidth: 100 },
-        { field: "annual_target.yr4", headerName: "YR4", maxWidth: 100 },
-        { field: "annual_target.yr5", headerName: "YR5", maxWidth: 100 },
+        { field: "annual_target.yr1", headerName: "YR1", maxWidth: 70 },
+        { field: "annual_target.yr2", headerName: "YR2", maxWidth: 70 },
+        { field: "annual_target.yr3", headerName: "YR3", maxWidth: 70 },
+        { field: "annual_target.yr4", headerName: "YR4", maxWidth: 70 },
+        { field: "annual_target.yr5", headerName: "YR5", maxWidth: 70 },
       ],
     },
     {
       headerName: "TARGET ACHIEVED",
+      
+      headerClass: "annual-target-header",
       children: [
-        { field: "target_achieved.yr1", headerName: "YR1", maxWidth: 100 },
-        { field: "target_achieved.yr2", headerName: "YR2", maxWidth: 100 },
-        { field: "target_achieved.yr3", headerName: "YR3", maxWidth: 100 },
-        { field: "target_achieved.yr4", headerName: "YR4", maxWidth: 100 },
-        { field: "target_achieved.yr5", headerName: "YR5", maxWidth: 100 },
+        { field: "target_achieved.yr1", headerName: "YR1", maxWidth: 70 },
+        { field: "target_achieved.yr2", headerName: "YR2", maxWidth: 70 },
+        { field: "target_achieved.yr3", headerName: "YR3", maxWidth: 70 },
+        { field: "target_achieved.yr4", headerName: "YR4", maxWidth: 70 },
+        { field: "target_achieved.yr5", headerName: "YR5", maxWidth: 70 },
       ],
     },
     {
@@ -81,18 +99,18 @@ const gridOptions = {
       headerName: "ACTION",
       cellRenderer: function (params) {
         const dataId = params.data.id;
-        const isExpanded = expandedRows[dataId];
+        // const isExpanded = expandedRows[dataId];
         return `
-          <button onclick="toggleRow(${dataId})">Action</button>
+          <button class="btn btn-success rounded-pill" onclick="toggleRow(${dataId})">Update</button>
         `;
       },
     },
   ],
   defaultColDef: {
     sortable: true,
-    filter: "agTextColumnFilter",
+    // filter: "agTextColumnFilter",
     resizable: false,
-    flex: 1,
+    // flex: 1,
     filterParams: {
       debounceMs: 0,
       buttons: ["reset"],
@@ -100,11 +118,11 @@ const gridOptions = {
   },
   domLayout: "autoHeight",
   getRowHeight: function (params) {
-    return params.node.detail ? 150 : 80;
+    return params.node.detail ? 150 : 200;
   },
 
   pagination: false,
-  paginationPageSize: 5,
+  // paginationPageSize: 5,
   paginationPageSizeSelector: false,
   suppressPaginationPanel: true,
 };
@@ -118,7 +136,7 @@ function toggleRow(rowId) {
 function generateExpandedData() {
   const expandedData = [];
   gridOptions.rowData.forEach((row) => {
-    expandedData.push(row); // Add parent row
+    expandedData.push(row);
 
     // If the row is expanded, add child rows for annual targets and target achievements
     if (expandedRows[row.id]) {
@@ -161,6 +179,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const gridDiv = document.querySelector("#myGrid");
   gridApi = agGrid.createGrid(gridDiv, gridOptions);
 });
+
 
 // // for number pagination control BUttons
 // function updateCustomPagination(data) {
