@@ -58,6 +58,7 @@
     font-weight: 500;
     cursor: pointer;
     transition: color 0.5s;
+    margin: 0;
 }
 
 .profile{
@@ -98,7 +99,7 @@
 
 .line{
     border: 1px solid #E5E7E8;
-    margin: 24px 78px;
+    margin: 12px 78px;
 }
 
 /* helloadmin */

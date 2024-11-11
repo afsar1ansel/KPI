@@ -12,12 +12,15 @@
     display: flex;
     justify-content: space-between;
     padding: 10px 80px;
+    /* border: solid 1px red; */
 }
 
 .logo {
   display: flex;
   align-items: center;
   gap: 10px;
+  /* border: solid 1px red; */
+  margin-left: 80px;
   font-family: public-sans;
 }
 
@@ -59,6 +62,7 @@
     font-weight: 500;
     cursor: pointer;
     transition: color 0.5s;
+    margin: 0;
 }
 
 .profile{
