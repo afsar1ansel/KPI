@@ -219,6 +219,8 @@
 
 /* ag grid */
 
+
+
 .recentChart {
   background-color: white;
   margin: 24px 80px;
@@ -331,51 +333,7 @@
 }
 
 /* pagination */
-/* #paginationNumbers {
-  color: #000000;
 
-  font-size: 14px;
-  font-weight: 400;
-}
-
-#paginationControls {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: 24px 24px;
-}
-
-#paginationControler {
-  display: flex;
-  gap: 10px;
-}
-
-#paginationControls button {
-  width: 40px;
-  background-color: #fff;
-  height: 40px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #626c70;
-  border-radius: 100%;
-  padding: 10px;
-  border: none;
-  cursor: pointer;
-}
-
-#paginationControls button:hover {
-  background-color: #f5f6f7;
-  color: #000;
-}
-
-#paginationControls #arrow-button {
-  background-color: #edfff3;
-  color: #0f6609;
-}
-
-.active-pagination-button {
-  color: green;
-} */
 
 /* pagingnation end */
 
@@ -433,8 +391,42 @@
   margin: 0 !important;
 }
 
+.ag-root-wrapper{
+  /* border: solid red 1px !important; */
+  /* width: 100% !important; */
+  
+}
+
+
+/* .table {
+  overflow-x: auto; 
+  white-space: nowrap; 
+  cursor: grab;
+} */
+
+
+
+#myGrid {
+  width: 100% !important;
+ overflow-x: auto !important;
+  white-space: nowrap; 
+ cursor: grab !important;
+  /* border: solid red 1px; ; */
+  /* border: solid 1px red; */
+}
+
+
 #trackerDate{
   font-weight: 400 !important;
   font-size: 10px !important ;
   color: #8B8B8B !important;
+}
+
+.annual-target-header .ag-header-cell-label {
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+.center-align {
+  text-align: center;
 }

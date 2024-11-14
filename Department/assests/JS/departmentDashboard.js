@@ -37,11 +37,9 @@ const gridOptions = {
       cellRenderer: function (params) {
         const dataHead = params.data.KPI_name;
         const date = params.data.date;
-        // console.log(params);
-        // console.log(dataHead, date);
 
         return `<div><p>${dataHead}</p><p id="trackerDate">LAST UPDATED: ${date}</p></div>`;
-      }
+      },
     },
     {
       field: "baselineStatus",
@@ -62,36 +60,32 @@ const gridOptions = {
       field: "strategies",
       headerName: "STRATEGIES",
       maxWidth: 200,
-      // cellStyle: {
-      //   fontWeight: "500",
-      //   fontSize: "14px",
-      //   whiteSpace: "normal",
-      //   overFlow: "visible",
-      //   textOverflow: "clip",
-      //   lineHeight: "20px",
-      // },
     },
     {
       headerName: "ANNUAL TARGET",
       headerClass: "annual-target-header",
       children: [
-        { field: "annual_target.yr1", headerName: "YR1", maxWidth: 70 },
-        { field: "annual_target.yr2", headerName: "YR2", maxWidth: 70 },
-        { field: "annual_target.yr3", headerName: "YR3", maxWidth: 70 },
-        { field: "annual_target.yr4", headerName: "YR4", maxWidth: 70 },
-        { field: "annual_target.yr5", headerName: "YR5", maxWidth: 70 },
+        {
+          field: "annual_target.yr1",
+          headerName: "YR1",
+          maxWidth: 80,
+          // cellClass: "center-align",
+        },
+        { field: "annual_target.yr2", headerName: "YR2", maxWidth: 80 },
+        { field: "annual_target.yr3", headerName: "YR3", maxWidth: 80 },
+        { field: "annual_target.yr4", headerName: "YR4", maxWidth: 80 },
+        { field: "annual_target.yr5", headerName: "YR5", maxWidth: 80 },
       ],
     },
     {
       headerName: "TARGET ACHIEVED",
-      
       headerClass: "annual-target-header",
       children: [
-        { field: "target_achieved.yr1", headerName: "YR1", maxWidth: 70 },
-        { field: "target_achieved.yr2", headerName: "YR2", maxWidth: 70 },
-        { field: "target_achieved.yr3", headerName: "YR3", maxWidth: 70 },
-        { field: "target_achieved.yr4", headerName: "YR4", maxWidth: 70 },
-        { field: "target_achieved.yr5", headerName: "YR5", maxWidth: 70 },
+        { field: "target_achieved.yr1", headerName: "YR1", maxWidth: 80 },
+        { field: "target_achieved.yr2", headerName: "YR2", maxWidth: 80 },
+        { field: "target_achieved.yr3", headerName: "YR3", maxWidth: 80 },
+        { field: "target_achieved.yr4", headerName: "YR4", maxWidth: 80 },
+        { field: "target_achieved.yr5", headerName: "YR5", maxWidth: 80 },
       ],
     },
     {
@@ -125,11 +119,13 @@ const gridOptions = {
   // paginationPageSize: 5,
   paginationPageSizeSelector: false,
   suppressPaginationPanel: true,
+  suppressMovableColumns: true,
+  alwaysShowHorizontalScroll: true,
 };
 
 // Function to toggle row expansion
 function toggleRow(rowId) {
-  console.log(rowId)
+  console.log(rowId);
 }
 
 // Function to generate expanded row data
@@ -165,65 +161,45 @@ function generateExpandedData() {
   return expandedData;
 }
 
-// for showing pagination control
-// function updatePaginationSummary(p) {
-//   const numberPannel = document.querySelector("#paginationNumbers");
-//   const totalRows = p.api.getDisplayedRowCount();
-//   const startRow = p.api.getFirstDisplayedRow() + 1;
-//   const endRow = p.api.getLastDisplayedRow() + 1;
-
-//   numberPannel.innerHTML = `Showing ${startRow} to ${endRow} of ${totalRows} entries`;
-// }
-
 document.addEventListener("DOMContentLoaded", function () {
   const gridDiv = document.querySelector("#myGrid");
   gridApi = agGrid.createGrid(gridDiv, gridOptions);
+
+  const table = document.querySelector(".ag-root-wrapper");
+  if (table) {
+    scroller(table);
+  }
 });
 
+function scroller(table) {
+  console.log(table);
+  console.log("scroller");
+  let isMouseDown = false;
+  let startX, scrollLeft;
 
-// // for number pagination control BUttons
-// function updateCustomPagination(data) {
-//   const totalPages = data.api.paginationGetTotalPages();
-//   const currentPage = data.api.paginationGetCurrentPage();
-//   const paginationControls = document.getElementById("paginationControler");
+  // Mouse down event
+  table.addEventListener("mousedown", (e) => {
+    console.log("mouse down");
+    isMouseDown = true;
+    startX = e.pageX - table.offsetLeft;
+    scrollLeft = table.scrollLeft;
+    // table.style.cursor = "grabbing";
+  });
 
-//   paginationControls.innerHTML = "";
+  // Mouse up event
+  document.addEventListener("mouseup", () => {
+    console.log("mouse up");
+    isMouseDown = false;
+    // table.style.cursor = "grab";
+  });
 
-//   for (let i = 0; i < totalPages; i++) {
-//     const pageButton = document.createElement("button");
-//     pageButton.textContent = i + 1;
-//     pageButton.classList.add("pagination-button");
-
-//     pageButton.addEventListener("click", function () {
-//       data.api.paginationGoToPage(i);
-//     });
-
-//     if (i === currentPage) {
-//       pageButton.style.backgroundColor = "#5FA777";
-//       pageButton.style.color = "white";
-//     }
-
-//     paginationControls.appendChild(pageButton);
-//   }
-
-//   const prevButton = document.createElement("button");
-//   prevButton.textContent = "←";
-//   prevButton.setAttribute("id", "arrow-button");
-//   prevButton.addEventListener("click", function () {
-//     if (currentPage > 0) {
-//       data.api.paginationGoToPage(currentPage - 1);
-//     }
-//   });
-
-//   const nextButton = document.createElement("button");
-//   nextButton.textContent = "→";
-//   nextButton.setAttribute("id", "arrow-button");
-//   nextButton.addEventListener("click", function () {
-//     if (currentPage < totalPages - 1) {
-//       data.api.paginationGoToPage(currentPage + 1);
-//     }
-//   });
-
-//   paginationControls.insertBefore(prevButton, paginationControls.firstChild);
-//   paginationControls.appendChild(nextButton);
-// }
+  // Mouse move event to handle dragging
+  table.addEventListener("mousemove", (e) => {
+    if (!isMouseDown) return;
+    e.preventDefault();
+    const x = e.pageX - table.offsetLeft;
+    const walk = (x - startX) * 2; // Adjust scrolling speed if necessary
+    table.scrollLeft = scrollLeft - walk;
+    console.log(walk, scrollLeft);
+  });
+}
