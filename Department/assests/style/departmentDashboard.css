@@ -221,9 +221,10 @@
 
 
 
+
 .recentChart {
   background-color: white;
-  margin: 24px 80px;
+  margin: 24px 70px;
   border-radius: 10px;
   /* border: solid red 1px; */
 }
@@ -397,8 +398,12 @@
   
 }
 
+.ag-root{
+  /* border: solid red 1px !important; */
+}
 
-/* .table {
+/* 
+.table {
   overflow-x: auto; 
   white-space: nowrap; 
   cursor: grab;

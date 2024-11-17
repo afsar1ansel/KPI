@@ -33,6 +33,7 @@ const gridOptions = {
     {
       field: "KPI_name",
       headerName: "KPI NAME",
+      // rowDrag: true,
       maxWidth: 190,
       cellRenderer: function (params) {
         const dataHead = params.data.KPI_name;
@@ -165,10 +166,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const gridDiv = document.querySelector("#myGrid");
   gridApi = agGrid.createGrid(gridDiv, gridOptions);
 
-  const table = document.querySelector(".ag-root-wrapper");
-  if (table) {
-    scroller(table);
-  }
+
+  setTimeout(() => {
+    const table = document.querySelector(".ag-root");
+    if(table){
+      scroller(table);
+    } 
+  }, 100);
+
 });
 
 function scroller(table) {

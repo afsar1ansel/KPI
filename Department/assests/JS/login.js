@@ -6,7 +6,7 @@ left.setAttribute("class", "left");
  const email = document.getElementById("email");
  const password = document.getElementById("password");
  const loginBtn = document.querySelector(".login-btn");
-
+console.log("login");
 
 const loginForm = document.getElementById("login-form");
 const passwordInput = document.getElementById("password");
@@ -81,6 +81,7 @@ const focusOnFirstError = () => {
 };
 
   
+
  async function handleSubmit(event) {
     event.preventDefault();
    
@@ -104,20 +105,18 @@ const focusOnFirstError = () => {
       formData.append("password", passwordInput.value.trim());
 
       // Send a POST request to the login API
-      const response = await fetch(
-        "https://thirdeyegfx.com/kpi_app/superadmin/login",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch("http://127.0.0.1:5000/department/login", {
+        method: "POST",
+        body: formData,
+      });
 
       // Parse the JSON response
       const data = await response.json();
+      console.log(data)
 
-      if (data.errflag === 0) {
+      if (data.errflag === undefined) {
         // Successful login, save token and redirect to the dashboard
-        localStorage.setItem("authToken", data.authToken);
+        localStorage.setItem("authToken", data.userToken);
         localStorage.setItem("userEmail", email.value.trim());
         window.location.href = "landingPage.html";
       } else if (data.errflag === 3) {
@@ -146,4 +145,4 @@ const focusOnFirstError = () => {
   }
 
 
-  // loginForm.addEventListener("submit", handleSubmit);
+  loginForm.addEventListener("submit", handleSubmit);

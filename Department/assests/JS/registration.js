@@ -7,11 +7,11 @@ document.getElementById("login").addEventListener("click", function (event) {
   event.preventDefault();
 
   const fields = [
-    { id: "selectDropDepartment", name: "Department", type: "select" },
+    { id: "department_names", name: "Department", type: "select" },
     { id: "Designation", name: "Designation", type: "input" },
     { id: "name", name: "Registrant’s Name", type: "input" },
-    { id: "selectDropDivision", name: "Division", type: "select" },
-    { id: "selectDropDistrict", name: "District", type: "select" },
+    { id: "divisions", name: "Division", type: "select" },
+    { id: "divisions", name: "District", type: "select" },
     { id: "place", name: "Place of work", type: "input" },
     { id: "departmentCode", name: "Departmental Code", type: "input" },
     { id: "mobile", name: "Mobile number", type: "input" },
@@ -59,11 +59,11 @@ document.getElementById("login").addEventListener("click", function (event) {
 
   if (formIsValid) {
     const formData = {
-      department: document.getElementById("selectDropDepartment").value,
+      department: document.getElementById("department_names").value,
       designation: form.elements["Designation"].value,
       name: form.elements["name"].value,
-      division: document.getElementById("selectDropDivision").value,
-      district: document.getElementById("selectDropDistrict").value,
+      division: document.getElementById("divisions").value,
+      district: document.getElementById("districts").value,
       placeOfWork: form.elements["place"].value,
       departmentCode: form.elements["departmentCode"].value,
       mobileNumber: form.elements["mobile"].value,
@@ -73,15 +73,12 @@ document.getElementById("login").addEventListener("click", function (event) {
 
     console.log(formData);
 
-    //Model
-      modal.style.display = "flex";
+    modal.style.display = "flex";
 
-    // Function to close the modal
     closeModalBtn.addEventListener("click", () => {
       modal.style.display = "none";
     });
 
-    // Close modal when clicking outside the modal content
     window.addEventListener("click", (event) => {
       if (event.target === modal) {
         modal.style.display = "none";
@@ -91,21 +88,122 @@ document.getElementById("login").addEventListener("click", function (event) {
 });
 
 
-// document.getElementById("login").addEventListener("click", function (event){
-//   event.preventDefault();
-//    //Model
-//       modal.style.display = "flex";
 
-//     // Function to close the modal
-//     closeModalBtn.addEventListener("click", () => {
-//       modal.style.display = "none";
-//     });
+function populateDepartmentDropdown(departments, dropDownId, placeholder) {
+  const selectDropDepartment = document.getElementById(dropDownId);
 
-//     // Close modal when clicking outside the modal content
-//     window.addEventListener("click", (event) => {
-//       if (event.target === modal) {
-//         modal.style.display = "none";
-//       }
-//     });
-// })
+  selectDropDepartment.innerHTML = `<option>${placeholder}</option>`;
+
+  departments.forEach((department) => {
+    const option = document.createElement("option");
+    option.value = department.dept_code
+      ? department.dept_code
+      : department.div_id
+      ? department.div_id
+      : department.dist_id;
+    option.textContent = department.dept_name
+      ? department.dept_name
+      : department.div_name
+      ? department.div_name
+      : department.dist_name;
+    selectDropDepartment.appendChild(option);
+  });
+
+  if (dropDownId === "department_names") {
+    selectDropDepartment.addEventListener("change", () => {
+      const selectedDeptCode =
+        selectDropDepartment.options[selectDropDepartment.selectedIndex].value;
+
+      const departmentCodeInput = document.getElementById("departmentCode");
+
+      departmentCodeInput.value =
+        selectedDeptCode === "Choose your department" ? "" : selectedDeptCode;
+    });
+  }
+}
+
+fetchDepartments(
+  "http://127.0.0.1:5000/department_name/all",
+  "department_names",
+  "Choose your department"
+);
+fetchDivision();
+fetchDistrict();
+
+async function fetchDivision() {
+  try {
+    const response = await fetch("http://127.0.0.1:5000/division/all", {
+      method: "GET",
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    // console.log(data);
+
+    if (data.divisions) {
+      populateDepartmentDropdown(
+        data.divisions,
+        "divisions",
+        "Choose your division"
+      );
+    } else {
+      console.error("Unexpected response format for divisions:", data);
+    }
+  } catch (error) {
+    console.error("Error fetching divisions:", error);
+  }
+}
+
+
+
+async function fetchDistrict() {
+  try {
+    const response = await fetch("http://127.0.0.1:5000/district/all", {
+      method: "GET",
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    // console.log(data);
+
+    if (data.districts) {
+      populateDepartmentDropdown(
+        data.districts,
+        "districts",
+        "Choose your district"
+      );
+    } else {
+      console.error("Unexpected response format for districts:", data);
+    }
+  } catch (error) {
+    console.error("Error fetching districts:", error);
+  }
+}
+
+
+async function fetchDepartments(apiUrl, dropDownId, placeholder) {
+  try {
+    const response = await fetch(apiUrl, {
+      method: "GET",
+    });
+    const data = await response.json();
+    // console.log(data);
+
+    if (data) {
+      populateDepartmentDropdown(data[dropDownId], dropDownId, placeholder);
+    } else {
+      console.error("Unexpected response format:", data);
+      console.log(data);
+    }
+  } catch (error) {
+    console.error("Error fetching department data:", error);
+  }
+}
+
 

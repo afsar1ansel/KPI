@@ -109,13 +109,11 @@ const focusOnFirstError = () => {
       formData.append("password", passwordInput.value.trim());
 
       // Send a POST request to the login API
-      const response = await fetch(
-        "https://thirdeyegfx.com/kpi_app/superadmin/login",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch("http://127.0.0.1:5000/superadmin/login", {
+        method: "POST",
+        body: formData,
+        // mode: "no-cors",
+      });
 
       // Parse the JSON response
       const data = await response.json();
@@ -124,7 +122,7 @@ const focusOnFirstError = () => {
         // Successful login, save token and redirect to the dashboard
         localStorage.setItem("authToken", data.userToken);
         localStorage.setItem("userEmail", email.value.trim());
-        window.location.href = "landingPage.html";
+        window.location.href = "homePage.html";
       } else if (data.errflag === 3) {
         // Input validation error on the server side
         inputValidationMsg.textContent = data.message + " Enter a safe input.";
