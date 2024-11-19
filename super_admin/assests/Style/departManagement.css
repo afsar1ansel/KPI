@@ -192,3 +192,22 @@
 }
 
 /* model 2 */
+
+
+/* model 3 */
+
+.kpiModelBody{
+  padding: 20px 24px;
+}
+
+.kpiModelBody p{
+  border: solid #E5E7E8 1px;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  color: #191b1c;
+  cursor: pointer;
+  transition: background-color 0.5s;
+}

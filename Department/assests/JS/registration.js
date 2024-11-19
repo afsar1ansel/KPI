@@ -1,6 +1,7 @@
 const modal = document.getElementById("modal");
 // const openModalBtn = document.getElementById("openModal");
 const closeModalBtn = document.getElementById("closeModal");
+const closeOkayBtn = document.getElementById("okay");
 const form = document.getElementById("fomr");
 
 document.getElementById("login").addEventListener("click", function (event) {
@@ -68,7 +69,7 @@ document.getElementById("login").addEventListener("click", function (event) {
       departmentCode: form.elements["departmentCode"].value,
       mobileNumber: form.elements["mobile"].value,
       password: form.elements["password"].value,
-      confirmPassword: form.elements["password-confirm"].value,
+      // confirmPassword: form.elements["password-confirm"].value,
     };
 
     console.log(formData);
@@ -76,6 +77,10 @@ document.getElementById("login").addEventListener("click", function (event) {
     modal.style.display = "flex";
 
     closeModalBtn.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    closeOkayBtn.addEventListener("click", () => {
       modal.style.display = "none";
     });
 
@@ -170,7 +175,7 @@ async function fetchDistrict() {
     }
 
     const data = await response.json();
-    // console.log(data);
+    console.log(data);
 
     if (data.districts) {
       populateDepartmentDropdown(

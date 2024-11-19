@@ -1,156 +1,46 @@
+const tok = localStorage.getItem("authToken");
+let gridApi;
+let datas;
+
+async function fetchdetails(tok) {
+  try {
+    const response = await fetch(
+      `http://127.0.0.1:5000/department/get_status/${tok}`,
+      {
+        method: "GET",
+      }
+    );
+
+    const data = await response.json();
+    datas = await data;
+    initializeGrid(data);
+  } catch (error) {
+    console.error("Error fetching department status:", error);
+    return null;
+  }
+}
+
+function initializeGrid(data) {
+  console.log(data);
+  gridOptions.rowData = data.department_status;
+  const gridDiv = document.querySelector("#myGrid");
+  if (!gridApi) {
+    gridApi = agGrid.createGrid(gridDiv, gridOptions);
+  }
+}
+
+// usege
 const gridOptions = {
-  // Row Data: The data to be displayed.
-  rowData: [
-    {
-      id: 1,
-      department_name: "Department of Agriculture",
-      STATUS: "APPROVED",
-      KPINumber: "6",
-      ACTION: "",
-    },
-    {
-      id: 2,
-      department_name: "Department of Education",
-      STATUS: "REJECTED",
-      KPINumber: "N/A",
-      ACTION: "data",
-    },
-    {
-      id: 3,
-      department_name: "Department of Health",
-      STATUS: "PENDING",
-      KPINumber: "10",
-      ACTION: "review",
-    },
-    {
-      id: 4,
-      department_name: "Department of Transportation",
-      STATUS: "APPROVED",
-      KPINumber: "4",
-      ACTION: "",
-    },
-    {
-      id: 5,
-      department_name: "Department of Commerce",
-      STATUS: "REJECTED",
-      KPINumber: "N/A",
-      ACTION: "data",
-    },
-    {
-      id: 6,
-      department_name: "Department of Energy",
-      STATUS: "APPROVED",
-      KPINumber: "8",
-      ACTION: "",
-    },
-    {
-      id: 7,
-      department_name: "Department of Labor",
-      STATUS: "PENDING",
-      KPINumber: "5",
-      ACTION: "follow-up",
-    },
-    {
-      id: 8,
-      department_name: "Department of Housing",
-      STATUS: "REJECTED",
-      KPINumber: "N/A",
-      ACTION: "data",
-    },
-    {
-      id: 9,
-      department_name: "Department of Defense",
-      STATUS: "APPROVED",
-      KPINumber: "12",
-      ACTION: "",
-    },
-    {
-      id: 10,
-      department_name: "Department of Interior",
-      STATUS: "PENDING",
-      KPINumber: "3",
-      ACTION: "review",
-    },
-    {
-      id: 11,
-      department_name: "Department of Justice",
-      STATUS: "APPROVED",
-      KPINumber: "7",
-      ACTION: "",
-    },
-    {
-      id: 12,
-      department_name: "Department of Treasury",
-      STATUS: "REJECTED",
-      KPINumber: "N/A",
-      ACTION: "data",
-    },
-    {
-      id: 13,
-      department_name: "Department of Veteran Affairs",
-      STATUS: "PENDING",
-      KPINumber: "6",
-      ACTION: "follow-up",
-    },
-    {
-      id: 14,
-      department_name: "Department of Homeland Security",
-      STATUS: "APPROVED",
-      KPINumber: "9",
-      ACTION: "",
-    },
-    {
-      id: 15,
-      department_name: "Department of Public Works",
-      STATUS: "REJECTED",
-      KPINumber: "N/A",
-      ACTION: "data",
-    },
-    {
-      id: 16,
-      department_name: "Department of Science",
-      STATUS: "APPROVED",
-      KPINumber: "3",
-      ACTION: "",
-    },
-    {
-      id: 17,
-      department_name: "Department of Environmental Protection",
-      STATUS: "PENDING",
-      KPINumber: "4",
-      ACTION: "review",
-    },
-    {
-      id: 18,
-      department_name: "Department of Foreign Affairs",
-      STATUS: "APPROVED",
-      KPINumber: "11",
-      ACTION: "",
-    },
-    {
-      id: 19,
-      department_name: "Department of Social Services",
-      STATUS: "REJECTED",
-      KPINumber: "N/A",
-      ACTION: "data",
-    },
-    {
-      id: 20,
-      department_name: "Department of Technology",
-      STATUS: "APPROVED",
-      KPINumber: "8",
-      ACTION: "",
-    },
-  ],
+  rowData: [],
 
   columnDefs: [
     {
-      field: "department_name",
+      field: "dept_name",
       headerName: "DEPARTMENT NAME",
       maxWidth: 400,
       cellRenderer: (params) => {
         let data = JSON.stringify(params.data).replace(/"/g, "&quot;");
-        let name = params.data.department_name;
+        let name = params.data.dept_name;
 
         return `<p style="font-weight: 500; cursor: pointer;" 
            data-bs-toggle="modal" data-bs-target="#exampleModal" 
@@ -158,55 +48,105 @@ const gridOptions = {
       },
     },
     {
-      field: "STATUS",
+      field: "approval_status",
       headerName: "APPROVAL STATUS",
       maxWidth: 400,
       cellRenderer: (params) => {
-        const value = params.data.STATUS;
+        const value = params.data.approval_status;
+        const id = params.data.id; // Get the ID of the current row
         let content = "";
         let color = "";
         let backgroundColor = "";
         let border = "";
 
-        if (value === "APPROVED") {
+        if (value == 1) {
           content = "✓ APPROVED";
           color = "#0FAF62";
           backgroundColor = "#EDFFF3";
           border = "0.5px solid #0FAF62";
-        } else if (value === "REJECTED") {
+        } else if (value == 2) {
           content = "☓ REJECTED";
           color = "#F44336";
           backgroundColor = "#FDEDED";
           border = "0.5px solid #F44336";
         } else {
-           return `
-           <div style="display: flex; gap: 10px;" >
-           <div style="color:#0FAF62 ; border: 0.5px solid #0FAF62 ; background-color: #EDFFF3 ; padding: 0 8px; border-radius: 4px; font-weight: 500; ">
-           ✓ APPROVED
-           </div>
-           <div style="color:#F44336 ; border: 0.5px solid #F44336 ; background-color: #FDEDED ; padding: 0 8px; border-radius: 4px; font-weight: 500; ">
-           ✓ APPROVED
-           </div>
-           </div>
+          // Create Approve and Reject buttons dynamically
+          const approveButton = document.createElement("div");
+          approveButton.style.color = "#0FAF62";
+          approveButton.style.border = "0.5px solid #0FAF62";
+          approveButton.style.backgroundColor = "#EDFFF3";
+          approveButton.style.padding = "0 8px";
+          approveButton.style.borderRadius = "4px";
+          approveButton.style.fontWeight = "500";
+          approveButton.style.cursor = "pointer";
+          approveButton.innerText = "✓ APPROVE";
 
-     
-    `;
+          const rejectButton = document.createElement("div");
+          rejectButton.style.color = "#F44336";
+          rejectButton.style.border = "0.5px solid #F44336";
+          rejectButton.style.backgroundColor = "#FDEDED";
+          rejectButton.style.padding = "0 8px";
+          rejectButton.style.borderRadius = "4px";
+          rejectButton.style.fontWeight = "500";
+          rejectButton.style.cursor = "pointer";
+          rejectButton.innerText = "☓ REJECT";
+
+          // Add click listeners to log the appropriate message
+          approveButton.addEventListener("click", () => {
+            // console.log(`ID ${id}: APPROVE clicked`);
+            toggleStatus(id, 1);
+          });
+
+          rejectButton.addEventListener("click", () => {
+            // console.log(`ID ${id}: REJECT clicked`);
+            toggleStatus(id, 2);
+          });
+
+          // Create a container div to hold both buttons
+          const container = document.createElement("div");
+          container.style.display = "flex";
+          container.style.gap = "10px";
+          container.appendChild(approveButton);
+          container.appendChild(rejectButton);
+
+          // Return the container as the cell's content
+          return container;
         }
 
-        // Return the HTML string with styles directly applied
-        return `<div style="color: ${color}; border: ${border}; background-color: ${backgroundColor}; padding: 0 8px; border-radius: 4px; font-weight: 500; ">
-        ${content}
-    </div>`;
+        // Return styled content for APPROVED or REJECTED
+        const div = document.createElement("div");
+        div.style.color = color;
+        div.style.border = border;
+        div.style.backgroundColor = backgroundColor;
+        div.style.padding = "0 8px";
+        div.style.borderRadius = "4px";
+        div.style.fontWeight = "500";
+        div.innerText = content;
+        return div;
       },
     },
-    { field: "KPINumber", headerName: "No. OF KPI’S ASSIGNED", maxWidth: 300 },
+    {
+      field: "kpi_count",
+      headerName: "No. OF KPI’S ASSIGNED",
+      maxWidth: 300,
+      cellRenderer: (params) => {
+        let data = JSON.stringify(params.data).replace(/"/g, "&quot;");
+      
+        return `<p style="font-weight: 500; cursor: pointer;" 
+        data-bs-toggle="modal" data-bs-target="#kpiNumbersModal"
+           onclick="handleKpiNUmberModal('${data}')">${params.data.kpi_count}</p>`;
+      }
+    },
 
     {
       field: "id",
       headerName: "ACTION",
       cellRenderer: function (params) {
         // If ACTION is empty, don't render a button
-        if (params.data.STATUS === "REJECTED" || params.data.STATUS === "PENDING") {
+        if (
+          params.data.approval_status == 2 ||
+          params.data.approval_status == 0
+        ) {
           return "";
         }
 
@@ -218,14 +158,14 @@ const gridOptions = {
             class="btn btn-outline-success rounded-pill"
             data-bs-toggle="modal"
             data-bs-target="#assignModal"
-            onclick="handleDetails(${data})"
+            onclick="handleAssignClick(${data})"
           >
             Assign KPI
           </button>
           <button
             type="button"
             class="btn border border-2 rounded-pill"
-            onclick="handleDetails(${data})"
+            onclick="handleDownloadClick(${data})"
           >
           <i class="bi bi-file-earmark-arrow-down"></i>
             Download Report
@@ -268,8 +208,6 @@ const gridOptions = {
   suppressPaginationPanel: true,
 };
 
-
-
 // for showing pagination control
 function updatePaginationSummary(p) {
   const numberPannel = document.querySelector("#paginationNumbers");
@@ -280,14 +218,29 @@ function updatePaginationSummary(p) {
   numberPannel.innerHTML = `Showing ${startRow} to ${endRow} of ${totalRows} entries`;
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  const gridDiv = document.querySelector("#myGrid");
-  gridApi = agGrid.createGrid(gridDiv, gridOptions);
-});
+async function handleAssignClick(data) {
+  // console.log(data);
+  const response = await fetch(
+    `http://127.0.0.1:5000/get_all_uom/all/${tok}`,
+    {
+      method: "GET",
+    }
+  );
+  const uomData = await response.json();
+  // console.log(uomData.uom);
+  uomData.uom.map((uom) => {
+    const option = document.createElement("option");
+    option.value = uom.id;
+    option.text = uom.uom;
+    document.getElementById("unitSelector").appendChild(option);
+  });
 
-function handleDetails(data) {
+}
+
+function handleDownloadClick(data) {
   console.log(data);
 }
+
 
 // for number pagination control BUttons
 function updateCustomPagination(data) {
@@ -336,7 +289,52 @@ function updateCustomPagination(data) {
   paginationControls.appendChild(nextButton);
 }
 
-function handleDepartment(data) {
+ async function handleKpiNUmberModal(data) {
   const departmentData = JSON.parse(data);
   console.log(departmentData);
+
+  const response = await fetch(`http://127.0.0.1:5000/get_one_department_kpi/${departmentData.id}/${tok}`, {
+    method: "GET",
+  });
+
+  const kpiData = await response.json();
+  console.log(kpiData.department_kpis);
+
+  let tableBody = document.getElementsByClassName("modal-kpiNumber-body");
+
+   tableBody[0].innerHTML = `${kpiData.department_kpis
+     .map(
+       (kpi, index) =>
+         `<div class="kpiModelBody" >
+         <h6>KPI ${index + 1}</h6>
+         <p>${kpi.kpis}</p>
+       </div>`
+     )
+     .join("")}`;
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const tok = localStorage.getItem("authToken");
+  fetchdetails(tok);
+});
+
+
+function toggleStatus(customerId, newStatus) {
+ const form = new FormData();
+ form.append("id", customerId);
+ form.append("app_status", newStatus);
+ form.append("token", tok);
+
+  fetch("http://127.0.0.1:5000/department/toggle_approval_status", {
+    method: "POST",
+    body: form,
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      fetchdetails(tok);
+    })
+    .catch((error) => {
+      console.error("Error updating status:", error);
+    });
 }
