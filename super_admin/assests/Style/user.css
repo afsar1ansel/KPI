@@ -1,7 +1,7 @@
-*{
-    margin: 0;
-    padding: 0;
-    font-family: "Public Sans";
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Public Sans";
 }
 
 /* #adminNav .navBar {
@@ -49,7 +49,7 @@
   border-radius: 10px;
   /* border: solid red 1px; */
 }
-.table>:not(caption)>*>* {
+.table > :not(caption) > * > * {
   padding: 0 !important;
 }
 
@@ -61,10 +61,10 @@
   gap: 8px;
 }
 
-.recnet-heading div{
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.recnet-heading div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .recnet-heading h2 {
@@ -81,13 +81,11 @@
   display: flex;
   align-items: center;
   border: 1px solid #ccc;
-  background-color: #F2F3F4;
+  background-color: #f2f3f4;
   border-radius: 32px;
   padding: 5px 10px;
   max-width: 190px;
 }
-
-
 
 .input-container i {
   color: #888;
@@ -100,12 +98,6 @@
   background-color: transparent;
   width: 100%;
 }
-
-
-
-
-
-
 
 /* grider */
 
@@ -121,7 +113,6 @@
   background-color: #f8f9f9 !important;
   /* padding-left: 20px; */
   margin: 0 !important;
-
 }
 
 .ag-header-cell-label {
@@ -153,7 +144,6 @@
   align-items: center !important;
   border: none !important;
 }
-
 
 .actionBtn:hover {
   background-color: #5fa777;
@@ -207,43 +197,41 @@
 }
 
 #myGrid i {
-    border: solid 1px #626C70 !important;
-    border-radius: 100px !important;
-    padding: 8px !important;
-    cursor: pointer;
-    margin-right: 2px;
+  border: solid 1px #626c70 !important;
+  border-radius: 100px !important;
+  padding: 8px !important;
+  cursor: pointer;
+  margin-right: 2px;
 }
-
 
 /* model 1 */
 
 #InputEmail1:focus,
 #userId:focus,
 #select:focus {
-   box-shadow: none !important;
-    border-color: #5ea776 !important;
+  box-shadow: none !important;
+  border-color: #5ea776 !important;
 }
 
-
-.modal-content{
-    /* border: solid red 1px !important ; */
-    width: 584px !important;
+.modal-content {
+  /* border: solid red 1px !important ; */
+  width: 584px !important;
 }
 
 .departModel {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 10px 24px; 
-    gap: 10px;
-    background-color: white
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 10px 24px;
+  gap: 10px;
+  background-color: white;
 }
 
 .departModel label {
-    font-size: 14px;
-    font-weight: 400;
-    color: #191b1c;
-    margin: 0;
-    padding: 0;
+  font-size: 14px;
+  font-weight: 400;
+  color: #191b1c;
+  margin: 0;
+  padding: 0;
 }
 
 .modal-footer .btn {
@@ -256,7 +244,7 @@
 
 /* toggle switch  */
 
-/* From Uiverse.io by Lmickk2 */ 
+/* From Uiverse.io by Lmickk2 */
 .switch {
   font-size: 17px;
   position: relative;
@@ -278,9 +266,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  box-shadow: inset 5px 5px 20px 1px rgba(0, 0, 0, 0.329);
-  transition: .4s;
+  box-shadow: inset 5px 5px 20px 1px rgba(0, 0, 0, 0.15);
+  transition: 0.4s;
   border-radius: 30px;
+  /* border: solid 1px #eeff00; */
 }
 
 .slider:before {
@@ -292,15 +281,18 @@
   left: 0.3em;
   bottom: 0.3em;
   background-color: rgb(255, 255, 255);
-  transition: .4s;
+  transition: 0.4s;
+  /* border: solid red 1px !important; */
+  filter: drop-shadow(2px 1px 6px rgba(0, 0, 0, 0.25));
 }
 
 .switch input:checked + .slider {
-  background-color: #59c76b;
+  /* background-color: #59c76b; */
+  background: rgba(118, 238, 89, 1);
 }
 
 .switch input:focus + .slider {
-  box-shadow: inset 5px 5px 20px 1px rgba(22, 22, 22, 0.253);
+  box-shadow: inset 5px 5px 20px 1px rgba(0, 0, 0, 0.15);
 }
 
 .switch input:checked + .slider:before {

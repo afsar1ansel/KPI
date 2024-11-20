@@ -2,9 +2,9 @@ const token = localStorage.getItem("authToken") || "";
 let adminName = localStorage.getItem("adminName") || ""; 
 let adminMail = localStorage.getItem("adminMail") || "";
 
-// if (!token){
-//   window.location.href = "./login.html";
-// }
+if (!token){
+  window.location.href = "./login.html";
+}else{
 
 document.addEventListener("DOMContentLoaded", async function () {
   if (!adminName) {
@@ -65,4 +65,6 @@ function updateNavBar() {
       </div>
     </nav>
   `;
+}
+
 }

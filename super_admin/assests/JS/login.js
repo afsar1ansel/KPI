@@ -93,8 +93,8 @@ const focusOnFirstError = () => {
       return;
     }
     
-    // console.log("Email:", email.value);
-    // console.log("Password:", password.value);
+    console.log("Email:", email.value);
+    console.log("Password:", password.value);
 
     try {
       // Show loading state on the login button
@@ -116,8 +116,9 @@ const focusOnFirstError = () => {
       });
 
       // Parse the JSON response
+      console.log(formData)
       const data = await response.json();
-
+      console.log(data)
       if (data.errflag == undefined) {
         // Successful login, save token and redirect to the dashboard
         localStorage.setItem("authToken", data.userToken);

@@ -238,6 +238,7 @@ const gridOptions = {
   },
   onPaginationChanged: function (param) {
     updateCustomPagination(param);
+    updatePaginationSummary(param);
     // console.log(param)
   },
   pagination: true,
@@ -489,12 +490,11 @@ const gridOptions1 = {
     // console.log(params);
   },
 
-  onPaginationChanged: function () {
-    updatePaginationSummary1(params);
-  },
+
 
   onPaginationChanged: function (param) {
     updateCustomPagination1(param);
+    updatePaginationSummary1(param);
     // console.log(param)
   },
   pagination: true,

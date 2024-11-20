@@ -1,7 +1,10 @@
+const tok = localStorage.getItem("authToken");
+let gridApi;
+let datas;
+
 class StatusCellRenderer {
-  
   init(params) {
-    console.log(params);
+    // console.log(params);
     this.eGui = document.createElement("div");
     const isChecked = params.value === 1 ? "checked" : "";
 
@@ -14,10 +17,9 @@ class StatusCellRenderer {
     const checkbox = this.eGui.querySelector('input[type="checkbox"]');
 
     checkbox.addEventListener("change", async () => {
-      const newStatus = checkbox.checked ? 1 : 0;
-      const success = await toggleStatus(params.data.id, newStatus);
+      const success = await toggleStatus(params.data.id);
       if (success) {
-        params.setValue(newStatus);
+        // params.setValue(newStatus);
       } else {
         checkbox.checked = !checkbox.checked;
       }
@@ -36,162 +38,20 @@ class StatusCellRenderer {
 }
 
 const gridOptions = {
-  // Row Data: The data to be displayed.
-  rowData: [
-    {
-      id: 1,
-      name: "Rahul Patel",
-      email: "nqWbA@example.com",
-      role: "Super Admin",
-      status: 1,
-    },
-    {
-      id: 2,
-      name: "Rajesh Kumar",
-      email: "rajesh@example.com",
-      role: "Admin",
-      status: 0,
-    },
-    {
-      id: 3,
-      name: "Amit Sharma",
-      email: "amit.sharma@example.com",
-      role: "User",
-      status: 1,
-    },
-    {
-      id: 4,
-      name: "Priya Singh",
-      email: "priya.singh@example.com",
-      role: "User",
-      status: 0,
-    },
-    {
-      id: 5,
-      name: "Sunil Yadav",
-      email: "sunil.yadav@example.com",
-      role: "Moderator",
-      status: 1,
-    },
-    {
-      id: 6,
-      name: "Neha Joshi",
-      email: "neha.joshi@example.com",
-      role: "User",
-      status: 1,
-    },
-    {
-      id: 7,
-      name: "Vikram Desai",
-      email: "vikram.desai@example.com",
-      role: "Admin",
-      status: 0,
-    },
-    {
-      id: 8,
-      name: "Ayesha Khan",
-      email: "ayesha.khan@example.com",
-      role: "Moderator",
-      status: 1,
-    },
-    {
-      id: 9,
-      name: "Siddharth Pandey",
-      email: "sid.pandey@example.com",
-      role: "User",
-      status: 0,
-    },
-    {
-      id: 10,
-      name: "Kiran Mehta",
-      email: "kiran.mehta@example.com",
-      role: "Admin",
-      status: 1,
-    },
-    {
-      id: 11,
-      name: "Ravi Narayan",
-      email: "ravi.narayan@example.com",
-      role: "Super Admin",
-      status: 0,
-    },
-    {
-      id: 12,
-      name: "Sneha Bhat",
-      email: "sneha.bhat@example.com",
-      role: "User",
-      status: 1,
-    },
-    {
-      id: 13,
-      name: "Anil Goel",
-      email: "anil.goel@example.com",
-      role: "User",
-      status: 0,
-    },
-    {
-      id: 14,
-      name: "Komal Jain",
-      email: "komal.jain@example.com",
-      role: "Moderator",
-      status: 1,
-    },
-    {
-      id: 15,
-      name: "Manish Rathi",
-      email: "manish.rathi@example.com",
-      role: "Admin",
-      status: 0,
-    },
-    {
-      id: 16,
-      name: "Pooja Patel",
-      email: "pooja.patel@example.com",
-      role: "User",
-      status: 1,
-    },
-    {
-      id: 17,
-      name: "Gaurav Sinha",
-      email: "gaurav.sinha@example.com",
-      role: "Moderator",
-      status: 0,
-    },
-    {
-      id: 18,
-      name: "Shweta Mishra",
-      email: "shweta.mishra@example.com",
-      role: "Admin",
-      status: 1,
-    },
-    {
-      id: 19,
-      name: "Ramesh Chandra",
-      email: "ramesh.chandra@example.com",
-      role: "User",
-      status: 0,
-    },
-    {
-      id: 20,
-      name: "Kunal Agarwal",
-      email: "kunal.agarwal@example.com",
-      role: "Super Admin",
-      status: 1,
-    },
-  ],
+   rowData: [],
 
   columnDefs: [
     {
-      field: "name",
+      field: "username",
       headerName: "Name Of User",
-      maxWidth: 400,
+      maxWidth: 300,
     },
     {
-      field: "email",
+      field: "emailid",
       headerName: "Email ID",
-      maxWidth: 400,
+      maxWidth: 500,
     },
-    { field: "role", headerName: "ROLE", maxWidth: 300 },
+    { field: "role", headerName: "ROLE", maxWidth: 200 },
 
     {
       field: "status",
@@ -235,7 +95,7 @@ const gridOptions = {
   },
   onPaginationChanged: function (param) {
     updateCustomPagination(param);
-    // console.log(param)
+    updatePaginationSummary(param);
   },
   pagination: true,
   paginationPageSize: 5,
@@ -253,10 +113,41 @@ function updatePaginationSummary(p) {
   numberPannel.innerHTML = `Showing ${startRow} to ${endRow} of ${totalRows} entries`;
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+
+async function fetchdetails(tok) {
+  try {
+    const response = await fetch(
+      `http://127.0.0.1:5000/superadmin/all/${tok}`,
+      {
+        method: "GET",
+      }
+    );
+
+    const data = await response.json();
+    datas = await data;
+    console.log(datas)
+    initializeGrid(data);
+  } catch (error) {
+    console.error("Error fetching department status:", error);
+    return null;
+  }
+}
+
+function initializeGrid(data) {
+  // console.log(data);
+  gridOptions.rowData = data.superAdmins;
   const gridDiv = document.querySelector("#myGrid");
-  gridApi = agGrid.createGrid(gridDiv, gridOptions);
+  if (!gridApi) {
+    gridApi = agGrid.createGrid(gridDiv, gridOptions);
+  }
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const tok = localStorage.getItem("authToken");
+  fetchdetails(tok);
 });
+
 
 function handleDetails(data) {
   console.log(data);
@@ -322,7 +213,20 @@ function handleDeleteClick(id) {
   console.log("Delete clicked for ID:", id);
 }
 
- async function toggleStatus(customerId, newStatus) {
-  console.log("Toggle status clicked", customerId, newStatus);
-  return true;
+async function toggleStatus(customerId) {
+  console.log("Toggle status clicked", customerId,tok);
+
+  const formDatas = new FormData();
+  formDatas.append("user_id", customerId);
+  formDatas.append("token", tok)
+
+
+   const response = await fetch("http://127.0.0.1:5000/superadmin/toggle", {
+     method: "POST",
+     body: formDatas,
+   });
+
+   const data = await response.json();
+   console.log(data)
+return true
 }

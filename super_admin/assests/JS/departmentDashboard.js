@@ -200,6 +200,7 @@ const gridOptions = {
   },
   onPaginationChanged: function (param) {
     updateCustomPagination(param);
+    updatePaginationSummary(param);
     // console.log(param)
   },
   pagination: true,

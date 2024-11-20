@@ -16,7 +16,9 @@
 
 .body {
   background-color: #f6f6f6;
-  padding-bottom: 150px;
+  padding-bottom: 200px;
+  /* border: solid 1px red; */
+  /* width: 100vw; */
 }
 
 /* helloadmin */
@@ -48,12 +50,12 @@
 /* --- settings ----- */
 
 .line{
-  border: solid 1px #E5E7E8;
-  width: 90%;
+  border-top: solid 0.5px #E5E7E8;
+  width: 95%;
   margin-top: 24px;
   margin-bottom: 24px;
-  margin: 24px 80px;
-
+  margin: 24px 30px;
+  
 }
 
 
@@ -67,17 +69,18 @@
 
 .settings{
   margin-left: 78px;
-  width: 1164px;
+  width: 62vw;
   padding: 2px 0px;
   background-color: white;
   border-radius: 8px;
+  /* border: solid 1px #00aaff; */
 }
 
 .settings p{
   font-size: 16px;
   font-weight: 500;
   color: #191b1c;
-  margin: 24px 80px;
+  margin: 24px 35px;
 
 }
 
@@ -91,7 +94,7 @@
 .userId{
   display: flex;
   /* border: solid 1px #000; */
-  margin: 24px 80px;
+  margin: 24px 40px;
   align-items: center;
   justify-content: space-between;
 }
@@ -107,11 +110,85 @@
 .mb-3{
   display: flex;
   flex-direction: column;
-  width: 265px;
+  width: 14vw;
   gap: 0px !important; 
+  position: relative;
+  margin-bottom: 30px !important;
+}
+
+.save-button-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 20px;
   
 }
 
 .btn{
-  padding: 10px 20px !important ;
+  padding: 10px 20px !important;
+}
+
+.form-control{
+  border-radius: 2px !important;
+}
+
+.form-control:focus{
+  box-shadow: none !important;
+  border: solid 1px #5fa777 !important;
+}
+
+/* toggle */
+
+.input-group {
+  position: relative;
+  width: 100%;
+}
+
+.input-group .form-control {
+  padding-right: 40px; 
+  z-index: 1;
+  position: relative;
+}
+
+.input-group .toggle-password {
+  position: absolute;
+  right: 10px; 
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #6c757d; 
+  background: none;
+  border: none;
+  z-index: 10;
+}
+
+.input-group-text {
+  border: none; 
+  background: none;
+  padding: 0;
+}
+
+.input-group .toggle-password i {
+  font-size: 1rem; 
+}
+
+/* Focus styles */
+.input-group .form-control:focus {
+  box-shadow: none !important;
+  border: solid 1px #5fa777 !important;
+  z-index: 10; 
+}
+
+.input-group .toggle-password:focus {
+  outline: none; 
+}
+
+/* toast */
+
+.toast-container {
+  z-index: 1050; /* Ensure it's above other content */
+}
+
+.toast {
+  background-color: #f8d7da; /* Light red background for error */
+  color: #721c24; /* Darker red for the text */
 }

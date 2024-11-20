@@ -67,10 +67,10 @@
         </svg>
         <p id="active">Settings</p>
       </div>
-     <div id="logout" >
-          <img src="./assests/img/logout.svg" alt="logout" />
-          <p>Logout</p>
-        </div>
+      <div id="logout">
+        <img src="./assests/img/logout.svg" alt="logout" />
+        <p>Logout</p>
+      </div>
     </div>
 
     <div class="body">
@@ -86,73 +86,88 @@
         <div class="line full-width-line"></div>
         <div class="userId">
           <div>
-          <div class="mb-3">
-         <label for="userName" class="form-label"
-           >User Name</label
-         >
-         <input
-           type="text"
-           class="form-control"
-           id="userName"
-           aria-describedby="emailHelp"
-         />
-       </div>
-       <div class="mb-3">
-         <label for="Email" class="form-label">Email</label>
-         <input
-           type="Email"
-           class="form-control"
-           id="Email"
-         />
-       </div>
-
+            <div class="mb-3">
+              <label for="userName" class="form-label">User Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="userName"
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="Email" class="form-label">Email</label>
+              <input type="Email" class="form-control" id="Email" />
+            </div>
+          </div>
+          <div>
+            <button type="submit" class="btn btn-success rounded-pill">
+              Save Change
+            </button>
+          </div>
         </div>
-        <div>
-          <button type="submit" class="btn btn-success rounded-pill">Save Change</button>
+        <div class="line"></div>
+        <p>Change Password</p>
+        <div class="userPass userId">
+          <div>
+            <div class="mb-3">
+              <label for="currentPass" class="form-label"
+                >Current Password</label
+              >
+              <div class="input-group">
+                <input
+                  type="password"
+                  class="form-control"
+                  id="currentPass"
+                  aria-describedby="emailHelp"
+                />
+                <span class="input-group-text toggle-password">
+                  <i class="bi bi-eye"></i>
+                </span>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="newPassword" class="form-label">New Password</label>
+              <div class="input-group">
+                <input type="password" class="form-control" id="newPassword" />
+                <span class="input-group-text toggle-password">
+                  <i class="bi bi-eye"></i>
+                </span>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="confirmPass" class="form-label"
+                >Confirm Password</label
+              >
+              <div class="input-group">
+                <input type="password" class="form-control" id="confirmPass" />
+                <span class="input-group-text toggle-password">
+                  <i class="bi bi-eye"></i>
+                </span>
+                <div id="error-message"></div>
+              </div>
+            </div>
+          </div>
+          <div class="save-button-container">
+            <button type="submit" class="btn btn-success rounded-pill">
+              Save Change
+            </button>
+          </div>
         </div>
       </div>
-      <div class="line"></div>
-      <p>Change Password</p>
-      <div class="userPass userId">
-         <div>
-          <div class="mb-3">
-         <label for="userName" class="form-label"
-           >Current Password</label
-         >
-         <input
-           type="password"
-           class="form-control"
-           id="userName"
-           aria-describedby="emailHelp"
-         />
-       </div>
-       <div class="mb-3">
-         <label for="newPassword" class="form-label">New Password</label>
-         <input
-           type="newPassword"
-           class="form-control"
-           id="newPassword"
-         />
-       </div>
-       <div class="mb-3">
-         <label for="confirmPass" class="form-label">Confirm Password</label>
-         <input
-           type="confirmPass"
-           class="form-control"
-           id="confirmPass"
-         />
-       </div>
-
-        </div>
-        <div>
-          <button type="submit" class="btn btn-success rounded-pill">Save Change</button>
-        </div>
-      </div>
-      </div>
-        </div>
-      </div>
-       
     </div>
+
+    <!-- toast -->
+     <div class="toast-container position-fixed top-0 end-0 p-3">
+  <div id="toast-error" class="toast align-items-center text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        <span id="toast-message">Error message will appear here</span>
+      </div>
+      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
 
     <script src="./assests/JS/adminNav.js"></script>
     <script
@@ -160,6 +175,8 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-     <script src="./assests/JS/navigation.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0-alpha1/js/bootstrap.bundle.min.js"></script>
+    <script src="./assests/JS/navigation.js"></script>
+    <script src="./assests/JS/setting.js"></script>
   </body>
 </html>
