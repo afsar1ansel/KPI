@@ -90,6 +90,7 @@ nav {
 .hero {
   background-color: #083105;
   display: flex;
+  height: 780px;
   flex-direction: column;
   align-items: center;
   padding: 40px 0;
@@ -101,16 +102,42 @@ nav {
   width: 100%;
   max-width: 65%;
   height: 30vh;
-  margin-top: 20px;
+  margin-top: 39px;
   text-align: center;
   position: relative;
+  /* border: solid 2px red; */
 }
 
-.heroDiv h1 {
+.heroDivH {
+  width: 100%;
+  max-width: 55%;
+  height: 30vh;
+  margin-top: 39px;
+  text-align: center;
+  position: relative;
+  /* border: solid 2px red; */
+}
+
+.headingLang {
+  /* border: solid 2px red; */
+  margin-top: 100px;
+}
+
+.headingLang h1{
+  font-family: "Public Sans";
+  font-weight: 600;
+  font-size: 3.5vw;
+  line-height: 4vw;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.heroDivH h1 {
   font-family: "Public Sans";
   font-weight: 700;
-  font-size: 4.5vw;
-  line-height: 4.7vw;
+  font-size: 3.3vw;
+  line-height: 3.3vw;
   color: #ffffff;
   margin: 0;
   letter-spacing: 1px;
@@ -120,7 +147,7 @@ nav {
 .heroDiv img {
   width: 100%;
  position: relative;
- bottom: -5vw;
+ bottom: -1vw;
 }
 
 /* hero end */
