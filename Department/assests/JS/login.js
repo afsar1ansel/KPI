@@ -6,7 +6,7 @@ left.setAttribute("class", "left");
  const email = document.getElementById("email");
  const password = document.getElementById("password");
  const loginBtn = document.querySelector(".login-btn");
-console.log("login");
+// console.log("login");
 
 const loginForm = document.getElementById("login-form");
 const passwordInput = document.getElementById("password");

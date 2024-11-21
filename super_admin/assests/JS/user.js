@@ -51,8 +51,7 @@ const gridOptions = {
       headerName: "Email ID",
       maxWidth: 500,
     },
-    { field: "role", headerName: "ROLE", maxWidth: 200 },
-
+    { field: "role_id", headerName: "ROLE", maxWidth: 200,cellRenderer: function (params) {return params.value === 1 ? 'Super Admin' : 'Admin';} },
     {
       field: "status",
       headerName: "STATUS",
@@ -62,7 +61,8 @@ const gridOptions = {
       field: "id",
       headerName: "ACTION",
       cellRenderer: function (params) {
-        const dataId = params.data.id;
+        // console.log(params)
+        const dataId = JSON.stringify(params.data).replace(/"/g, "&quot;"); 
         return `
     <i class="bi bi-pencil-square" onclick="handleEditClick(${dataId})"></i> 
     <i class="bi bi-trash" onclick="handleDeleteClick(${dataId})"></i>
@@ -205,13 +205,24 @@ function handleDepartment(data) {
   console.log(departmentData);
 }
 
-function handleEditClick(id) {
-  console.log("Edit clicked for ID:", id);
+function handleEditClick(data) {
+  console.log(data);
+
+  const formData = new FormData();
+  formData.append("user_id", data);
+  formData.append("token", tok)
+  formData.append("username", data.username);
+  formData.append("mail", data.emailid);
+  formData.append("role_id", data.role_id);
+  formData.append("password", data.status);
+
+  
+
 }
 
-function handleDeleteClick(id) {
-  console.log("Delete clicked for ID:", id);
-}
+// function handleDeleteClick(id) {
+//   console.log("Delete clicked for ID:", id);
+// }
 
 async function toggleStatus(customerId) {
   console.log("Toggle status clicked", customerId,tok);
@@ -229,4 +240,47 @@ async function toggleStatus(customerId) {
    const data = await response.json();
    console.log(data)
 return true
+}
+
+
+// Add event listener for the Save button
+document.querySelector("#save").addEventListener("click", function () {
+  // Get form values
+  const userName = document.getElementById("userId").value.trim();
+  const email = document.getElementById("InputEmail1").value.trim();
+  const password = document.getElementById("InputPassword").value.trim();
+  const role = document.getElementById("select").value;
+
+  // Create an object to store the form data
+  const formData = new FormData();
+  formData.append("username", userName);
+  formData.append("mail", email);
+  formData.append("password", password);
+  formData.append("role_id", role);
+  formData.append("token", tok)
+
+  fetchadder(formData)
+
+});
+
+const toastMessageElement = document.getElementById("toast-message");
+const toastElement = document.getElementById("toast-error");
+const toast = new bootstrap.Toast(toastElement);
+async function fetchadder(formData) {
+
+  const response = await fetch("http://127.0.0.1:5000/superadmin/add", {
+    method: "POST",
+    body: formData,
+  });
+
+  const data = await response.json();
+  console.log(data);
+  if(data.errflag == 0){
+    toastMessageElement.textContent = "New user added successfully!";
+    toast.show();
+  }else{
+    toastMessageElement.textContent = "there is an error";
+    toast.show();
+  }
+
 }

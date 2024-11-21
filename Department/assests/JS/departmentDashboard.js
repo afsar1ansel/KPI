@@ -1,3 +1,4 @@
+const tok = localStorage.getItem("authToken");
 let expandedRows = {};
 
 const gridOptions = {
@@ -167,18 +168,18 @@ document.addEventListener("DOMContentLoaded", function () {
   gridApi = agGrid.createGrid(gridDiv, gridOptions);
 
 
-  setTimeout(() => {
-    const table = document.querySelector(".ag-root");
-    if(table){
-      scroller(table);
-    } 
-  }, 100);
+  // setTimeout(() => {
+  //   const table = document.querySelector(".ag-root");
+  //   if(table){
+  //     scroller(table);
+  //   } 
+  // }, 100);
 
 });
 
 function scroller(table) {
-  console.log(table);
-  console.log("scroller");
+  // console.log(table);
+  // console.log("scroller");
   let isMouseDown = false;
   let startX, scrollLeft;
 
@@ -203,8 +204,19 @@ function scroller(table) {
     if (!isMouseDown) return;
     e.preventDefault();
     const x = e.pageX - table.offsetLeft;
-    const walk = (x - startX) * 2; // Adjust scrolling speed if necessary
+    const walk = (x - startX) * 2;
     table.scrollLeft = scrollLeft - walk;
     console.log(walk, scrollLeft);
   });
 }
+
+
+async function fetchDepartmentkpi(){
+  const response = await fetch(
+    `http://127.0.0.1:5000/get_dep_kpi_tracker/${tok}`
+  );
+  const data = await response.json();
+  console.log(data);
+}
+
+fetchDepartmentkpi();
