@@ -61,7 +61,6 @@
         </div>
       </a>
       <a href="./user.html">
-
         <div>
           <img src="./assests/img/Users_icon.svg" alt="user" />
           <p>Users</p>
@@ -73,11 +72,11 @@
           <p>Settings</p>
         </div>
       </a>
-      
-        <div id="logout" >
-          <img src="./assests/img/logout.svg" alt="logout" />
-          <p>Logout</p>
-        </div>
+
+      <div id="logout">
+        <img src="./assests/img/logout.svg" alt="logout" />
+        <p>Logout</p>
+      </div>
     </div>
     <div class="body">
       <div class="helloadmin">
@@ -192,20 +191,36 @@
               <input class="form-control" id="KPIName" value="" />
             </div>
             <div class="mb-3">
-      <label for="Select" class="form-label">Unit of Measurement</label>
-      <select id="unitSelector" class="form-select">
-       
-      </select>
-    </div>
+              <label for="Select" class="form-label">Unit of Measurement</label>
+              <select id="unitSelector" class="form-select"></select>
+            </div>
             <div class="mb-3">
               <label for="baselineStat" class="form-label"
                 >Baseline Status</label
               >
               <input class="form-control" id="baselineStat" value="" />
             </div>
-            <div class="mb-3">
-              <label for="target" class="form-label">5 Year Target</label>
-              <input class="form-control" id="target" value="" />
+            <div>
+              <div class="mb-3">
+                <label for="target" class="form-label">5 Year Target</label>
+                <input class="form-control" id="target5" value="" />
+              </div>
+              <div class="mb-3">
+                <label for="target" class="form-label">4 Year Target</label>
+                <input class="form-control" id="target4" value="" />
+              </div>
+              <div class="mb-3">
+                <label for="target" class="form-label">3 Year Target</label>
+                <input class="form-control" id="target3" value="" />
+              </div>
+              <div class="mb-3">
+                <label for="target" class="form-label">2 Year Target</label>
+                <input class="form-control" id="target2" value="" />
+              </div>
+              <div class="mb-3">
+                <label for="target" class="form-label">1 Year Target</label>
+                <input class="form-control" id="target1" value="" />
+              </div>
             </div>
             <div
               style="
@@ -220,34 +235,50 @@
               + Add New KPI
             </div>
           </div>
-           <div class="modal-footer" style="margin-top: 10px;" >
-        <button type="button" class="btn rounded-pill" style="width: 100%; background-color: #5fa777; color: white; " data-bs-dismiss="modal">Save</button>
-      </div>
+          <div class="modal-footer" style="margin-top: 10px">
+            <button
+              type="button"
+              class="btn rounded-pill"
+              style="width: 100%; background-color: #5fa777; color: white"
+              data-bs-dismiss="modal"
+            >
+              Save
+            </button>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="modal fade" id="kpiNumbersModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-kpiNumber-body">
-        
+    <div
+      class="modal fade"
+      id="kpiNumbersModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-kpiNumber-body"></div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
     <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-    crossorigin="anonymous"
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+      integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+      crossorigin="anonymous"
     ></script>
     <script src="./assests/JS/departmentDashboard.js"></script>
     <script src="./assests/JS/adminNav.js"></script>
-     <script src="./assests/JS/navigation.js"></script>
+    <script src="./assests/JS/navigation.js"></script>
   </body>
 </html>

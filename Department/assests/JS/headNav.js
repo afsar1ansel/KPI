@@ -1,12 +1,12 @@
 const token = localStorage.getItem("authToken");
-const name = localStorage.getItem("userEmail");
+const name1 = localStorage.getItem("adminName");
 
 const headName = document.getElementById("nameHeader");
-// headName.innerText = `Welcome, ${name}`
+headName.innerText = `Welcome, ${name1}`;
 
 const profile = document.querySelector(".profile");
-// const initials = getInitials(name);
-// profile.innerText = initials;
+const initials = getInitials(name1);
+profile.innerText = initials;
 
 function getInitials(name) {
   if (!name) return "";

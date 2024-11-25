@@ -220,3 +220,4 @@ async function fetchDepartmentkpi(){
 }
 
 fetchDepartmentkpi();
+

@@ -339,3 +339,44 @@ function toggleStatus(customerId, newStatus) {
       console.error("Error updating status:", error);
     });
 }
+
+
+// form data from assingning modal 
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Select the Save button
+  const saveButton = document.querySelector(
+    "#assignModal .modal-footer button"
+  );
+
+  saveButton.addEventListener("click", () => {
+    // Collect values from the input fields
+    const KPIName = document.querySelector("#KPIName").value;
+    const unitOfMeasurement = document.querySelector("#unitSelector").value;
+    const baselineStat = document.querySelector("#baselineStat").value;
+
+    // Collect the target values
+    const target5 = document.querySelector("#target5").value;
+    const target4 = document.querySelector("#target4").value;
+    const target3 = document.querySelector("#target3").value;
+    const target2 = document.querySelector("#target2").value;
+    const target1 = document.querySelector("#target1").value;
+
+    // Prepare the data object
+    const data = {
+      KPIName,
+      unitOfMeasurement,
+      baselineStat,
+      targets: {
+        "5-Year": target5,
+        "4-Year": target4,
+        "3-Year": target3,
+        "2-Year": target2,
+        "1-Year": target1,
+      },
+    };
+
+    // Log the data object to the console
+    console.log(data);
+  });
+});
