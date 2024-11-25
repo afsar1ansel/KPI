@@ -184,10 +184,11 @@ nav {
   flex-direction: column;
   justify-content: center;
   /* gap: 200px; */
+  /* border: solid 1px red; */
 }
 
 .imgFirstDiv {
-  background-image: url(../img/Decoration.svg);
+  background-image: url(../img/Decoration.svg) !important;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -234,7 +235,7 @@ nav {
 }
 
 .imgSecDiv {
-  background-image: url(../img/Decoration.svg);
+  background-image: url(../img/Decoration.svg) !important;
   width: 100%;
   padding-top: 100px;
   display: flex;
