@@ -1,7 +1,8 @@
 const tok = localStorage.getItem("authToken");
 let gridApi;
 let datas;
-
+let deptId;
+// console.log("department")
 async function fetchdetails(tok) {
   try {
     const response = await fetch(
@@ -13,6 +14,8 @@ async function fetchdetails(tok) {
 
     const data = await response.json();
     datas = await data;
+    console.log(data.department_status[0].dept_master_id);
+    deptId = data.department_status[0].dept_master_id;
     initializeGrid(data);
   } catch (error) {
     console.error("Error fetching department status:", error);
@@ -52,8 +55,9 @@ const gridOptions = {
       headerName: "APPROVAL STATUS",
       maxWidth: 400,
       cellRenderer: (params) => {
+        console.log("params: ", params);
         const value = params.data.approval_status;
-        const id = params.data.id; // Get the ID of the current row
+        const id = params.data.department_id;
         let content = "";
         let color = "";
         let backgroundColor = "";
@@ -131,11 +135,11 @@ const gridOptions = {
       maxWidth: 300,
       cellRenderer: (params) => {
         let data = JSON.stringify(params.data).replace(/"/g, "&quot;");
-      
+
         return `<p style="font-weight: 500; cursor: pointer;" 
         data-bs-toggle="modal" data-bs-target="#kpiNumbersModal"
            onclick="handleKpiNUmberModal('${data}')">${params.data.kpi_count}</p>`;
-      }
+      },
     },
 
     {
@@ -221,12 +225,11 @@ function updatePaginationSummary(p) {
 
 async function handleAssignClick(data) {
   // console.log(data);
-  const response = await fetch(
-    `http://127.0.0.1:5000/get_all_uom/all/${tok}`,
-    {
-      method: "GET",
-    }
-  );
+  const unitSelector = document.getElementById("unitSelector");
+  unitSelector.innerHTML = "";
+  const response = await fetch(`http://127.0.0.1:5000/get_all_uom/all/${tok}`, {
+    method: "GET",
+  });
   const uomData = await response.json();
   // console.log(uomData.uom);
   uomData.uom.map((uom) => {
@@ -235,13 +238,11 @@ async function handleAssignClick(data) {
     option.text = uom.uom;
     document.getElementById("unitSelector").appendChild(option);
   });
-
 }
 
 function handleDownloadClick(data) {
   console.log(data);
 }
-
 
 // for number pagination control BUttons
 function updateCustomPagination(data) {
@@ -290,28 +291,31 @@ function updateCustomPagination(data) {
   paginationControls.appendChild(nextButton);
 }
 
- async function handleKpiNUmberModal(data) {
+async function handleKpiNUmberModal(data) {
   const departmentData = JSON.parse(data);
   console.log(departmentData);
 
-  const response = await fetch(`http://127.0.0.1:5000/get_one_department_kpi/${departmentData.id}/${tok}`, {
-    method: "GET",
-  });
+  const response = await fetch(
+    `http://127.0.0.1:5000/get_one_department_kpi/${departmentData.dept_master_id}/${tok}`,
+    {
+      method: "GET",
+    }
+  );
 
   const kpiData = await response.json();
   console.log(kpiData.department_kpis);
 
   let tableBody = document.getElementsByClassName("modal-kpiNumber-body");
 
-   tableBody[0].innerHTML = `${kpiData.department_kpis
-     .map(
-       (kpi, index) =>
-         `<div class="kpiModelBody" >
+  tableBody[0].innerHTML = `${kpiData.department_kpis
+    .map(
+      (kpi, index) =>
+        `<div class="kpiModelBody" >
          <h6>KPI ${index + 1}</h6>
          <p>${kpi.kpis}</p>
        </div>`
-     )
-     .join("")}`;
+    )
+    .join("")}`;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -319,12 +323,11 @@ document.addEventListener("DOMContentLoaded", function () {
   fetchdetails(tok);
 });
 
-
-function toggleStatus(customerId, newStatus) {
- const form = new FormData();
- form.append("id", customerId);
- form.append("app_status", newStatus);
- form.append("token", tok);
+async function toggleStatus(customerId, newStatus) {
+  const form = new FormData();
+  form.append("id", customerId);
+  form.append("app_status", newStatus);
+  form.append("token", tok);
 
   fetch("http://127.0.0.1:5000/department/toggle_approval_status", {
     method: "POST",
@@ -333,36 +336,33 @@ function toggleStatus(customerId, newStatus) {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      fetchdetails(tok);
+      // reload the page
+      location.reload();
     })
     .catch((error) => {
       console.error("Error updating status:", error);
     });
 }
 
-
-// form data from assingning modal 
+// form data from assingning modal
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Select the Save button
   const saveButton = document.querySelector(
     "#assignModal .modal-footer button"
   );
 
+
   saveButton.addEventListener("click", () => {
-    // Collect values from the input fields
     const KPIName = document.querySelector("#KPIName").value;
     const unitOfMeasurement = document.querySelector("#unitSelector").value;
     const baselineStat = document.querySelector("#baselineStat").value;
 
-    // Collect the target values
     const target5 = document.querySelector("#target5").value;
     const target4 = document.querySelector("#target4").value;
     const target3 = document.querySelector("#target3").value;
     const target2 = document.querySelector("#target2").value;
     const target1 = document.querySelector("#target1").value;
 
-    // Prepare the data object
     const data = {
       KPIName,
       unitOfMeasurement,
@@ -376,7 +376,39 @@ document.addEventListener("DOMContentLoaded", () => {
       },
     };
 
-    // Log the data object to the console
-    console.log(data);
+    // console.log(data);
+    // console.log(deptId);
+
+    postAssignData(data, deptId);
   });
 });
+
+async function postAssignData(data, deptId) {
+  const form = new FormData();
+  form.append("department_name_id", deptId);
+  form.append("kpis", data.KPIName);
+  form.append("uom_master_id", data.unitOfMeasurement);
+  form.append("baseline_Status", data.baselineStat);
+  form.append("t1", data.targets["1-Year"]);
+  form.append("t2", data.targets["2-Year"]);
+  form.append("t3", data.targets["3-Year"]);
+  form.append("t4", data.targets["4-Year"]);
+  form.append("t5", data.targets["5-Year"]);
+  form.append("token", tok);
+
+  // console.log(Object.fromEntries(form.entries()));
+
+  fetch("http://127.0.0.1:5000/add_department_kpi", {
+    method: "POST",
+    body: form,
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      //reload the page
+      location.reload();
+    })
+    .catch((error) => {
+      console.error("Error updating status:", error);
+    });
+}

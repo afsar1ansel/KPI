@@ -16,6 +16,7 @@ document.getElementById("login").addEventListener("click", function (event) {
     { id: "place", name: "Place of work", type: "input" },
     { id: "departmentCode", name: "Departmental Code", type: "input" },
     { id: "mobile", name: "Mobile number", type: "input" },
+    { id: "email", name: "Email", type: "email" },
     { id: "password", name: "Password", type: "input" },
     { id: "password-confirm", name: "Confirm Password", type: "input" },
   ];
@@ -31,6 +32,10 @@ document.getElementById("login").addEventListener("click", function (event) {
       return;
     }
 
+    input.addEventListener("focus", () => {
+      errorMessage.style.display = "none";
+    });
+
     if (
       (field.type === "input" && input.value.trim() === "") ||
       (field.type === "select" && input.value === "Choose your department") ||
@@ -45,6 +50,20 @@ document.getElementById("login").addEventListener("click", function (event) {
     }
   });
 
+  // Additional validation for email
+  const emailInput = document.getElementById("email");
+  const emailError = emailInput.nextElementSibling;
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(emailInput.value.trim())) {
+    emailError.textContent = "Please enter a valid email address.";
+    emailError.style.display = "block";
+    formIsValid = false;
+  } else {
+    emailError.style.display = "none";
+  }
+
+  // Password confirmation check
   const password = document.getElementById("password").value;
   const confirmPassword = document.getElementById("password-confirm").value;
   const confirmPasswordError =
@@ -59,7 +78,7 @@ document.getElementById("login").addEventListener("click", function (event) {
   }
 
   if (formIsValid) {
-    const formData = {
+    const formData1 = {
       department: document.getElementById("department_names").value,
       designation: form.elements["Designation"].value,
       name: form.elements["name"].value,
@@ -67,29 +86,63 @@ document.getElementById("login").addEventListener("click", function (event) {
       district: document.getElementById("districts").value,
       placeOfWork: form.elements["place"].value,
       departmentCode: form.elements["departmentCode"].value,
+      email: form.elements["email"].value,
       mobileNumber: form.elements["mobile"].value,
       password: form.elements["password"].value,
       // confirmPassword: form.elements["password-confirm"].value,
     };
 
-    console.log(formData);
+    console.log(formData1);
 
-    modal.style.display = "flex";
+    const formData = new FormData();
+    formData.append("department_name_id", formData1.departmentCode);
+    formData.append("designation", formData1.designation);
+    formData.append("department_user", formData1.name);
+    formData.append("div_id", formData1.division);
+    formData.append("dist_id", formData1.district);
+    formData.append("place", formData1.placeOfWork);
+    // formData.append("departmentCode", formData.departmentCode);
+    formData.append("department_email", formData1.email);
+    formData.append("mobile", formData1.mobileNumber);
+    formData.append("department_password", formData1.password);
+    
 
-    closeModalBtn.addEventListener("click", () => {
-      modal.style.display = "none";
-    });
-
-    closeOkayBtn.addEventListener("click", () => {
-      modal.style.display = "none";
-    });
-
-    window.addEventListener("click", (event) => {
-      if (event.target === modal) {
-        modal.style.display = "none";
-      }
-    });
+   console.log(Array.from(formData.entries()));
+ 
+    fectchResponse(formData);
   }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const togglePassword = document.getElementById("toggle-password");
+  const passwordInput = document.getElementById("password");
+
+  const togglePasswordConfirm = document.getElementById(
+    "toggle-password-confirm"
+  );
+  const confirmPasswordInput = document.getElementById("password-confirm");
+
+  // Function to toggle visibility and icon
+  function toggleVisibility(inputField, icon) {
+    if (inputField.type === "password") {
+      inputField.type = "text";
+      icon.classList.remove("bi-eye-slash");
+      icon.classList.add("bi-eye");
+    } else {
+      inputField.type = "password";
+      icon.classList.remove("bi-eye");
+      icon.classList.add("bi-eye-slash");
+    }
+  }
+
+  // Event listeners for password toggle
+  togglePassword.addEventListener("click", () => {
+    toggleVisibility(passwordInput, togglePassword);
+  });
+
+  togglePasswordConfirm.addEventListener("click", () => {
+    toggleVisibility(confirmPasswordInput, togglePasswordConfirm);
+  });
 });
 
 
@@ -99,10 +152,12 @@ function populateDepartmentDropdown(departments, dropDownId, placeholder) {
 
   selectDropDepartment.innerHTML = `<option>${placeholder}</option>`;
 
+  console.log(departments);
+
   departments.forEach((department) => {
     const option = document.createElement("option");
     option.value = department.dept_code
-      ? department.dept_code
+      ? department.id
       : department.div_id
       ? department.div_id
       : department.dist_id;
@@ -212,3 +267,20 @@ async function fetchDepartments(apiUrl, dropDownId, placeholder) {
 }
 
 
+async function fectchResponse(data){
+  console.log(data)
+  const response = await fetch(`http://127.0.0.1:5000/department/add`, {
+    method: "POST",
+    body: data,
+  });
+    const result = await response.json();
+    console.log(result);
+
+    // if(result.errflag == 0){
+   const toastElement = document.getElementById("toast-error");
+   const toastMessageElement = document.getElementById("toast-message");
+   const toast = new bootstrap.Toast(toastElement);
+  toast.show(); 
+    // }
+
+}

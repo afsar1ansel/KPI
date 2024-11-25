@@ -11,9 +11,9 @@
     display: flex;
     justify-content: space-between;
     padding: 10px 80px;
-}
-
-.logo {
+  }
+  
+  .logo {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -37,7 +37,7 @@
   font-weight: normal;
   color: #ffffff;
   margin: 0;
-  line-height: 1;
+  /* line-height: 1; */
 }
 
 .tagText{

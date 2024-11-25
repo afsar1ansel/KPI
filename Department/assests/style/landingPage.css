@@ -397,7 +397,7 @@ nav {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-image: url(../img/blurDot1.svg), url(../img/blurDot2.svg);
+  background-image: url(../img/blurDot1.svg), url(../img/blurDot2.svg) !important;
   background-position: -7.33vw -70%, calc(90% + 8.33vw) center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -416,9 +416,10 @@ nav {
 /* ----------- curve image ----------- */
 
 .curveImg {
+  background-image: url(../img/Rectangle.png);
   margin-top: 200px;
   /* margin-bottom: 100px; */
-  width: 100%;
+  /* width: 100%; */
   height: 350px;
   gap: 40px;
   display: flex;
@@ -426,7 +427,6 @@ nav {
   justify-content: center;
   align-items: center;
   padding: 20px;
-  background-image: url(../img/Rectangle.png);
   background-repeat: no-repeat;
   background-size: cover;
   /* border: solid 1px red; */
