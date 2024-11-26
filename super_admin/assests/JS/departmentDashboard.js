@@ -14,7 +14,7 @@ async function fetchdetails(tok) {
 
     const data = await response.json();
     datas = await data;
-    console.log(data.department_status[0].dept_master_id);
+    // console.log(data.department_status[0].dept_master_id);
     deptId = data.department_status[0].dept_master_id;
     initializeGrid(data);
   } catch (error) {
@@ -55,7 +55,7 @@ const gridOptions = {
       headerName: "APPROVAL STATUS",
       maxWidth: 400,
       cellRenderer: (params) => {
-        console.log("params: ", params);
+        // console.log("params: ", params);
         const value = params.data.approval_status;
         const id = params.data.department_id;
         let content = "";
@@ -241,7 +241,7 @@ async function handleAssignClick(data) {
 }
 
 function handleDownloadClick(data) {
-  console.log(data);
+  // console.log(data);
 }
 
 // for number pagination control BUttons
@@ -293,7 +293,7 @@ function updateCustomPagination(data) {
 
 async function handleKpiNUmberModal(data) {
   const departmentData = JSON.parse(data);
-  console.log(departmentData);
+  // console.log(departmentData);
 
   const response = await fetch(
     `http://127.0.0.1:5000/get_one_department_kpi/${departmentData.dept_master_id}/${tok}`,

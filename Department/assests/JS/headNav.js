@@ -1,5 +1,9 @@
 const token = localStorage.getItem("authToken");
-const name1 = localStorage.getItem("adminName");
+const name1 = localStorage.getItem("adminName") || "admin";
+
+if(!token){
+  window.location.href = "./login.html";
+}
 
 const headName = document.getElementById("nameHeader");
 headName.innerText = `Welcome, ${name1}`;
@@ -16,7 +20,7 @@ function getInitials(name) {
   return firstInitial + lastInitial;
 }
 
-console.log("logout")
+
 
 const logout = document.getElementById("logout");
 logout.addEventListener("click", () => {

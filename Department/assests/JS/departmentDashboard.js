@@ -217,6 +217,12 @@ async function fetchDepartmentkpi(){
   );
   const data = await response.json();
   console.log(data);
+ 
+
+  document.getElementById(
+    "hello"
+  ).innerHTML = `👋 Hello, Welcome to ${data.department_name}`;
+
 }
 
 fetchDepartmentkpi();

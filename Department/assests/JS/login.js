@@ -115,17 +115,14 @@ const focusOnFirstError = () => {
       console.log(data)
 
       if (data.errflag === undefined) {
-        // Successful login, save token and redirect to the dashboard
         localStorage.setItem("authToken", data.userToken);
         localStorage.setItem("userEmail", email.value.trim());
         window.location.href = "landingPage.html";
       } else if (data.errflag === 3) {
-        // Input validation error on the server side
         inputValidationMsg.textContent = data.message + " Enter a safe input.";
         inputValidationMsg.style.display = "block";
         email.focus();
       } else {
-        // General login failure (e.g., wrong password)
         inputValidationMsg.textContent = data.message + " Please try again.";
         inputValidationMsg.style.display = "block";
         email.focus();

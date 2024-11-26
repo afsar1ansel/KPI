@@ -95,7 +95,7 @@ document.getElementById("login").addEventListener("click", function (event) {
     console.log(formData1);
 
     const formData = new FormData();
-    formData.append("department_name_id", formData1.departmentCode);
+    formData.append("department_name_id", formData1.department);
     formData.append("designation", formData1.designation);
     formData.append("department_user", formData1.name);
     formData.append("div_id", formData1.division);
@@ -171,13 +171,12 @@ function populateDepartmentDropdown(departments, dropDownId, placeholder) {
 
   if (dropDownId === "department_names") {
     selectDropDepartment.addEventListener("change", () => {
-      const selectedDeptCode =
-        selectDropDepartment.options[selectDropDepartment.selectedIndex].value;
-
-      const departmentCodeInput = document.getElementById("departmentCode");
-
-      departmentCodeInput.value =
-        selectedDeptCode === "Choose your department" ? "" : selectedDeptCode;
+      departments.forEach((department) => {
+        if (department.id == selectDropDepartment.value) {
+          const departmentCodeInput = document.getElementById("departmentCode");
+          departmentCodeInput.value = department.dept_code;
+        }
+      })
     });
   }
 }
@@ -259,7 +258,7 @@ async function fetchDepartments(apiUrl, dropDownId, placeholder) {
       populateDepartmentDropdown(data[dropDownId], dropDownId, placeholder);
     } else {
       console.error("Unexpected response format:", data);
-      console.log(data);
+      // console.log(data);
     }
   } catch (error) {
     console.error("Error fetching department data:", error);
@@ -268,7 +267,7 @@ async function fetchDepartments(apiUrl, dropDownId, placeholder) {
 
 
 async function fectchResponse(data){
-  console.log(data)
+  // console.log(data)
   const response = await fetch(`http://127.0.0.1:5000/department/add`, {
     method: "POST",
     body: data,
@@ -276,11 +275,11 @@ async function fectchResponse(data){
     const result = await response.json();
     console.log(result);
 
-    // if(result.errflag == 0){
+    if(result.errflag == 0){
    const toastElement = document.getElementById("toast-error");
    const toastMessageElement = document.getElementById("toast-message");
    const toast = new bootstrap.Toast(toastElement);
   toast.show(); 
-    // }
+    }
 
 }

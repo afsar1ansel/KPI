@@ -1,0 +1,26 @@
+*{
+ margin: 0;
+  padding: 0;
+  /* background-color: #f6f6f6; */
+  font-family: "Public Sans";
+}
+
+/* nav */
+
+
+
+
+/* nav end */
+
+/* body */
+
+.body{
+    background-color: #f6f6f6;
+    padding: 100px 80px;
+}
+
+.body .mb-3 .form-control:focus,
+#disabledSelect:focus{
+  box-shadow: none !important;
+  border: solid 1px rgba(95, 167, 119, 1) !important;
+}
