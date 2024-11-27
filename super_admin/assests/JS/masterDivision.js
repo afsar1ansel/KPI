@@ -20,7 +20,7 @@ fetchdetails();
 
 function populateDropdown(data) {
   // console.log(data.department_names);
-  const dropdown = document.getElementById("disabledSelect");
+  const dropdown = document.getElementById("DivisionSelect");
 
   dropdown.innerHTML = "hii";
 
