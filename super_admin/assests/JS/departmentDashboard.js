@@ -14,8 +14,8 @@ async function fetchdetails(tok) {
 
     const data = await response.json();
     datas = await data;
-    // console.log(data.department_status[0].dept_master_id);
-    deptId = data.department_status[0].dept_master_id;
+    // console.log(data);
+    // deptId = data.department_status[0].dept_master_id;
     initializeGrid(data);
   } catch (error) {
     console.error("Error fetching department status:", error);
@@ -24,7 +24,7 @@ async function fetchdetails(tok) {
 }
 
 function initializeGrid(data) {
-  console.log(data);
+  // console.log(data);
   gridOptions.rowData = data.department_status;
   const gridDiv = document.querySelector("#myGrid");
   if (!gridApi) {
@@ -224,7 +224,8 @@ function updatePaginationSummary(p) {
 }
 
 async function handleAssignClick(data) {
-  // console.log(data);
+  console.log(data);
+  deptId = data.dept_master_id;
   const unitSelector = document.getElementById("unitSelector");
   unitSelector.innerHTML = "";
   const response = await fetch(`http://127.0.0.1:5000/get_all_uom/all/${tok}`, {
@@ -293,7 +294,7 @@ function updateCustomPagination(data) {
 
 async function handleKpiNUmberModal(data) {
   const departmentData = JSON.parse(data);
-  // console.log(departmentData);
+  console.log(departmentData);
 
   const response = await fetch(
     `http://127.0.0.1:5000/get_one_department_kpi/${departmentData.dept_master_id}/${tok}`,
@@ -303,17 +304,19 @@ async function handleKpiNUmberModal(data) {
   );
 
   const kpiData = await response.json();
-  console.log(kpiData.department_kpis);
+  console.log(kpiData);
 
   let tableBody = document.getElementsByClassName("modal-kpiNumber-body");
 
   tableBody[0].innerHTML = `${kpiData.department_kpis
     .map(
       (kpi, index) =>
-        `<div class="kpiModelBody" >
-         <h6>KPI ${index + 1}</h6>
-         <p>${kpi.kpis}</p>
-       </div>`
+        `<div class="kpiModelBody" onclick='handlekpinumbermodal(${JSON.stringify(
+          kpi
+        )})' data-bs-toggle="modal" data-bs-target="#editKpi">
+       <h6>KPI ${index + 1}</h6>
+       <p>${kpi.kpis}</p>
+     </div>`
     )
     .join("")}`;
 }
@@ -351,7 +354,6 @@ document.addEventListener("DOMContentLoaded", () => {
     "#assignModal .modal-footer button"
   );
 
-
   saveButton.addEventListener("click", () => {
     const KPIName = document.querySelector("#KPIName").value;
     const unitOfMeasurement = document.querySelector("#unitSelector").value;
@@ -377,7 +379,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // console.log(data);
-    // console.log(deptId);
+    console.log(deptId);
 
     postAssignData(data, deptId);
   });
@@ -412,3 +414,37 @@ async function postAssignData(data, deptId) {
       console.error("Error updating status:", error);
     });
 }
+
+async function handlekpinumbermodal(kpi) {
+  console.log(kpi);
+
+  const btn = document.getElementById("kpiEditButton");
+  const kpiEditInput = document.getElementById("kpiEditInput");
+
+  kpiEditInput.value = kpi.kpis;
+
+  btn.addEventListener("click", () => {
+    const updatedKpiValue = kpiEditInput.value;
+
+    const form = new FormData();
+    form.append("id", kpi.id);
+    form.append("kpis", updatedKpiValue);
+    form.append("token", tok);
+   
+
+    fetch("http://127.0.0.1:5000/admin_update_kpi_name", {
+      method: "POST",
+      body: form,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        // reload the page
+        location.reload();
+      })
+      .catch((error) => {
+        console.error("Error updating status:", error);
+      });
+  });
+}
+

@@ -26,6 +26,7 @@ const logout = document.getElementById("logout");
 logout.addEventListener("click", () => {
   localStorage.removeItem("authToken");
   localStorage.removeItem("userEmail");
+  localStorage.removeItem("adminName");
   console.log("Logout clicked");
   window.location.href = "./login.html";
 });

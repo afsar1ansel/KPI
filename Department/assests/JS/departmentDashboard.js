@@ -1,43 +1,19 @@
 const tok = localStorage.getItem("authToken");
+let gridApi;
 let expandedRows = {};
 
 const gridOptions = {
-  rowData: [
-    {
-      id: 1,
-      KPI_name:
-        "Promotion of Climate Smart Crops (Millets, Pulses & Oil Seeds) Suitable to changing environmental conditions (In Lakh Ha.)",
-      baselineStatus: "33.20",
-      target_set: "32.70",
-      coordinate_department: "Department of Agriculture",
-      strategies:
-        "Promote new varieties of millets by providing subsidies & production incentives to farmers & create awareness about its importance.",
-      annual_target: {
-        yr1: "33.20",
-        yr2: "33.20",
-        yr3: "33.20",
-        yr4: "33.20",
-        yr5: "33.20",
-      },
-      target_achieved: {
-        yr1: "33.20",
-        yr2: "33.20",
-        yr3: "33.20",
-        yr4: "33.20",
-        yr5: "33.20",
-      },
-      date: "24/10/2023",
-    },
-  ],
+  rowData: [],
 
   columnDefs: [
     {
-      field: "KPI_name",
+      field: "kpis",
       headerName: "KPI NAME",
       // rowDrag: true,
       maxWidth: 190,
       cellRenderer: function (params) {
-        const dataHead = params.data.KPI_name;
+        // console.log(params.data);
+        const dataHead = params.data.kpis;
         const date = params.data.date;
 
         return `<div><p>${dataHead}</p><p id="trackerDate">LAST UPDATED: ${date}</p></div>`;
@@ -47,6 +23,10 @@ const gridOptions = {
       field: "baselineStatus",
       headerName: "BASELINE STATUS",
       maxWidth: 120,
+      cellRenderer: function (params) {
+        const dataHead = params.data.baseline_Status;
+        return `<div><p>${dataHead}</p></div>`;
+      },
     },
     {
       field: "target_set",
@@ -54,7 +34,7 @@ const gridOptions = {
       maxWidth: 120,
     },
     {
-      field: "coordinate_department",
+      field: "department_name",
       headerName: "COORDINATING DEPARTMENT",
       maxWidth: 130,
     },
@@ -71,33 +51,99 @@ const gridOptions = {
           field: "annual_target.yr1",
           headerName: "YR1",
           maxWidth: 80,
-          // cellClass: "center-align",
+          cellRenderer: function (params) {
+            return `<div><p>${params.data.y1}</p></div>`;
+          },
         },
-        { field: "annual_target.yr2", headerName: "YR2", maxWidth: 80 },
-        { field: "annual_target.yr3", headerName: "YR3", maxWidth: 80 },
-        { field: "annual_target.yr4", headerName: "YR4", maxWidth: 80 },
-        { field: "annual_target.yr5", headerName: "YR5", maxWidth: 80 },
+        {
+          field: "annual_target.yr2",
+          headerName: "YR2",
+          maxWidth: 80,
+          cellRenderer: function (params) {
+            return `<div><p>${params.data.y2}</p></div>`;
+          },
+        },
+        {
+          field: "annual_target.yr3",
+          headerName: "YR3",
+          maxWidth: 80,
+          cellRenderer: function (params) {
+            return `<div><p>${params.data.y3}</p></div>`;
+          },
+        },
+        {
+          field: "annual_target.yr4",
+          headerName: "YR4",
+          maxWidth: 80,
+          cellRenderer: function (params) {
+            return `<div><p>${params.data.y4}</p></div>`;
+          },
+        },
+        {
+          field: "annual_target.yr5",
+          headerName: "YR5",
+          maxWidth: 80,
+          cellRenderer: function (params) {
+            return `<div><p>${params.data.y5}</p></div>`;
+          },
+        },
       ],
     },
     {
       headerName: "TARGET ACHIEVED",
       headerClass: "annual-target-header",
       children: [
-        { field: "target_achieved.yr1", headerName: "YR1", maxWidth: 80 },
-        { field: "target_achieved.yr2", headerName: "YR2", maxWidth: 80 },
-        { field: "target_achieved.yr3", headerName: "YR3", maxWidth: 80 },
-        { field: "target_achieved.yr4", headerName: "YR4", maxWidth: 80 },
-        { field: "target_achieved.yr5", headerName: "YR5", maxWidth: 80 },
+        {
+          field: "t1",
+          headerName: "YR1",
+          maxWidth: 80,
+          cellRenderer: function (params) {
+            return `<div><p>${params.data.t1}</p></div>`;
+          },
+        },
+        {
+          field: "target_achieved.yr2",
+          headerName: "YR2",
+          maxWidth: 80,
+          cellRenderer: function (params) {
+            return `<div><p>${params.data.t2}</p></div>`;
+          },
+        },
+        {
+          field: "target_achieved.yr3",
+          headerName: "YR3",
+          maxWidth: 80,
+          cellRenderer: function (params) {
+            return `<div><p>${params.data.t3}</p></div>`;
+          },
+        },
+        {
+          field: "target_achieved.yr4",
+          headerName: "YR4",
+          maxWidth: 80,
+          cellRenderer: function (params) {
+            return `<div><p>${params.data.t4}</p></div>`;
+          },
+        },
+        {
+          field: "target_achieved.yr5",
+          headerName: "YR5",
+          maxWidth: 80,
+          cellRenderer: function (params) {
+            return `<div><p>${params.data.t5}</p></div>`;
+          },
+        },
       ],
     },
     {
       field: "id",
       headerName: "ACTION",
       cellRenderer: function (params) {
-        const dataId = params.data.id;
+        const dataId = JSON.stringify(params.data).replace(/"/g, "&quot;");
+        // console.log(dataId);
         // const isExpanded = expandedRows[dataId];
         return `
-          <button class="btn btn-success rounded-pill" onclick="toggleRow(${dataId})">Update</button>
+          <button class="btn btn-success rounded-pill" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="actionButton(${dataId})">Update</button>
         `;
       },
     },
@@ -124,11 +170,6 @@ const gridOptions = {
   suppressMovableColumns: true,
   alwaysShowHorizontalScroll: true,
 };
-
-// Function to toggle row expansion
-function toggleRow(rowId) {
-  console.log(rowId);
-}
 
 // Function to generate expanded row data
 function generateExpandedData() {
@@ -164,17 +205,11 @@ function generateExpandedData() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  const gridDiv = document.querySelector("#myGrid");
-  gridApi = agGrid.createGrid(gridDiv, gridOptions);
-
-
-  // setTimeout(() => {
-  //   const table = document.querySelector(".ag-root");
-  //   if(table){
-  //     scroller(table);
-  //   } 
-  // }, 100);
-
+  // const gridDiv = document.querySelector("#myGrid");
+  // gridApi = agGrid.createGrid(gridDiv, gridOptions);
+  fetchDepartmentkpitracker();
+  // const myModal = new bootstrap.Modal(document.getElementById("exampleModal"));
+  // myModal.show();
 });
 
 function scroller(table) {
@@ -210,20 +245,182 @@ function scroller(table) {
   });
 }
 
-
-async function fetchDepartmentkpi(){
+// fetch department kpi tracker
+async function fetchDepartmentkpitracker() {
   const response = await fetch(
     `http://127.0.0.1:5000/get_dep_kpi_tracker/${tok}`
   );
-  const data = await response.json();
-  console.log(data);
- 
+
+  const res = await fetch(`http://127.0.0.1:5000/get_dep_dashboard/${tok}`);
+  const dataTracker = await response.json();
+  const data = await res.json();
+  console.log(dataTracker);
+  console.log("assigned kpi:", data);
+  showkpi(data);
+
+  initializeGrid(dataTracker);
 
   document.getElementById(
     "hello"
-  ).innerHTML = `👋 Hello, Welcome to ${data.department_name}`;
+  ).innerHTML = `👋 Hello, Welcome to ${dataTracker.department_name}`;
+}
+
+function initializeGrid(data) {
+  gridOptions.rowData = data.kpi_data;
+  const gridDiv = document.querySelector("#myGrid");
+  if (!gridApi) {
+    gridApi = agGrid.createGrid(gridDiv, gridOptions);
+  }
+}
+
+// department kpis
+function showkpi(data) {
+  // console.log(data);
+  const box = document.getElementById("cards");
+
+  data.kpi_data.map((kpi, index) => {
+    const updatedDate = new Date(kpi.updated_at);
+    const formattedDate = formatDate(updatedDate);
+
+    const card = document.createElement("div");
+
+    card.innerHTML = `<div class="mycard">
+              <div class="card-header">
+                <div>
+                  <span class="card-title"
+                    >${kpi.kpis}</span
+                  >
+                  <span class="card-subtitle"></span>
+                </div>
+                 <div class="card-num" >${index + 1}</div>
+              </div>
+              <div class="card-body">
+                <div class="card-footer">
+                  <span class="percentage"></span>
+                  <span class="last-updated">LAST UPDATED: ${formattedDate}</span>
+                </div>
+              </div>
+            </div>`;
+
+    box.appendChild(card);
+  });
+}
+
+function formatDate(date) {
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+}
+
+// for edits in kpi tracker
+function makeEditable() {
+  const leftSectionInputs = document
+    .querySelector("#modalleft")
+    .querySelectorAll("input");
+
+  const strategyInput = document.querySelector("#strategies");
+
+  leftSectionInputs.forEach((input) => {
+    input.removeAttribute("readonly");
+  });
+  strategyInput.removeAttribute("readonly");
+}
+
+// Save changes and log inputs to the console
+async function saveChanges(id) {
+  console.log(id)
+  const leftSectionInputs = document
+    .querySelector("#modalleft")
+    .querySelectorAll("input");
+
+  const strategyInput = document.querySelector("#strategies");
+
+  const updatedData = {};
+
+  // Collect data from left section
+  leftSectionInputs.forEach((input) => {
+    const id = input.id;
+    const value = input.value;
+    updatedData[id] = value;
+
+    input.setAttribute("readonly", true);
+  });
+
+  // Collect data from strategies
+  updatedData["strategies"] = strategyInput.value;
+  strategyInput.setAttribute("readonly", true);
+
+  // console.log(updatedData);
+
+  const formData = new FormData();
+  formData.append("id", id);
+  formData.append("strategies", updatedData.strategies);
+  formData.append("y1", updatedData.t1);
+  formData.append("y2", updatedData.t2);
+  formData.append("y3", updatedData.t3);
+  formData.append("y4", updatedData.t4);
+  formData.append("y5", updatedData.t5);
+  formData.append("token", tok);
+ 
+  // console.log(Object.fromEntries(formData.entries()));
+ 
+  fetch(`http://127.0.0.1:5000/update_dep_kpi`, {
+    method: "POST",
+    body: formData,
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      //reload the page
+      location.reload();
+    })
+    .catch((error) => {
+      console.error("Error updating status:", error);
+    });
 
 }
 
-fetchDepartmentkpi();
+function actionButton(rowId) {
+ 
+  const button = document.getElementById("saveChanges")
+  button.addEventListener("click", () => {
+    saveChanges(rowId.id);
+  })
 
+  console.log(rowId);
+  const name = document.getElementById("kpiName");
+  name.value = rowId.kpis;
+  const kpiUnit = document.getElementById("kpiUnit");
+  kpiUnit.value = rowId.kpi_unit;
+  const baseLineStatus = document.getElementById("baseLineStatus");
+  baseLineStatus.value = rowId.baseline_Status;
+  const target5year = document.getElementById("target5year");
+  target5year.value = rowId.t5;
+  const deparment = document.getElementById("deparment");
+  deparment.value = rowId.department_name;
+  const strategies = document.getElementById("strategies");
+  strategies.value = rowId.strategies;
+
+  const year1 = document.getElementById("year1");
+  year1.value = rowId.y1;
+  const year2 = document.getElementById("year2");
+  year2.value = rowId.y2;
+  const year3 = document.getElementById("year3");
+  year3.value = rowId.y3;
+  const year4 = document.getElementById("year4");
+  year4.value = rowId.y4;
+  const year5 = document.getElementById("year5");
+  year5.value = rowId.y5;
+
+  const t1 = document.getElementById("t1");
+  t1.value = rowId.t1;
+  const t2 = document.getElementById("t2");
+  t2.value = rowId.t2;
+  const t3 = document.getElementById("t3");
+  t3.value = rowId.t3;
+  const t4 = document.getElementById("t4");
+  t4.value = rowId.t4;
+  const t5 = document.getElementById("t5");
+  t5.value = rowId.t5;
+}

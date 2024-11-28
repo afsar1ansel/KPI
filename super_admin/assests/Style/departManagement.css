@@ -211,3 +211,17 @@
   cursor: pointer;
   transition: background-color 0.5s;
 }
+
+/* model 4 */
+
+#kpiEditInput{
+   border: solid #E5E7E8 1px;
+   width: 100%;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  color: #191b1c;
+  transition: background-color 0.5s;
+}

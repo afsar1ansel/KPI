@@ -182,8 +182,8 @@ body {
 .emailBox {
   grid-area: email;
   /* border: solid 1px #e5e7e8 !important; */
-  width: 95% !important;
-  padding: 0 0 0 0.78125vw !important;
+  width: 37.2vw !important;
+  padding: 0 0 0 1.12vw !important;
 }
 
 .password{

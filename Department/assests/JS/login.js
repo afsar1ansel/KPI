@@ -117,7 +117,8 @@ const focusOnFirstError = () => {
       if (data.errflag === undefined) {
         localStorage.setItem("authToken", data.userToken);
         localStorage.setItem("userEmail", email.value.trim());
-        window.location.href = "landingPage.html";
+        localStorage.setItem("adminName", data.username);
+        window.location.href = "departmentDashboard.html";
       } else if (data.errflag === 3) {
         inputValidationMsg.textContent = data.message + " Enter a safe input.";
         inputValidationMsg.style.display = "block";

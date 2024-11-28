@@ -94,132 +94,21 @@
           <p>Settings</p>
         </div>
       </a>
-        <div id="logout" >
-          <img src="./assests/img/logout.svg" alt="logout" />
-          <p>Logout</p>
-        </div>
+      <div id="logout">
+        <img src="./assests/img/logout.svg" alt="logout" />
+        <p>Logout</p>
+      </div>
     </div>
     <div class="body">
       <div class="helloadmin">
         <!-- <h2>👋 Hello, Department of Agriculture</h2> -->
-         <h2 id="hello"></h2>
+        <h2 id="hello"></h2>
         <p>Here is all your Departmental analytics overview</p>
       </div>
       <div class="line"></div>
       <div class="longCards">
         <p>Assigned KPI’s for Department of Agriculture</p>
-        <div class="cards">
-          <div class="mycard">
-            <div class="card-header">
-              <div>
-                <span class="card-title"
-                  >Promotion of Climate Smart Crops (Millets, Pulses & Oil
-                  Seeds) Suitable to changing environmental conditions</span
-                >
-                <span class="card-subtitle">( In Lakh Ha. )</span>
-              </div>
-              <img src="./assests//img/one.svg" alt="" />
-            </div>
-            <div class="card-body">
-              <div class="card-footer">
-                <span class="percentage">↑ 1.7% Increase</span>
-                <span class="last-updated">LAST UPDATED: 24/10/2023</span>
-              </div>
-            </div>
-          </div>
-          <div class="mycard">
-            <div class="card-header">
-              <div>
-                <span class="card-title"
-                  >Weather based agro-met advisory services to enhance farmer’s
-                  adaption to changing climatic conditions</span
-                >
-                <span class="card-subtitle">( No. )</span>
-              </div>
-              <img src="./assests//img/two.svg" alt="" />
-            </div>
-            <div class="card-body">
-              <div class="card-footer">
-                <span class="percentage">Stable</span>
-                <span class="last-updated">Stable</span>
-              </div>
-            </div>
-          </div>
-          <div class="mycard">
-            <div class="card-header">
-              <div>
-                <span class="card-title"
-                  >Promote use of organic resources ( Organic fertilizer/
-                  Bio-fertilizers/ Liquid fertilizer/ Bio pesticides ) in crop
-                  production & soil health enhancement</span
-                >
-                <span class="card-subtitle">( In Lakh MT/KL. )</span>
-              </div>
-              <img src="./assests//img/three.svg" alt="" />
-            </div>
-            <div class="card-body">
-              <div class="card-footer">
-                <span class="percentage">↑ 1.7% Increase</span>
-                <span class="last-updated">Last Updated: 24/10/2023</span>
-              </div>
-            </div>
-          </div>
-          <div class="mycard">
-            <div class="card-header">
-              <div>
-                <span class="card-title"
-                  >Promote water harvesting structures through water harvest
-                  units and watershed soil and water conservation
-                  structures</span
-                >
-                <span class="card-subtitle">( In No. )</span>
-              </div>
-              <img src="./assests//img/four.svg" alt="" />
-            </div>
-            <div class="card-body">
-              <div class="card-footer">
-                <span class="percentage">1.2% Decrease</span>
-                <span class="last-updated">Last Updated: 24/10/2023</span>
-              </div>
-            </div>
-          </div>
-          <div class="mycard">
-            <div class="card-header">
-              <div>
-                <span class="card-title"
-                  >Promotion of use of micro-irrigation in agriculture by
-                  providing subsidy for installation of drip/sprinklers</span
-                >
-                <span class="card-subtitle">( In Lakh Ha. )</span>
-              </div>
-              <img src="./assests//img/five.svg" alt="" />
-            </div>
-            <div class="card-body">
-              <div class="card-footer">
-                <span class="percentage">↑ 1.7% Increase</span>
-                <span class="last-updated">Last Updated: 24/10/2023</span>
-              </div>
-            </div>
-          </div>
-          <div class="mycard">
-            <div class="card-header">
-              <div>
-                <span class="card-title"
-                  >Promote watershed area treatment for soil and water
-                  conservation</span
-                >
-                <span class="card-subtitle">( In Lakh Ha. )</span>
-              </div>
-              <img src="./assests//img/six.svg" alt="" />
-            </div>
-            <div class="card-body">
-              <div class="card-footer">
-                <span class="percentage">↑ 1.7% Increase</span>
-                <span class="last-updated">Last Updated: 24/10/2023</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div class="cards" id="cards"></div>
       </div>
 
       <div class="graph">
@@ -234,14 +123,6 @@
                 <i class="bi bi-search"></i>
                 <input type="text" placeholder="Search" />
               </div>
-              <!-- <button
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              class="btn btn-success rounded-pill"
-            >
-              <i class="bi bi-plus-circle-fill"></i> Add New User
-            </button> -->
             </div>
           </div>
           <div class="table">
@@ -254,6 +135,269 @@
         </div>
       </div>
     </div>
+
+    <!-- modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog custom-wide">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              UPDATE TARGET FOR PROMOTION OF CLIMATE SMART CROPS
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="modalbody">
+            <div id="modalright">
+              <div class="coloumsbox">
+                <div class="mb-3">
+                  <label for="kpiName" class="form-label">KPI Name</label>
+                  <textarea
+                    type="email"
+                    class="form-control"
+                    id="kpiName"
+                    aria-describedby="emailHelp"
+                    readonly
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="coloumsbox">
+                <div class="mb-3">
+                  <label for="kpiUnit" class="form-label">KPI Unit</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="kpiUnit"
+                    aria-describedby="emailHelp"
+                    readonly
+                  />
+                </div>
+              </div>
+
+              <div class="coloumsbox" id="coloumsbox">
+                <div class="mb-3">
+                  <label for="baseLineStatus" class="form-label"
+                    >Baseline Status</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="baseLineStatus"
+                    aria-describedby="emailHelp"
+                    readonly
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="target5year" class="form-label"
+                    >Target set for 5 years</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="target5year"
+                    aria-describedby="emailHelp"
+                    readonly
+                  />
+                </div>
+              </div>
+
+              <div class="coloumsbox">
+                <div class="mb-3">
+                  <label for="deparment" class="form-label"
+                    >Co-ordinating departments</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="deparment"
+                    aria-describedby="emailHelp"
+                    readonly
+                  />
+                </div>
+              </div>
+
+              <div class="coloumsbox">
+                <div class="mb-3">
+                  <div style="display: flex; justify-content: space-between">
+                    <label for="strategies" class="form-label"
+                      >Strategies</label
+                    >
+                    <div id="targetEdit" style="display: flex; gap: 3px; height: 15px; text-align: center; margin: 0; cursor: pointer;" onclick="makeEditable()">
+                      <i class="bi bi-pen" style="font-size: 12px; " ></i>
+                      <p>edit</p>
+                    </div>
+                  </div>
+                  <textarea
+                    type="email"
+                    class="form-control"
+                    id="strategies"
+                    aria-describedby="emailHelp"
+                    readonly
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+            <div id="modalmid">
+              <p>Annual targets ( Every 5 years )</p>
+              <div class="mb-3">
+                <label for="year1" class="form-label"
+                  >year 1</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="year1"
+                  aria-describedby="emailHelp"
+                  readonly
+                />
+              </div>
+              
+               <div class="mb-3">
+                <label for="year2" class="form-label"
+                  >year 2</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="year2"
+                  aria-describedby="emailHelp"
+                  readonly
+                />
+              </div>
+
+               <div class="mb-3">
+                <label for="year3" class="form-label"
+                  >year 3</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="year3"
+                  aria-describedby="emailHelp"
+                  readonly
+                />
+              </div>
+              
+               <div class="mb-3">
+                <label for="year4" class="form-label"
+                  >year 4</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="year4"
+                  aria-describedby="emailHelp"
+                  readonly
+                />
+              </div>
+
+               <div class="mb-3">
+                <label for="year5" class="form-label"
+                  >year 5</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="year5"
+                  aria-describedby="emailHelp"
+                  readonly
+                />
+              </div>
+
+            </div>
+             <div id="modalleft">
+              <p>Target achieved ( Every 5 years )</p>
+              <div class="mb-3">
+                <div style="display: flex; justify-content: space-between">
+                    <label for="t1" class="form-label"
+                      >year 1</label
+                    >
+                    <div id="targetEdit" style="display: flex; gap: 3px; height: 15px; text-align: center; margin: 0; cursor: pointer;" onclick="makeEditable()" >
+                      <i class="bi bi-pen" style="font-size: 12px; " ></i>
+                      <p>edit</p>
+                    </div>
+                  </div>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="t1"
+                  aria-describedby="emailHelp"
+                  readonly
+                />
+              </div>
+              
+               <div class="mb-3">
+                <label for="t2" class="form-label"
+                  >year 2</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="t2"
+                  aria-describedby="emailHelp"
+                  readonly
+                />
+              </div>
+
+               <div class="mb-3">
+                <label for="t3" class="form-label"
+                  >year 3</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="t3"
+                  aria-describedby="emailHelp"
+                  readonly
+                />
+              </div>
+              
+               <div class="mb-3">
+                <label for="t4" class="form-label"
+                  >year 4</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="t4"
+                  aria-describedby="emailHelp"
+                  readonly
+                />
+              </div>
+
+               <div class="mb-3">
+                <label for="t5" class="form-label"
+                  >year 5</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="t5"
+                  aria-describedby="emailHelp"
+                  readonly
+                />
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success rounded-pill" id="saveChanges" >Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
       integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
