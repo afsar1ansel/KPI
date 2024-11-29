@@ -44,7 +44,7 @@ const gridOptions = {
       cellRenderer: (params) => {
         let data = JSON.stringify(params.data).replace(/"/g, "&quot;");
         let name = params.data.dept_name;
-
+        console.log(params);
         return `<p style="font-weight: 500; cursor: pointer;" 
            data-bs-toggle="modal" data-bs-target="#exampleModal" 
            onclick="handleDepartment('${data}')">${name}</p>`;
@@ -430,7 +430,6 @@ async function handlekpinumbermodal(kpi) {
     form.append("id", kpi.id);
     form.append("kpis", updatedKpiValue);
     form.append("token", tok);
-   
 
     fetch("http://127.0.0.1:5000/admin_update_kpi_name", {
       method: "POST",
@@ -447,4 +446,3 @@ async function handlekpinumbermodal(kpi) {
       });
   });
 }
-

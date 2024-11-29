@@ -314,3 +314,25 @@
   color: #5fa777;
 }
 
+/* show all */
+
+#paginationNumb{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+#showAll{
+  color: var(--Green-2, #0F6609);
+font-family: "Public Sans";
+font-size: 14px;
+font-style: normal;
+font-weight: 500;
+line-height: 22px; /* 157.143% */
+}
+
+#showAll:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}

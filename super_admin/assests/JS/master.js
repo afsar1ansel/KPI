@@ -98,7 +98,7 @@ async function fetchDistrictDetails() {
 
 // Populate Dropdown
 function populateDropdown(data, dropdownId, dataKey, textKey, valueKey = null) {
-    console.log(dataKey)
+  console.log(dataKey);
   const dropdown = document.getElementById(dropdownId);
   dropdown.innerHTML = "";
 
@@ -108,10 +108,10 @@ function populateDropdown(data, dropdownId, dataKey, textKey, valueKey = null) {
 
   data[dataKey].forEach((item) => {
     const option = document.createElement("option");
-    if (dataKey == "department_names"){
+    if (dataKey == "department_names") {
       option.text = `${item.dept_name} | ( ${item.dept_code})`;
-    } else{
-        option.text = item[textKey];
+    } else {
+      option.text = item[textKey];
     }
     if (valueKey) option.value = item[valueKey];
     dropdown.appendChild(option);

@@ -1,53 +1,51 @@
 const token = localStorage.getItem("authToken") || "";
-let adminName = localStorage.getItem("adminName") || ""; 
+let adminName = localStorage.getItem("adminName") || "";
 let adminMail = localStorage.getItem("adminMail") || "";
 
-if (!token){
+if (!token) {
   window.location.href = "./login.html";
-}else{
-
-document.addEventListener("DOMContentLoaded", async function () {
-  if (!adminName) {
-    await fetchAdminData();
-  }
-  updateNavBar();
-});
-
-async function fetchAdminData() {
-  try {
-    const res = await fetch(`http://127.0.0.1:5000/superadmin/all/${token}`);
-    if (!res.ok) {
-      throw new Error(`Failed to fetch admin data: ${res.status}`);
+} else {
+  document.addEventListener("DOMContentLoaded", async function () {
+    if (!adminName) {
+      await fetchAdminData();
     }
-    const data = await res.json();
-    if (data.superAdmins && data.superAdmins.length > 0) {
-      adminName = data.superAdmins[0].username;
-      adminMail = data.superAdmins[0].emailid;
+    updateNavBar();
+  });
 
-      localStorage.setItem("adminName", adminName);
-      localStorage.setItem("adminMail", adminMail);
+  async function fetchAdminData() {
+    try {
+      const res = await fetch(`http://127.0.0.1:5000/superadmin/all/${token}`);
+      if (!res.ok) {
+        throw new Error(`Failed to fetch admin data: ${res.status}`);
+      }
+      const data = await res.json();
+      if (data.superAdmins && data.superAdmins.length > 0) {
+        adminName = data.superAdmins[0].username;
+        adminMail = data.superAdmins[0].emailid;
 
-      console.log(adminName, adminMail);
-    } else {
-      console.warn("No superAdmins found in the response");
+        localStorage.setItem("adminName", adminName);
+        localStorage.setItem("adminMail", adminMail);
+
+        // console.log(adminName, adminMail);
+      } else {
+        console.warn("No superAdmins found in the response");
+      }
+    } catch (error) {
+      console.error("Error fetching admin data:", error);
     }
-  } catch (error) {
-    console.error("Error fetching admin data:", error);
   }
-}
 
-function getInitials(name) {
-  if (!name) return "";
-  const nameParts = name.trim().split(" ");
-  const firstInitial = nameParts[0]?.charAt(0).toUpperCase() || "";
-  const lastInitial = nameParts[1]?.charAt(0).toUpperCase() || "";
-  return firstInitial + lastInitial; 
-}
+  function getInitials(name) {
+    if (!name) return "";
+    const nameParts = name.trim().split(" ");
+    const firstInitial = nameParts[0]?.charAt(0).toUpperCase() || "";
+    const lastInitial = nameParts[1]?.charAt(0).toUpperCase() || "";
+    return firstInitial + lastInitial;
+  }
 
-
-function updateNavBar() {
-   const initials = getInitials(adminName);
-  document.getElementById("adminNav").innerHTML = `
+  function updateNavBar() {
+    const initials = getInitials(adminName);
+    document.getElementById("adminNav").innerHTML = `
     <nav class="navBar">
       <div class="logo">
         <img src="../Department/assests/img/green_logo.svg" alt="" />
@@ -65,6 +63,5 @@ function updateNavBar() {
       </div>
     </nav>
   `;
-}
-
+  }
 }

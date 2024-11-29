@@ -186,6 +186,70 @@
       </div>
     </div>
 
+    <div
+      class="modal fade"
+      id="editModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Edit User
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="editname" class="form-label"
+                >User Name</label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="editname"
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="editMail" class="form-label"
+                >Email Id</label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="editMail"
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="editPass" class="form-label"
+                >Password</label
+              >
+              <input
+                type="email"
+                class="form-control"
+                id="editPass"
+                aria-describedby="emailHelp"
+              />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success rounded-pill" id="editBtn" >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- toast -->
       <div class="toast-container position-fixed top-0 end-0 p-3">
   <div id="toast-error" class="toast align-items-center text-bg-success" role="alert" aria-live="assertive" aria-atomic="true">

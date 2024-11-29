@@ -111,7 +111,7 @@ document
     formData.append("cur_password", passwordInfo.currentPassword);
     formData.append("new_password", passwordInfo.confirmPassword);
     formData.append("token", tok || "");
-    
+
     console.log("Password Info:", passwordInfo);
 
     changePasswordFetch(formData);
@@ -140,3 +140,4 @@ async function changePasswordFetch(passwordInfo) {
   const data = await response.json();
   console.log(data);
 }
+// http://127.0.0.1:5000/

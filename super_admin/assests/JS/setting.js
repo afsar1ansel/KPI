@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const confirmPassInput = document.getElementById("confirmPass");
   const errmsgbox = document.getElementById("error-message");
   const token = localStorage.getItem("authToken");
-  console.log(token)
+  console.log(token);
 
   const saveUserDetailsBtn = document.querySelector(
     ".settings .btn-success:first-of-type"
@@ -42,12 +42,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   saveUserDetailsBtn.addEventListener("click", (event) => {
     event.preventDefault();
-   
+
     const userData = new FormData();
-      userData.append("username", userNameInput.value.trim());
-      userData.append("emailid", emailInput.value.trim());
-      userData.append("token", token)
-      saveChange(userData);
+    userData.append("username", userNameInput.value.trim());
+    userData.append("emailid", emailInput.value.trim());
+    userData.append("token", token);
+    saveChange(userData);
   });
 
   // Get the toast element
@@ -63,50 +63,48 @@ document.addEventListener("DOMContentLoaded", () => {
     const newPassword = newPasswordInput.value.trim();
     const confirmPassword = confirmPassInput.value.trim();
 
-     if (newPassword !== confirmPassword) {
-       toastMessageElement.textContent = "Passwords do not match!";
-       toast.show(); 
-     } else if (newPassword === "") {
-       toastMessageElement.textContent = "Password cannot be empty!";
-       toast.show();
-     } else {
-       toast.hide(); 
-       
-       const passwordData = new FormData();
-        passwordData.append("old_password", currentPassword);
-        passwordData.append("new_password", newPassword);
-        passwordData.append("token" , token );
+    if (newPassword !== confirmPassword) {
+      toastMessageElement.textContent = "Passwords do not match!";
+      toast.show();
+    } else if (newPassword === "") {
+      toastMessageElement.textContent = "Password cannot be empty!";
+      toast.show();
+    } else {
+      toast.hide();
 
-        changePassword(passwordData)
-     }
+      const passwordData = new FormData();
+      passwordData.append("old_password", currentPassword);
+      passwordData.append("new_password", newPassword);
+      passwordData.append("token", token);
+
+      changePassword(passwordData);
+    }
   });
 });
-  
 
-async function saveChange(data){
-    console.log(data)
-     const response = await fetch(
-       `http://127.0.0.1:5000/superadmin/update/basic`,
-       {
-         method: "POST",
-         body: data,
-       }
-     );
+async function saveChange(data) {
+  console.log(data);
+  const response = await fetch(
+    `http://127.0.0.1:5000/superadmin/update/basic`,
+    {
+      method: "POST",
+      body: data,
+    }
+  );
 
-     const res = await response.json();
-     console.log(res)
+  const res = await response.json();
+  console.log(res);
 }
 
-
-async function changePassword(data){
-    console.log(data)
-      const response = await fetch(
-        `http://127.0.0.1:5000/superadmin/update/password`,
-        {
-          method: "POST",
-          body: data,
-        }
-      );
-      const res = await response.json();
-      console.log(res)
+async function changePassword(data) {
+  console.log(data);
+  const response = await fetch(
+    `http://127.0.0.1:5000/superadmin/update/password`,
+    {
+      method: "POST",
+      body: data,
+    }
+  );
+  const res = await response.json();
+  console.log(res);
 }

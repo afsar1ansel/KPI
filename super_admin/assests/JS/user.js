@@ -1,6 +1,9 @@
 const tok = localStorage.getItem("authToken");
 let gridApi;
 let datas;
+const toastMessageElement = document.getElementById("toast-message");
+const toastElement = document.getElementById("toast-error");
+const toast = new bootstrap.Toast(toastElement);
 
 class StatusCellRenderer {
   init(params) {
@@ -38,7 +41,7 @@ class StatusCellRenderer {
 }
 
 const gridOptions = {
-   rowData: [],
+  rowData: [],
 
   columnDefs: [
     {
@@ -51,7 +54,14 @@ const gridOptions = {
       headerName: "Email ID",
       maxWidth: 500,
     },
-    { field: "role_id", headerName: "ROLE", maxWidth: 200,cellRenderer: function (params) {return params.value === 1 ? 'Super Admin' : 'Admin';} },
+    {
+      field: "role_id",
+      headerName: "ROLE",
+      maxWidth: 200,
+      cellRenderer: function (params) {
+        return params.value === 1 ? "Super Admin" : "Admin";
+      },
+    },
     {
       field: "status",
       headerName: "STATUS",
@@ -62,10 +72,9 @@ const gridOptions = {
       headerName: "ACTION",
       cellRenderer: function (params) {
         // console.log(params)
-        const dataId = JSON.stringify(params.data).replace(/"/g, "&quot;"); 
+        const dataId = JSON.stringify(params.data).replace(/"/g, "&quot;");
         return `
-    <i class="bi bi-pencil-square" onclick="handleEditClick(${dataId})"></i> 
-    <i class="bi bi-trash" onclick="handleDeleteClick(${dataId})"></i>
+    <i class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target="#editModal" onclick="handleEditClick(${dataId})"></i> 
   `;
       },
     },
@@ -113,7 +122,6 @@ function updatePaginationSummary(p) {
   numberPannel.innerHTML = `Showing ${startRow} to ${endRow} of ${totalRows} entries`;
 }
 
-
 async function fetchdetails(tok) {
   try {
     const response = await fetch(
@@ -125,7 +133,7 @@ async function fetchdetails(tok) {
 
     const data = await response.json();
     datas = await data;
-    console.log(datas)
+    console.log(datas);
     initializeGrid(data);
   } catch (error) {
     console.error("Error fetching department status:", error);
@@ -142,12 +150,10 @@ function initializeGrid(data) {
   }
 }
 
-
 document.addEventListener("DOMContentLoaded", function () {
   const tok = localStorage.getItem("authToken");
   fetchdetails(tok);
 });
-
 
 function handleDetails(data) {
   console.log(data);
@@ -205,43 +211,58 @@ function handleDepartment(data) {
   console.log(departmentData);
 }
 
-function handleEditClick(data) {
+async function handleEditClick(data) {
   console.log(data);
 
+  document.getElementById("editname").value = data.username || "";
+  document.getElementById("editMail").value = data.emailid || "";
+  document.getElementById("editPass").value = "";
+
   const formData = new FormData();
-  formData.append("user_id", data);
-  formData.append("token", tok)
+  formData.append("user_id", data.id);
+  formData.append("token", tok);
   formData.append("username", data.username);
   formData.append("mail", data.emailid);
   formData.append("role_id", data.role_id);
   formData.append("password", data.status);
 
-  
+  const saveButton = document.getElementById("editBtn");
+  saveButton.onclick = function () {
+    const name = document.getElementById("editname").value;
+    const email = document.getElementById("editMail").value;
+    const pass = document.getElementById("editPass").value;
 
+    //  console.log("Updated values:", { name, email, pass });
+
+    // Prepare the form data
+    const formData = new FormData();
+    formData.append("user_id", data.id);
+    formData.append("token", tok);
+    formData.append("username", name);
+    formData.append("mail", email);
+    formData.append("role_id", data.role_id);
+    formData.append("password", pass);
+
+    fetcheditor(formData);
+  };
 }
 
-// function handleDeleteClick(id) {
-//   console.log("Delete clicked for ID:", id);
-// }
-
 async function toggleStatus(customerId) {
-  console.log("Toggle status clicked", customerId,tok);
+  console.log("Toggle status clicked", customerId, tok);
 
   const formDatas = new FormData();
   formDatas.append("user_id", customerId);
-  formDatas.append("token", tok)
+  formDatas.append("token", tok);
 
+  const response = await fetch("http://127.0.0.1:5000/superadmin/toggle", {
+    method: "POST",
+    body: formDatas,
+  });
 
-   const response = await fetch("http://127.0.0.1:5000/superadmin/toggle", {
-     method: "POST",
-     body: formDatas,
-   });
-
-   const data = await response.json();
-   console.log(data)
-return true
+  const data = await response.json();
+  console.log(data);
+  return true;
 }
-
 
 // Add event listener for the Save button
 document.querySelector("#save").addEventListener("click", function () {
@@ -257,17 +278,12 @@ document.querySelector("#save").addEventListener("click", function () {
   formData.append("mail", email);
   formData.append("password", password);
   formData.append("role_id", role);
-  formData.append("token", tok)
+  formData.append("token", tok);
 
-  fetchadder(formData)
-
+  fetchadder(formData);
 });
 
-const toastMessageElement = document.getElementById("toast-message");
-const toastElement = document.getElementById("toast-error");
-const toast = new bootstrap.Toast(toastElement);
 async function fetchadder(formData) {
-
   const response = await fetch("http://127.0.0.1:5000/superadmin/add", {
     method: "POST",
     body: formData,
@@ -275,12 +291,30 @@ async function fetchadder(formData) {
 
   const data = await response.json();
   console.log(data);
-  if(data.errflag == 0){
+  if (data.errflag == 0) {
     toastMessageElement.textContent = "New user added successfully!";
     toast.show();
-  }else{
+  } else {
     toastMessageElement.textContent = "there is an error";
     toast.show();
   }
+}
 
+async function fetcheditor(formData) {
+  // console.log(Object.fromEntries(formData));
+
+  const response = await fetch("http://127.0.0.1:5000/superadmin/update", {
+    method: "POST",
+    body: formData,
+  });
+
+  const data = await response.json();
+  console.log(data);
+  if (data.errflag == 0) {
+    toastMessageElement.textContent = "User updated successfully!";
+    toast.show();
+  } else {
+    toastMessageElement.textContent = "there is an error";
+    toast.show();
+  }
 }

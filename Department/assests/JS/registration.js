@@ -70,8 +70,9 @@ document.getElementById("login").addEventListener("click", function (event) {
     document.getElementById("password-confirm").nextElementSibling;
 
   if (confirmPasswordError && password !== confirmPassword) {
-    confirmPasswordError.textContent = "Passwords do not match.";
-    confirmPasswordError.style.display = "block";
+    // confirmPasswordError.textContent = "Passwords do not match.";
+    // confirmPasswordError.style.display = "block";
+    alert("Passwords do not match.");
     formIsValid = false;
   } else if (confirmPasswordError) {
     confirmPasswordError.style.display = "none";
@@ -105,10 +106,9 @@ document.getElementById("login").addEventListener("click", function (event) {
     formData.append("department_email", formData1.email);
     formData.append("mobile", formData1.mobileNumber);
     formData.append("department_password", formData1.password);
-    
 
-   console.log(Array.from(formData.entries()));
- 
+    console.log(Array.from(formData.entries()));
+
     fectchResponse(formData);
   }
 });
@@ -145,8 +145,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-
-
 function populateDepartmentDropdown(departments, dropDownId, placeholder) {
   const selectDropDepartment = document.getElementById(dropDownId);
 
@@ -176,7 +174,7 @@ function populateDepartmentDropdown(departments, dropDownId, placeholder) {
           const departmentCodeInput = document.getElementById("departmentCode");
           departmentCodeInput.value = department.dept_code;
         }
-      })
+      });
     });
   }
 }
@@ -216,8 +214,6 @@ async function fetchDivision() {
   }
 }
 
-
-
 async function fetchDistrict() {
   try {
     const response = await fetch("http://127.0.0.1:5000/district/all", {
@@ -245,7 +241,6 @@ async function fetchDistrict() {
   }
 }
 
-
 async function fetchDepartments(apiUrl, dropDownId, placeholder) {
   try {
     const response = await fetch(apiUrl, {
@@ -265,21 +260,19 @@ async function fetchDepartments(apiUrl, dropDownId, placeholder) {
   }
 }
 
-
-async function fectchResponse(data){
+async function fectchResponse(data) {
   // console.log(data)
   const response = await fetch(`http://127.0.0.1:5000/department/add`, {
     method: "POST",
     body: data,
   });
-    const result = await response.json();
-    console.log(result);
+  const result = await response.json();
+  console.log(result);
 
-    if(result.errflag == 0){
-   const toastElement = document.getElementById("toast-error");
-   const toastMessageElement = document.getElementById("toast-message");
-   const toast = new bootstrap.Toast(toastElement);
-  toast.show(); 
-    }
-
+  if (result.errflag == 0) {
+    const toastElement = document.getElementById("toast-error");
+    const toastMessageElement = document.getElementById("toast-message");
+    const toast = new bootstrap.Toast(toastElement);
+    toast.show();
+  }
 }

@@ -439,6 +439,10 @@ nav {
   font-weight: 400;
   font-size: 20px;
   font-family: "Public Sans", sans-serif;
+  text-align: center;
+  /* border: solid 1px red; */
+  margin-right: 100px;
+  margin-bottom: 10px;
 }
 
 .curveImg div {
