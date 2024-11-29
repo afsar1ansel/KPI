@@ -1,3 +1,4 @@
+const tok = localStorage.getItem("authToken");
 document.addEventListener("DOMContentLoaded", () => {
   const buttons = document.querySelectorAll(".tab-button");
   const contents = document.querySelectorAll(".content");
@@ -41,19 +42,42 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault(); // Stop default behavior
     const departmentInput = document.getElementById("departmentInput").value;
     const departmetnCode = document.getElementById("despartmentCode").value;
-    console.log({ department: departmentInput, code: departmetnCode });
+    // console.log({ department: departmentInput, code: departmetnCode });
+
+    const formData = new FormData();
+    formData.append("dept_name", departmentInput);
+    formData.append("dept_code", departmetnCode);
+    formData.append("token", tok);
+
+    // console.log(Object.fromEntries(formData));
+
+    handleAddClick("dept", formData);
+
   });
 
   divisionButton.addEventListener("click", (event) => {
-    event.preventDefault(); // Stop default behavior
+    event.preventDefault();
     const divisionInput = document.getElementById("divisionInput").value;
-    console.log({ division: divisionInput });
+    // console.log({ division: divisionInput });
+
+    const formData = new FormData();
+    formData.append("div_name", divisionInput);
+    formData.append("token", tok);
+
+    console.log(Object.fromEntries(formData));
+
   });
 
   districtButton.addEventListener("click", (event) => {
     event.preventDefault(); // Stop default behavior
     const districtInput = document.getElementById("districtInput").value;
-    console.log({ district: districtInput });
+    // console.log({ district: districtInput });
+
+    const formData = new FormData();
+    formData.append("dist_name", districtInput);
+    formData.append("token", tok);
+
+    console.log(Object.fromEntries(formData));
   });
 });
 
@@ -98,7 +122,7 @@ async function fetchDistrictDetails() {
 
 // Populate Dropdown
 function populateDropdown(data, dropdownId, dataKey, textKey, valueKey = null) {
-  console.log(dataKey);
+  // console.log(dataKey);
   const dropdown = document.getElementById(dropdownId);
   dropdown.innerHTML = "";
 
@@ -116,4 +140,26 @@ function populateDropdown(data, dropdownId, dataKey, textKey, valueKey = null) {
     if (valueKey) option.value = item[valueKey];
     dropdown.appendChild(option);
   });
+}
+
+async function handleAddClick(event, data) {
+  // console.log(event);
+  console.log(Object.fromEntries(data));
+  try{
+    // const payload = typeof data === "string" ? data : JSON.stringify(data);
+
+  const response = await fetch(
+    `http://127.0.0.1:5000/dept_masters/add`,
+    {
+      method: "POST",
+      body: data,
+    }
+  );
+
+  const res = await response.json();
+  console.log(res);
+  } catch (error) {
+    console.error("Error adding data:", error);
+  }
+
 }
