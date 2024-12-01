@@ -99,10 +99,13 @@ async function handleSubmit(event) {
     formData.append("password", passwordInput.value.trim());
 
     // Send a POST request to the login API
-    const response = await fetch("http://127.0.0.1:5000/department/login", {
-      method: "POST",
-      body: formData,
-    });
+    const response = await fetch(
+      "https://staging.thirdeyegfx.in/kpi_app/department/login",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
 
     // Parse the JSON response
     const data = await response.json();

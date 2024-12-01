@@ -103,11 +103,14 @@ async function handleSubmit(event) {
     formData.append("password", passwordInput.value.trim());
 
     // Send a POST request to the login API
-    const response = await fetch("http://127.0.0.1:5000/superadmin/login", {
-      method: "POST",
-      body: formData,
-      // mode: "no-cors",
-    });
+    const response = await fetch(
+      "https://staging.thirdeyegfx.in/kpi_app/superadmin/login",
+      {
+        method: "POST",
+        body: formData,
+        // mode: "no-cors",
+      }
+    );
 
     // Parse the JSON response
     // console.log(email, passwordInput)

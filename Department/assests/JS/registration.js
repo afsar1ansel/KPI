@@ -180,7 +180,7 @@ function populateDepartmentDropdown(departments, dropDownId, placeholder) {
 }
 
 fetchDepartments(
-  "http://127.0.0.1:5000/department_name/all",
+  "https://staging.thirdeyegfx.in/kpi_app/department_name/all",
   "department_names",
   "Choose your department"
 );
@@ -189,9 +189,12 @@ fetchDistrict();
 
 async function fetchDivision() {
   try {
-    const response = await fetch("http://127.0.0.1:5000/division/all", {
-      method: "GET",
-    });
+    const response = await fetch(
+      "https://staging.thirdeyegfx.in/kpi_app/division/all",
+      {
+        method: "GET",
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -216,9 +219,12 @@ async function fetchDivision() {
 
 async function fetchDistrict() {
   try {
-    const response = await fetch("http://127.0.0.1:5000/district/all", {
-      method: "GET",
-    });
+    const response = await fetch(
+      "https://staging.thirdeyegfx.in/kpi_app/district/all",
+      {
+        method: "GET",
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
@@ -262,10 +268,13 @@ async function fetchDepartments(apiUrl, dropDownId, placeholder) {
 
 async function fectchResponse(data) {
   // console.log(data)
-  const response = await fetch(`http://127.0.0.1:5000/department/add`, {
-    method: "POST",
-    body: data,
-  });
+  const response = await fetch(
+    `https://staging.thirdeyegfx.in/kpi_app/department/add`,
+    {
+      method: "POST",
+      body: data,
+    }
+  );
   const result = await response.json();
   console.log(result);
 

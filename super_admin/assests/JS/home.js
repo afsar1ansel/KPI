@@ -254,7 +254,7 @@ function updatePaginationSummary(p) {
   const startRow = p.api.getFirstDisplayedRow() + 1; 
   const endRow = p.api.getLastDisplayedRow() + 1; 
 
-  numberPannel.innerHTML = `<div id="paginationNumb" ><p>Showing ${startRow} to ${endRow} of ${totalRows} entries</p> <p id="showAll">Show all entries</p></div>`;
+  numberPannel.innerHTML = `<div id="paginationNumb"><p>Showing ${startRow} to ${endRow} of ${totalRows} entries</p> <p id="showAll">Show all entries</p></div>`;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -570,5 +570,8 @@ function updatePaginationSummary1(p) {
 }
 
 
+function toggleshowall(nam) {
+  console.log(nam)
+}
 
 

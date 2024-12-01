@@ -9,11 +9,14 @@ async function logoutFunction() {
   const formData = new FormData();
   formData.append("token", token);
   console.log(Object.fromEntries(formData));
-  const response = await fetch("http://127.0.0.1:5000/superadmin/logout", {
-    method: "POST",
-    body: formData,
-    // mode: "no-cors",
-  });
+  const response = await fetch(
+    "https://staging.thirdeyegfx.in/kpi_app/superadmin/logout",
+    {
+      method: "POST",
+      body: formData,
+      // mode: "no-cors",
+    }
+  );
 
   const data = await response.json();
   console.log(data);

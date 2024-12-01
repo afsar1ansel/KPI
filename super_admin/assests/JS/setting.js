@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
 async function saveChange(data) {
   console.log(data);
   const response = await fetch(
-    `http://127.0.0.1:5000/superadmin/update/basic`,
+    `https://staging.thirdeyegfx.in/kpi_app/superadmin/update/basic`,
     {
       method: "POST",
       body: data,
@@ -99,7 +99,7 @@ async function saveChange(data) {
 async function changePassword(data) {
   console.log(data);
   const response = await fetch(
-    `http://127.0.0.1:5000/superadmin/update/password`,
+    `https://staging.thirdeyegfx.in/kpi_app/superadmin/update/password`,
     {
       method: "POST",
       body: data,

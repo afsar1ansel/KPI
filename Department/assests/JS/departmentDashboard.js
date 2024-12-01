@@ -39,7 +39,6 @@ const gridOptions = {
       headerName: "COORDINATING DEPARTMENT",
       maxWidth: 130,
       cellRenderer: function (params) {
-        
         return `<div><p>${department}</p></div>`;
       },
     },
@@ -50,7 +49,7 @@ const gridOptions = {
       cellRenderer: function (params) {
         const st = params.data.strategies || "No Strategies Yet";
         return `<div><p>${st}</p></div>`;
-      }
+      },
     },
     {
       headerName: "ANNUAL TARGET",
@@ -262,10 +261,12 @@ function scroller(table) {
 // fetch department kpi tracker
 async function fetchDepartmentkpitracker() {
   const response = await fetch(
-    `http://127.0.0.1:5000/get_dep_kpi_tracker/${tok}`
+    `https://staging.thirdeyegfx.in/kpi_app/get_dep_kpi_tracker/${tok}`
   );
 
-  const res = await fetch(`http://127.0.0.1:5000/get_dep_dashboard/${tok}`);
+  const res = await fetch(
+    `https://staging.thirdeyegfx.in/kpi_app/get_dep_dashboard/${tok}`
+  );
   const dataTracker = await response.json();
   const data = await res.json();
   // console.log(dataTracker);
@@ -381,7 +382,7 @@ async function saveChanges(id) {
 
   console.log(Object.fromEntries(formData.entries()));
 
-  fetch(`http://127.0.0.1:5000/update_dep_kpi`, {
+  fetch(`https://staging.thirdeyegfx.in/kpi_app/update_dep_kpi`, {
     method: "POST",
     body: formData,
   })

@@ -120,10 +120,13 @@ document
 async function basicInfoFetch(basicInfo) {
   console.log(basicInfo);
 
-  const response = await fetch(`http://127.0.0.1:5000/department/update`, {
-    method: "POST",
-    body: basicInfo,
-  });
+  const response = await fetch(
+    `https://staging.thirdeyegfx.in/kpi_app/department/update`,
+    {
+      method: "POST",
+      body: basicInfo,
+    }
+  );
   const data = await response.json();
   console.log(data);
 }
@@ -131,7 +134,7 @@ async function basicInfoFetch(basicInfo) {
 async function changePasswordFetch(passwordInfo) {
   console.log(passwordInfo);
   const response = await fetch(
-    `http://127.0.0.1:5000/department/update_password`,
+    `https://staging.thirdeyegfx.in/kpi_app/department/update_password`,
     {
       method: "POST",
       body: passwordInfo,
@@ -140,4 +143,4 @@ async function changePasswordFetch(passwordInfo) {
   const data = await response.json();
   console.log(data);
 }
-// http://127.0.0.1:5000/
+// https://staging.thirdeyegfx.in/kpi_app/

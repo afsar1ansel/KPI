@@ -125,7 +125,7 @@ function updatePaginationSummary(p) {
 async function fetchdetails(tok) {
   try {
     const response = await fetch(
-      `http://127.0.0.1:5000/superadmin/all/${tok}`,
+      `https://staging.thirdeyegfx.in/kpi_app/superadmin/all/${tok}`,
       {
         method: "GET",
       }
@@ -254,10 +254,13 @@ async function toggleStatus(customerId) {
   formDatas.append("user_id", customerId);
   formDatas.append("token", tok);
 
-  const response = await fetch("http://127.0.0.1:5000/superadmin/toggle", {
-    method: "POST",
-    body: formDatas,
-  });
+  const response = await fetch(
+    "https://staging.thirdeyegfx.in/kpi_app/superadmin/toggle",
+    {
+      method: "POST",
+      body: formDatas,
+    }
+  );
 
   const data = await response.json();
   console.log(data);
@@ -284,10 +287,13 @@ document.querySelector("#save").addEventListener("click", function () {
 });
 
 async function fetchadder(formData) {
-  const response = await fetch("http://127.0.0.1:5000/superadmin/add", {
-    method: "POST",
-    body: formData,
-  });
+  const response = await fetch(
+    "https://staging.thirdeyegfx.in/kpi_app/superadmin/add",
+    {
+      method: "POST",
+      body: formData,
+    }
+  );
 
   const data = await response.json();
   console.log(data);
@@ -303,10 +309,13 @@ async function fetchadder(formData) {
 async function fetcheditor(formData) {
   // console.log(Object.fromEntries(formData));
 
-  const response = await fetch("http://127.0.0.1:5000/superadmin/update", {
-    method: "POST",
-    body: formData,
-  });
+  const response = await fetch(
+    "https://staging.thirdeyegfx.in/kpi_app/superadmin/update",
+    {
+      method: "POST",
+      body: formData,
+    }
+  );
 
   const data = await response.json();
   console.log(data);

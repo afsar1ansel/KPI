@@ -14,7 +14,9 @@ if (!token) {
 
   async function fetchAdminData() {
     try {
-      const res = await fetch(`http://127.0.0.1:5000/superadmin/all/${token}`);
+      const res = await fetch(
+        `https://staging.thirdeyegfx.in/kpi_app/superadmin/all/${token}`
+      );
       if (!res.ok) {
         throw new Error(`Failed to fetch admin data: ${res.status}`);
       }

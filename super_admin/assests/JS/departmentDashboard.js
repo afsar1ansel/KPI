@@ -6,7 +6,7 @@ let deptId;
 async function fetchdetails(tok) {
   try {
     const response = await fetch(
-      `http://127.0.0.1:5000/department/get_status/${tok}`,
+      `https://staging.thirdeyegfx.in/kpi_app/department/get_status/${tok}`,
       {
         method: "GET",
       }
@@ -228,9 +228,12 @@ async function handleAssignClick(data) {
   deptId = data.dept_master_id;
   const unitSelector = document.getElementById("unitSelector");
   unitSelector.innerHTML = "";
-  const response = await fetch(`http://127.0.0.1:5000/get_all_uom/all/${tok}`, {
-    method: "GET",
-  });
+  const response = await fetch(
+    `https://staging.thirdeyegfx.in/kpi_app/get_all_uom/all/${tok}`,
+    {
+      method: "GET",
+    }
+  );
   const uomData = await response.json();
   // console.log(uomData.uom);
   uomData.uom.map((uom) => {
@@ -297,7 +300,7 @@ async function handleKpiNUmberModal(data) {
   console.log(departmentData);
 
   const response = await fetch(
-    `http://127.0.0.1:5000/get_one_department_kpi/${departmentData.dept_master_id}/${tok}`,
+    `https://staging.thirdeyegfx.in/kpi_app/get_one_department_kpi/${departmentData.dept_master_id}/${tok}`,
     {
       method: "GET",
     }
@@ -332,10 +335,13 @@ async function toggleStatus(customerId, newStatus) {
   form.append("app_status", newStatus);
   form.append("token", tok);
 
-  fetch("http://127.0.0.1:5000/department/toggle_approval_status", {
-    method: "POST",
-    body: form,
-  })
+  fetch(
+    "https://staging.thirdeyegfx.in/kpi_app/department/toggle_approval_status",
+    {
+      method: "POST",
+      body: form,
+    }
+  )
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
@@ -400,7 +406,7 @@ async function postAssignData(data, deptId) {
 
   // console.log(Object.fromEntries(form.entries()));
 
-  fetch("http://127.0.0.1:5000/add_department_kpi", {
+  fetch("https://staging.thirdeyegfx.in/kpi_app/add_department_kpi", {
     method: "POST",
     body: form,
   })
@@ -431,7 +437,7 @@ async function handlekpinumbermodal(kpi) {
     form.append("kpis", updatedKpiValue);
     form.append("token", tok);
 
-    fetch("http://127.0.0.1:5000/admin_update_kpi_name", {
+    fetch("https://staging.thirdeyegfx.in/kpi_app/admin_update_kpi_name", {
       method: "POST",
       body: form,
     })

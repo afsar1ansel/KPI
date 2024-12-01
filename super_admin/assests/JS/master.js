@@ -1,4 +1,13 @@
 const tok = localStorage.getItem("authToken");
+document.addEventListener("DOMContentLoaded", async () => {
+  await Promise.all([
+    fetchDepartmentDetails(),
+    fetchDivisionDetails(),
+    fetchDistrictDetails(),
+  ]);
+  buttons[0].classList.add("active");
+  contents[0].classList.add("active");
+});
 document.addEventListener("DOMContentLoaded", () => {
   const buttons = document.querySelectorAll(".tab-button");
   const contents = document.querySelectorAll(".content");
@@ -6,18 +15,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // Handle tab switching
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
-      // Remove active class from all buttons
       buttons.forEach((btn) => btn.classList.remove("active"));
-      // Add active class to the clicked button
       button.classList.add("active");
 
       // Hide all content
       contents.forEach((content) => content.classList.remove("active"));
-      // Show the content corresponding to the clicked button
       const tabId = button.getAttribute("data-tab");
       document.getElementById(tabId).classList.add("active");
 
-      // Fetch data only for the active tab
       if (tabId === "tab1") {
         fetchDepartmentDetails();
       } else if (tabId === "tab2") {
@@ -51,8 +56,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // console.log(Object.fromEntries(formData));
 
-    handleAddClick("dept", formData);
-
+    handleAddClick(
+      "https://staging.thirdeyegfx.in/kpi_app/dept_masters/add",
+      formData
+    );
   });
 
   divisionButton.addEventListener("click", (event) => {
@@ -66,6 +73,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log(Object.fromEntries(formData));
 
+    handleAddClick(
+      "https://staging.thirdeyegfx.in/kpi_app/division_master/add",
+      formData
+    );
   });
 
   districtButton.addEventListener("click", (event) => {
@@ -78,13 +89,20 @@ document.addEventListener("DOMContentLoaded", () => {
     formData.append("token", tok);
 
     console.log(Object.fromEntries(formData));
+
+    handleAddClick(
+      "https://staging.thirdeyegfx.in/kpi_app/district_master/add",
+      formData
+    );
   });
 });
 
 // Fetch Department Details
 async function fetchDepartmentDetails() {
   try {
-    const response = await fetch(`http://127.0.0.1:5000/department_name/all`);
+    const response = await fetch(
+      `https://staging.thirdeyegfx.in/kpi_app/department_name/all`
+    );
     const data = await response.json();
     populateDropdown(
       data,
@@ -101,9 +119,13 @@ async function fetchDepartmentDetails() {
 // Fetch Division Details
 async function fetchDivisionDetails() {
   try {
-    const response = await fetch(`http://127.0.0.1:5000/division/all`);
+    const response = await fetch(
+      `https://staging.thirdeyegfx.in/kpi_app/division/all`
+    );
     const data = await response.json();
-    populateDropdown(data, "DivisionSelect", "divisions", "div_name");
+    if(data){
+      populateDropdown(data, "DivisionsSelect", "divisions", "div_name");
+    }
   } catch (error) {
     console.error("Error fetching division details:", error);
   }
@@ -112,9 +134,13 @@ async function fetchDivisionDetails() {
 // Fetch District Details
 async function fetchDistrictDetails() {
   try {
-    const response = await fetch(`http://127.0.0.1:5000/district/all`);
+    const response = await fetch(
+      `https://staging.thirdeyegfx.in/kpi_app/district/all`
+    );
     const data = await response.json();
-    populateDropdown(data, "divisionSelect", "districts", "dist_name");
+    if(data){
+      populateDropdown(data, "districtSelect", "districts", "dist_name");
+    }
   } catch (error) {
     console.error("Error fetching district details:", error);
   }
@@ -142,24 +168,23 @@ function populateDropdown(data, dropdownId, dataKey, textKey, valueKey = null) {
   });
 }
 
-async function handleAddClick(event, data) {
+async function handleAddClick(url, data) {
   // console.log(event);
   console.log(Object.fromEntries(data));
-  try{
+  try {
     // const payload = typeof data === "string" ? data : JSON.stringify(data);
 
-  const response = await fetch(
-    `http://127.0.0.1:5000/dept_masters/add`,
-    {
-      method: "POST",
-      body: data,
-    }
-  );
+    const response = await fetch(
+      `${url}`,
+      {
+        method: "POST",
+        body: data,
+      }
+    );
 
-  const res = await response.json();
-  console.log(res);
+    const res = await response.json();
+    console.log(res);
   } catch (error) {
     console.error("Error adding data:", error);
   }
-
 }
