@@ -1,5 +1,8 @@
 
 const gridOptions = {
+  onGridReady: function (params) {
+    gridApi1 = params.api;
+  },
   // Row Data: The data to be displayed.
   rowData: [
     {
@@ -241,6 +244,7 @@ const gridOptions = {
     updatePaginationSummary(param);
     // console.log(param)
   },
+  // rowModelType : "infinite",
   pagination: true,
   paginationPageSize: 5,
   paginationPageSizeSelector: false,
@@ -254,12 +258,12 @@ function updatePaginationSummary(p) {
   const startRow = p.api.getFirstDisplayedRow() + 1; 
   const endRow = p.api.getLastDisplayedRow() + 1; 
 
-  numberPannel.innerHTML = `<div id="paginationNumb"><p>Showing ${startRow} to ${endRow} of ${totalRows} entries</p> <p id="showAll">Show all entries</p></div>`;
+  numberPannel.innerHTML = `<div id="paginationNumb" onclick="showallrecent()"><p>Showing ${startRow} to ${endRow} of ${totalRows} entries</p> <p id="showAll">Show all entries</p></div>`;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
   const gridDiv = document.querySelector("#myGrid");
-  gridApi = agGrid.createGrid(gridDiv, gridOptions);
+  gridApi1 = agGrid.createGrid(gridDiv, gridOptions);
 });
 
 function handleDetails(data) {
@@ -319,7 +323,7 @@ function updateCustomPagination(data) {
 
 
 
-// SECOND GRID FUCNTION
+// SECOND GRID FUCNTION 2
 
 
 const gridOptions1 = {
@@ -452,7 +456,11 @@ const gridOptions1 = {
       field: "REQUIRED UPDATED DEADLINE",
       headerName: "REQUIRED UPDATED DEADLINE",
     },
-    { field: "DEADLINE STATUS", headerName: "DEADLINE STATUS", cellStyle: { color: 'red' } },
+    {
+      field: "DEADLINE STATUS",
+      headerName: "DEADLINE STATUS",
+      cellStyle: { color: "red" },
+    },
     {
       field: "id",
       headerName: "ACTION",
@@ -489,8 +497,6 @@ const gridOptions1 = {
     updatePaginationSummary1(params);
     // console.log(params);
   },
-
-
 
   onPaginationChanged: function (param) {
     updateCustomPagination1(param);
@@ -566,12 +572,43 @@ function updatePaginationSummary1(p) {
   const startRow = p.api.getFirstDisplayedRow() + 1;
   const endRow = p.api.getLastDisplayedRow() + 1;
 
-  numberPannel.innerHTML = `<div id="paginationNumb" ><p>Showing ${startRow} to ${endRow} of ${totalRows} entries</p> <p id="showAll">Show all entries</p></div>`;
+  numberPannel.innerHTML = `<div id="paginationNumb" onclick="showallpending()" ><p>Showing ${startRow} to ${endRow} of ${totalRows} entries</p> <p id="showAll">Show all entries</p></div>`;
 }
 
 
-function toggleshowall(nam) {
-  console.log(nam)
-}
+// show all entries 
 
+const recentDiv = document.getElementById("recent");
+const pendingDiv = document.getElementById("pending");
+const backButton = document.getElementById("back");
+const analytics = document.getElementsByClassName("analytics");
 
+  function showallrecent() {
+    console.log("clicked1");
+    recentDiv.classList.remove("hidden");
+    pendingDiv.classList.add("hidden");
+    backButton.classList.remove("hidden");
+    analytics[0].classList.add("hidden");
+   
+     gridOptions.paginationPageSize = 10; // Change pagination size
+     gridApi.paginationSetPageSize(10); // Apply the change to grid
+     gridApi.paginationGoToPage(0); // Navigate to the first page
+     gridApi.refreshCells();
+  }
+
+  function showallpending() {    
+    // console.log("clicked");
+    pendingDiv.classList.remove("hidden");
+    recentDiv.classList.add("hidden");
+    backButton.classList.remove("hidden");
+    analytics[0].classList.add("hidden");
+  }
+
+backButton.addEventListener("click", () => {
+  console.log("clicked");
+  // pageNumber = 5;
+  recentDiv.classList.remove("hidden");
+  pendingDiv.classList.remove("hidden");
+  backButton.classList.add("hidden");
+  analytics[0].classList.remove("hidden");
+});
