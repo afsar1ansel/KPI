@@ -332,16 +332,19 @@ function formatDate(date) {
 
 // for edits in kpi tracker
 function makeEditable() {
-  const leftSectionInputs = document
-    .querySelector("#modalleft")
-    .querySelectorAll("input");
+  // const leftSectionInputs = document
+  //   .querySelector("#modalleft")
+  //   .querySelectorAll("input");
+
+  const t1 = document.getElementById("t1");
+  t1.removeAttribute("readonly");
 
   const strategyInput = document.querySelector("#strategies");
-
-  leftSectionInputs.forEach((input) => {
-    input.removeAttribute("readonly");
-  });
   strategyInput.removeAttribute("readonly");
+
+  // leftSectionInputs.forEach((input) => {
+  //   input.removeAttribute("readonly");
+  // });
 }
 
 // Save changes and log inputs to the console
