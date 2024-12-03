@@ -253,6 +253,7 @@ async function handleAddClick(url, data) {
     console.error("Error adding data:", error);
   }
 }
+      // showToast("Data added successfully!", "success");
 
 
 

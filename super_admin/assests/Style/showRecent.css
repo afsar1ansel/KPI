@@ -18,109 +18,54 @@
   padding-bottom: 100px;
 }
 
-/* helloadmin */
+/* navToggle */
 
-.body .helloadmin {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  padding: 24px 80px;
-  gap: 10px;
-}
-
-.body .helloadmin h2 {
-  font-size: 16px;
-  font-weight: 600;
-  color: #191b1c;
-  margin: 0;
-}
-
-.body .helloadmin p {
-  font-size: 14px;
-  font-weight: 400;
-  color: #626c70;
-  margin: 0;
-}
-
-/* helloadmin end */
-
-/* back button  */
-/* .backdiv {
-  
-  display: flex;
-}
-
-#back {
-  margin: 0px 100px;
-  margin-left: auto;
-  border: none;
-  color: rgba(15, 102, 9, 1);
-  cursor: pointer;
-}
-
-#back:hover {
-  text-decoration: underline;
-} */
-
-
-/* --- cards ----- */
-
-.analytics {
-  display: flex;
+.navToggle {
   width: 100%;
-  /* flex-direction: column; */
-  align-items: center;
-  padding: 24px 80px;
-  gap: 24px;
-}
-
-.analytics .card {
+  /* border: solid 1px red; */
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 10px;
-  background-color: white;
-  border-radius: 10px;
-  width: 22vw;
-  /* height: 5vw; */
-  min-height: 148px;
-  padding: 24px;
-  padding-bottom: 28px;
-  cursor: pointer;
-  border-radius: 8px;
-  /* border: solid 1px #ff0000; */
+  justify-content: center;
+  /* gap: 150px; */
+  padding: 20px 0 40px 0;
 }
 
-.analytics .card img {
-  width: 60px;
-  align-self: flex-start;
-}
-
-.analytics .card div {
+.btns{
+    /* width: 100%; */
   display: flex;
-  flex-direction: column;
-  align-items: start;
-  gap: 10px;
+  gap: 3px;
+  border-radius: 12px;
+  background-color: rgba(226, 226, 226);
+  padding: 8px;
 }
 
-.analytics .card p {
-  font-size: 0.675vw;
-  font-weight: 400;
-  color: #626c70;
-  margin: 0;
+.btns:first-child{
+    /* border-radius: 12px 0 0 12px; */
+    color: white !important;
 }
 
-.analytics .card h1 {
-  font-size: 1.04vw;
-  font-weight: 600;
-  color: #191b1c;
-  margin: 0;
-  line-height: 1.67vw;
+#activeb{
+    background-color: #5fa777;
+    color: white !important;
 }
 
-/* CARD END */
+#pendingb:hover{
+    background-color: #bcbcbc;
+    color: white !important;
+}
 
-/* recent chart  */
+.button{
+    cursor: pointer;
+    padding: 8px;
+    color: rgba(139, 139, 139, 1);
+    border-radius: 4px;
+}
+
+
+
+/* --------- body ----------- */
+
+/* table */
+
 
 .recentChart {
   background-color: white;
@@ -227,6 +172,8 @@
   align-items: flex-start;
   justify-content: space-between;
   padding: 24px 24px;
+  /* border: solid 1px red; */
+  padding: 24px !important;
 }
 
 #paginationControler {
@@ -261,102 +208,12 @@
   color: green;
 }
 
-/* second grid */
-
-#paginationNumbers1 {
-  color: #000000;
-
-  font-size: 14px;
-  font-weight: 400;
-}
-
-#paginationControls1 {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: 24px 24px;
-}
-
-#paginationControler1 {
-  display: flex;
-  gap: 10px;
-}
-
-#paginationControls1 button {
-  width: 40px;
-  background-color: #fff;
-  height: 40px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #626c70;
-  border-radius: 100%;
-  padding: 10px;
-  border: none;
-  cursor: pointer;
-}
-
-#paginationControls1 button:hover {
-  background-color: #f5f6f7;
-  color: #000;
-}
-
-#paginationControls1 #arrow-button {
-  background-color: #edfff3;
-  color: #0f6609;
-}
-
-/* --------- model --------- */
-.modal-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 12px;
-}
-
-.modal-body .input {
-  font-weight: 400;
-  font-size: 14px;
-  color: #191b1c;
-}
-
-#statusDiv {
-    width: 100%;
-  display: flex;
-  justify-content: center;
-  border: 0.5px solid  #5fa777 ;
-  background-color: #edfff3;
-  border-radius: 32px;
-  padding: 10px;
-  margin: 10px 0;
-  gap: 10px;
-  cursor: pointer;
-  color: #5fa777;
-}
-
-/* show all */
-
 #paginationNumb{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  /* border: solid 1px red; */
 }
 
-#showAll{
-  color: var(--Green-2, #0F6609);
-font-family: "Public Sans";
-font-size: 14px;
-font-style: normal;
-font-weight: 500;
-line-height: 22px;
-}
 
-#showAll:hover{
-  text-decoration: underline;
-  cursor: pointer;
-}
 
-/* hidden */
-.hidden {
-  display: none;
-}

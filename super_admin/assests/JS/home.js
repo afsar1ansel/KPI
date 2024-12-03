@@ -169,8 +169,11 @@ const gridOptions = {
 
   columnDefs: [
     { field: "DEPARTMENT NAME", headerName: "DEPARTMENT NAME" },
-    { field: "LAST UPDATED DATE", headerName: "LAST UPDATED DATE" },
-    // { field: "TREND(UP/DOWN)", headerName: "TREND(UP/DOWN)" },
+    { field: "LAST UPDATED DATE", headerName: "LAST UPDATED DATE",cellRenderer : (params) => {
+      const data = JSON.stringify(params.data).replace(/"/g, "&quot;");
+      console.log(params);
+      return `<p style=" font-weight: 500; text-decoration: underline; cursor: pointer" onclick="showHistory(${data})" >View History</p>`;
+    }},
     {
       field: "TREND(UP/DOWN)",
       headerName: "TREND(UP/DOWN)",
@@ -258,7 +261,7 @@ function updatePaginationSummary(p) {
   const startRow = p.api.getFirstDisplayedRow() + 1; 
   const endRow = p.api.getLastDisplayedRow() + 1; 
 
-  numberPannel.innerHTML = `<div id="paginationNumb" onclick="showallrecent()"><p>Showing ${startRow} to ${endRow} of ${totalRows} entries</p> <p id="showAll">Show all entries</p></div>`;
+  numberPannel.innerHTML = `<div id="paginationNumb"><p>Showing ${startRow} to ${endRow} of ${totalRows} entries</p> <a href="showRecent.html" > <p id="showAll">Show all entries</p></a></div>`;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -321,7 +324,9 @@ function updateCustomPagination(data) {
   paginationControls.appendChild(nextButton);
 }
 
-
+function showHistory(data){
+  console.log(data);
+}
 
 // SECOND GRID FUCNTION 2
 
@@ -572,43 +577,43 @@ function updatePaginationSummary1(p) {
   const startRow = p.api.getFirstDisplayedRow() + 1;
   const endRow = p.api.getLastDisplayedRow() + 1;
 
-  numberPannel.innerHTML = `<div id="paginationNumb" onclick="showallpending()" ><p>Showing ${startRow} to ${endRow} of ${totalRows} entries</p> <p id="showAll">Show all entries</p></div>`;
+  numberPannel.innerHTML = `<div id="paginationNumb" ><p>Showing ${startRow} to ${endRow} of ${totalRows} entries</p> <p id="showAll">Show all entries</p></div>`;
 }
 
 
 // show all entries 
 
-const recentDiv = document.getElementById("recent");
-const pendingDiv = document.getElementById("pending");
-const backButton = document.getElementById("back");
-const analytics = document.getElementsByClassName("analytics");
+// const recentDiv = document.getElementById("recent");
+// const pendingDiv = document.getElementById("pending");
+// const backButton = document.getElementById("back");
+// const analytics = document.getElementsByClassName("analytics");
 
-  function showallrecent() {
-    console.log("clicked1");
-    recentDiv.classList.remove("hidden");
-    pendingDiv.classList.add("hidden");
-    backButton.classList.remove("hidden");
-    analytics[0].classList.add("hidden");
+//   function showallrecent() {
+//     console.log("clicked1");
+//     recentDiv.classList.remove("hidden");
+//     pendingDiv.classList.add("hidden");
+//     backButton.classList.remove("hidden");
+//     analytics[0].classList.add("hidden");
    
-     gridOptions.paginationPageSize = 10; // Change pagination size
-     gridApi.paginationSetPageSize(10); // Apply the change to grid
-     gridApi.paginationGoToPage(0); // Navigate to the first page
-     gridApi.refreshCells();
-  }
+//      gridOptions.paginationPageSize = 10; // Change pagination size
+//      gridApi.paginationSetPageSize(10); // Apply the change to grid
+//      gridApi.paginationGoToPage(0); // Navigate to the first page
+//      gridApi.refreshCells();
+//   }
 
-  function showallpending() {    
-    // console.log("clicked");
-    pendingDiv.classList.remove("hidden");
-    recentDiv.classList.add("hidden");
-    backButton.classList.remove("hidden");
-    analytics[0].classList.add("hidden");
-  }
+//   function showallpending() {    
+//     // console.log("clicked");
+//     pendingDiv.classList.remove("hidden");
+//     recentDiv.classList.add("hidden");
+//     backButton.classList.remove("hidden");
+//     analytics[0].classList.add("hidden");
+//   }
 
-backButton.addEventListener("click", () => {
-  console.log("clicked");
-  // pageNumber = 5;
-  recentDiv.classList.remove("hidden");
-  pendingDiv.classList.remove("hidden");
-  backButton.classList.add("hidden");
-  analytics[0].classList.remove("hidden");
-});
+// backButton.addEventListener("click", () => {
+//   console.log("clicked");
+//   // pageNumber = 5;
+//   recentDiv.classList.remove("hidden");
+//   pendingDiv.classList.remove("hidden");
+//   backButton.classList.add("hidden");
+//   analytics[0].classList.remove("hidden");
+// });

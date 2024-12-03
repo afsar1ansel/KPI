@@ -13,7 +13,7 @@ const gridOptions = {
       // rowDrag: true,
       maxWidth: 190,
       cellRenderer: function (params) {
-        console.log(params.data);
+        // console.log(params.data);
         const dataHead = params.data.kpis;
         const date = params.data.date;
 
@@ -271,15 +271,15 @@ async function fetchDepartmentkpitracker() {
   const data = await res.json();
   // console.log(dataTracker);
   department = dataTracker.department_name;
-  console.log(department);
-  // console.log("assigned kpi:", data);
+  // console.log(department);
+  console.log("assigned kpi:", data);
   showkpi(data);
 
   initializeGrid(dataTracker);
 
   document.getElementById(
     "hello"
-  ).innerHTML = `👋 Hello, Welcome to ${dataTracker.department_name}`;
+  ).innerHTML = `👋 Hello ${dataTracker.department_name}, Welcome to KSAPCC Monitoring`;
 }
 
 function initializeGrid(data) {
@@ -332,12 +332,13 @@ function formatDate(date) {
 
 // for edits in kpi tracker
 function makeEditable() {
+
   // const leftSectionInputs = document
   //   .querySelector("#modalleft")
   //   .querySelectorAll("input");
 
-  const t1 = document.getElementById("t1");
-  t1.removeAttribute("readonly");
+  // const t1 = document.getElementById("t1");
+  // t1.removeAttribute("readonly");
 
   const strategyInput = document.querySelector("#strategies");
   strategyInput.removeAttribute("readonly");
@@ -345,10 +346,14 @@ function makeEditable() {
   // leftSectionInputs.forEach((input) => {
   //   input.removeAttribute("readonly");
   // });
+
 }
 
+
+
+
 // Save changes and log inputs to the console
-async function saveChanges(id) {
+async function saveChanges(id, rowId) {
   console.log(id);
   const leftSectionInputs = document
     .querySelector("#modalleft")
@@ -376,11 +381,18 @@ async function saveChanges(id) {
   const formData = new FormData();
   formData.append("id", id);
   formData.append("strategies", updatedData.strategies);
-  formData.append("y1", updatedData.t1);
-  formData.append("y2", updatedData.t2);
-  formData.append("y3", updatedData.t3);
-  formData.append("y4", updatedData.t4);
-  formData.append("y5", updatedData.t5);
+  // formData.append("y1", updatedData.t1);
+  // formData.append("y2", updatedData.t2);
+  // formData.append("y3", updatedData.t3);
+  // formData.append("y4", updatedData.t4);
+  // formData.append("y5", updatedData.t5);
+
+  for (let i = 1; i <= 5; i++) {
+    if(rowId[`y${i}`] == "0.00"){
+      formData.append(`y${i}`, updatedData[`y${i}`]);
+      break;
+    }
+  }
   formData.append("token", tok);
 
   console.log(Object.fromEntries(formData.entries()));
@@ -393,20 +405,41 @@ async function saveChanges(id) {
     .then((data) => {
       console.log(data);
       //reload the page
-      location.reload();
+      // location.reload();
     })
     .catch((error) => {
       console.error("Error updating status:", error);
     });
 }
 
+function tocheck(rowId) {
+  let isused = false;
+
+  for (let i = 1; i <= 5; i++) {
+    if (rowId[`y${i}`] == "0.00" && isused == false) {
+      const div = document.getElementById(`edit${i}`);
+      if (div) {
+        // Ensure the element exists
+        div.classList.add("hidden");
+        isused = true;
+        return;
+      }
+    }
+  }
+
+}
+
 function actionButton(rowId) {
+
+  tocheck(rowId)
+
+
   const button = document.getElementById("saveChanges");
   button.addEventListener("click", () => {
-    saveChanges(rowId.kpi_id);
+    saveChanges(rowId.kpi_id,rowId);
   });
 
-  console.log(rowId);
+  // console.log(rowId);
   const name = document.getElementById("kpiName");
   name.value = rowId.kpis;
   const kpiUnit = document.getElementById("kpiUnit");
@@ -431,14 +464,38 @@ function actionButton(rowId) {
   const year5 = document.getElementById("year5");
   year5.value = rowId.t5;
 
-  const t1 = document.getElementById("t1");
-  t1.value = rowId.y1 ? rowId.y1 : "00";
-  const t2 = document.getElementById("t2");
-  t2.value = rowId.y2 ? rowId.y2 : "00";
-  const t3 = document.getElementById("t3");
-  t3.value = rowId.y3 ? rowId.y3 : "00";
-  const t4 = document.getElementById("t4");
-  t4.value = rowId.y4 ? rowId.y4 : "00";
-  const t5 = document.getElementById("t5");
-  t5.value = rowId.y5 ? rowId.y5 : "00";
+  // console.log(rowId);
+ 
+
+  const t1 = document.getElementById("y1");
+  t1.value = rowId.y1;
+  const t2 = document.getElementById("y2");
+  t2.value = rowId.y2;
+  const t3 = document.getElementById("y3");
+  t3.value = rowId.y3;
+  const t4 = document.getElementById("y4");
+  t4.value = rowId.y4;
+  const t5 = document.getElementById("y5");
+  t5.value = rowId.y5;
+
+ const targetClick = document.getElementsByClassName("targetEdit")
+
+
+ Array.from(targetClick).forEach((item, index) => {
+   item.addEventListener("click", () => {
+     console.log("idex:",index);
+     makeinputEditable(item, index,rowId);
+   });
+ });
+  
+}
+function makeinputEditable(a,i,data) {
+
+  console.log("index:",i);
+  console.log(a.title);
+  console.log(data);
+
+  const div = document.getElementById(`${a.title}`);
+  div.removeAttribute("readonly");
+  
 }

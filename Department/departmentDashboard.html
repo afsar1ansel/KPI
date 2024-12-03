@@ -321,10 +321,29 @@
               <p>Target achieved ( Every 5 years )</p>
               <div class="mb-3">
                 <div style="display: flex; justify-content: space-between">
-                    <label for="t1" class="form-label"
+                    <label for="y1" class="form-label"
                       >year 1</label
                     >
-                    <div id="targetEdit" style="display: flex; gap: 3px; height: 15px; text-align: center; margin: 0; cursor: pointer;" onclick="makeEditable()" >
+                    <div class="targetEdit" id="edit1" title="y1" style="display: none;" >
+                      <i class="bi bi-pen" style="font-size: 12px;"></i>
+                      <p>edit</p>
+                    </div>
+                </div>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="y1"
+                  aria-describedby="emailHelp"
+                  readonly
+                />
+              </div>
+              
+               <div class="mb-3">
+                 <div style="display: flex; justify-content: space-between">
+                    <label for="y2" class="form-label"
+                      >year 2</label
+                    >
+                    <div class="targetEdit" id="edit2" title="y2" style="display: none;" >
                       <i class="bi bi-pen" style="font-size: 12px; " ></i>
                       <p>edit</p>
                     </div>
@@ -332,59 +351,64 @@
                 <input
                   type="email"
                   class="form-control"
-                  id="t1"
-                  aria-describedby="emailHelp"
-                  readonly
-                />
-              </div>
-              
-               <div class="mb-3">
-                <label for="t2" class="form-label"
-                  >year 2</label
-                >
-                <input
-                  type="email"
-                  class="form-control"
-                  id="t2"
+                  id="y2"
                   aria-describedby="emailHelp"
                   readonly
                 />
               </div>
 
                <div class="mb-3">
-                <label for="t3" class="form-label"
-                  >year 3</label
-                >
+                 <div style="display: flex; justify-content: space-between">
+                    <label for="y3" class="form-label"
+                      >year 3</label
+                    >
+                    <div class="targetEdit" id="edit3" title="y3" style="display: none;" >
+                      <i class="bi bi-pen" style="font-size: 12px; " ></i>
+                      <p>edit</p>
+                    </div>
+                  </div>
                 <input
                   type="email"
                   class="form-control"
-                  id="t3"
+                  id="y3"
                   aria-describedby="emailHelp"
                   readonly
                 />
               </div>
               
                <div class="mb-3">
-                <label for="t4" class="form-label"
-                  >year 4</label
-                >
+                 <div style="display: flex; justify-content: space-between">
+                    <label for="y4" class="form-label"
+                      >year 4</label
+                    >
+                    <div class="targetEdit" id="edit4" title="y4" style="display: none;" >
+                      <i class="bi bi-pen" style="font-size: 12px; " ></i>
+                      <p>edit</p>
+                    </div>
+                  </div>
                 <input
-                  type="email"
+                  type="number"
                   class="form-control"
-                  id="t4"
+                  id="y4"
                   aria-describedby="emailHelp"
                   readonly
                 />
               </div>
 
                <div class="mb-3">
-                <label for="t5" class="form-label"
-                  >year 5</label
-                >
+                <div style="display: flex; justify-content: space-between">
+                    <label for="y5" class="form-label"
+                      >year 5</label
+                    >
+                    <div class="targetEdit" id="edit5" title="y5" style="display: none;" >
+                      <i class="bi bi-pen" style="font-size: 12px; " ></i>
+                      <p>edit</p>
+                    </div>
+                  </div>
                 <input
                   type="email"
                   class="form-control"
-                  id="t5"
+                  id="y5"
                   aria-describedby="emailHelp"
                   readonly
                 />

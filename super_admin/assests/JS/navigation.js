@@ -7,19 +7,19 @@ logout.addEventListener("click", () => {
 async function logoutFunction() {
   const token = localStorage.getItem("authToken");
   const formData = new FormData();
-  formData.append("token", token);
+  formData.append("user_token", token);
   console.log(Object.fromEntries(formData));
-  const response = await fetch(
-    "https://staging.thirdeyegfx.in/kpi_app/superadmin/logout",
-    {
-      method: "POST",
-      body: formData,
-      // mode: "no-cors",
-    }
-  );
+  // const response = await fetch(
+  //   "https://staging.thirdeyegfx.in/kpi_app/superadmin/logout",
+  //   {
+  //     method: "POST",
+  //     body: formData,
+  //     // mode: "no-cors",
+  //   }
+  // );
 
-  const data = await response.json();
-  console.log(data);
+  // const data = await response.json();
+  // console.log(data);
   localStorage.removeItem("authToken");
   localStorage.removeItem("adminName");
   localStorage.removeItem("adminMail");
