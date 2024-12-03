@@ -349,6 +349,7 @@ font-size: 14px;
 font-style: normal;
 font-weight: 500;
 line-height: 22px;
+ text-decoration: #0F6609 underline;
 }
 
 #showAll:hover{

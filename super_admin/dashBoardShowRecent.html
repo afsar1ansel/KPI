@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recent</title>
-    <link rel="stylesheet" href="./assests/Style/showRecent.css" />
+    <link rel="stylesheet" href="./assests/Style/dashboardShowRecent.css" />
     <link rel="stylesheet" href="./assests/Style/adminNav.css" />
     <link
       rel="stylesheet"
@@ -30,6 +30,7 @@
   <body>
     <div id="adminNav"></div>
     <div class="navigation">
+       <a href="./homePage.html">
       <div>
         <svg
           width="20"
@@ -77,6 +78,7 @@
         </svg>
         <p id="active">Dashboard</p>
       </div>
+      </a>
       <a href="./departManagement.html">
         <div>
           <img src="./assests/img/department_logo.svg" alt="depart" />
@@ -127,7 +129,9 @@
       <div class="navToggle">
         <div class="btns">
           <div class="button" id="activeb">Recent Updation</div>
-          <div class="button" id="pendingb">Pending Updation</div>
+          <a href="./dashboardShowPending.html" style="text-decoration: none;" >
+            <div class="button" id="pendingb">Pending Updation</div>
+          </a>
         </div>
       </div>
 
@@ -400,6 +404,6 @@
     ></script>
     <script src="./assests/JS/adminNav.js"></script>
     <script src="./assests/JS/navigation.js"></script>
-    <script src="./assests/JS/showRecent.js"></script>
+    <script src="./assests/JS/dashboardShowRecent.js"></script>
   </body>
 </html>
