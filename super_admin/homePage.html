@@ -95,23 +95,31 @@
           <p>Users</p>
         </div>
       </a>
-       <a href="./setting.html">
+      <a href="./setting.html">
         <div>
           <img src="./assests/img/setting_Icon.svg" alt="setting" />
           <p>Settings</p>
         </div>
       </a>
-       <a href="./master.html">
+      <a href="./master.html">
         <div>
-          <i class="bi bi-person-video2" style="color: rgba(136, 136, 136, 1); font-size: 20px; margin: 0; padding: 0"></i>
+          <i
+            class="bi bi-person-video2"
+            style="
+              color: rgba(136, 136, 136, 1);
+              font-size: 20px;
+              margin: 0;
+              padding: 0;
+            "
+          ></i>
           <p>Masters</p>
         </div>
       </a>
       <!-- <a href="./login.html"> -->
-        <div id="logout">
-          <img src="./assests/img/logout.svg" alt="logout" />
-          <p>Logout</p>
-        </div>
+      <div id="logout">
+        <img src="./assests/img/logout.svg" alt="logout" />
+        <p>Logout</p>
+      </div>
       <!-- </a> -->
     </div>
     <div class="body">
@@ -155,52 +163,58 @@
       </div>
 
       <div id="recent">
-      <div class="recentChart">
-        <div class="recnet-heading">
-          <img src="./assests/img/report_icon.svg" alt="" />
-          <h2>RECENT DEPARTMENT UPDATIONS</h2>
-        </div>
-        <div class="table">
-          <div id="myGrid" class="ag-theme-quartz" style="height: 500px"></div>
-          <div id="paginationControls">
-            <div class="paginationNumbers" id="paginationNumbers"></div>
-            <div class="paginationNext" id="paginationControler"></div>
+        <div class="recentChart">
+          <div class="recnet-heading">
+            <img src="./assests/img/report_icon.svg" alt="" />
+            <h2>RECENT DEPARTMENT UPDATIONS</h2>
+          </div>
+          <div class="table">
+            <div
+              id="myGrid"
+              class="ag-theme-quartz"
+              style="height: 500px"
+            ></div>
+            <div id="paginationControls">
+              <div class="paginationNumbers" id="paginationNumbers"></div>
+              <div class="paginationNext" id="paginationControler"></div>
+            </div>
           </div>
         </div>
       </div>
-       </div>
 
-       <div id="pending">
-      <div class="recentChart">
-        <div class="recnet-heading">
-          <img src="./assests/img/report_icon.svg" alt="" />
-          <h2>PENDING DEPARTMENT UPDATIONS</h2>
-        </div>
-        <div class="table" style="margin-bottom: 10px">
-          <div id="myGrid1" class="ag-theme-quartz" style="height: 500px"></div>
-          <div id="paginationControls1">
-            <div class="paginationNumbers" id="paginationNumbers1"></div>
-            <div class="paginationNext" id="paginationControler1"></div>
+      <div id="pending">
+        <div class="recentChart">
+          <div class="recnet-heading">
+            <img src="./assests/img/report_icon.svg" alt="" />
+            <h2>PENDING DEPARTMENT UPDATIONS</h2>
+          </div>
+          <div class="table" style="margin-bottom: 10px">
+            <div
+              id="myGrid1"
+              class="ag-theme-quartz"
+              style="height: 500px"
+            ></div>
+            <div id="paginationControls1">
+              <div class="paginationNumbers" id="paginationNumbers1"></div>
+              <div class="paginationNext" id="paginationControler1"></div>
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </div>
 
     <!-- Modal -->
     <div
       class="modal fade"
-      id="staticBackdrop"
-      data-bs-backdrop="static"
-      data-bs-keyboard="false"
+      id="exampleModal"
       tabindex="-1"
-      aria-labelledby="staticBackdropLabel"
+      aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
+      <div class="modal-dialog custom-wide">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
               VIEWING - DEPARTMENT OF AGRICULTURE
             </h1>
             <button
@@ -210,218 +224,253 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">
-            <!-- <div class="modal-body"> -->
-            <div class="input">
-              <label for="name">Department Name</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Enter your department name"
-                id="departmentName"
-                name="name"
-              />
-              <!-- <p class="error-message" style="color: red; display: none;"></p> -->
-            </div>
 
-            <div class="input">
-              <label for="KPIName">KPI Name</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Enter your department name"
-                id="KPIName"
-                name="KPIName"
-              />
-              <!-- <p class="error-message" style="color: red; display: none;"></p> -->
-            </div>
+          <!-- modal body -->
+          <div class="modal-body" id="modalbody">
+            <div class="upperdiv">
+              <div class="firstupr">
+                <div class="coloumsbox">
+                  <div class="mb-3">
+                    <label for="departmentName" class="form-label"
+                      >Department Name</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="departmentName"
+                      aria-describedby="emailHelp"
+                      readonly
+                    />
+                  </div>
+                </div>
 
-            <div class="input">
-              <label for="KPIUnit">KPI Unit</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Enter your department name"
-                id="KPIUnit"
-                name="KPIUnit"
-              />
-              <!-- <p class="error-message" style="color: red; display: none;"></p> -->
-            </div>
+                <div class="coloumsbox" id="coloumsbox">
+                  <div class="mb-3">
+                    <label for="target5year" class="form-label"
+                      >Target set for 5 years</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="target5year"
+                      aria-describedby="emailHelp"
+                      readonly
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="lastUpdated" class="form-label"
+                      >Last Updated Target</label
+                    >
+                    <div
+                      id="lastUpdated"
+                      class="form-control"
+                      style="width: 222px"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              <div class="midupr">
+                <div class="coloumsbox">
+                  <div class="mb-3">
+                    <label for="kpiName" class="form-label">KPI Name</label>
+                    <textarea
+                      type=""
+                      class="form-control"
+                      id="kpiName"
+                      aria-describedby="emailHelp"
+                      readonly
+                    ></textarea>
+                  </div>
+                </div>
 
-            <div class="input">
-              <label for="LastUpdated">Last Updated</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Enter your department name"
-                id="LastUpdated"
-                name="LastUpdated"
-              />
-              <!-- <p class="error-message" style="color: red; display: none;"></p> -->
+                <div class="coloumsbox" id="coloumsbox">
+                  <div class="mb-3">
+                    <label for="kpiUnit" class="form-label">KPI Unit</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="kpiUnit"
+                      aria-describedby="emailHelp"
+                      readonly
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="lastUpdate" class="form-label"
+                      >Last Updated</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="lastUpdate"
+                      aria-describedby="emailHelp"
+                      readonly
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="botupr">
+                <div class="mb-3">
+                  <label for="co_department" class="form-label"
+                    >Co-ordinating departments</label
+                  >
+                  <textarea
+                    type=""
+                    class="form-control"
+                    id="co_department"
+                    aria-describedby="emailHelp"
+                    readonly
+                  ></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="strategies" class="form-label">Strategies</label>
+                  <textarea
+                    type=""
+                    class="form-control"
+                    id="strategies"
+                    aria-describedby="emailHelp"
+                    readonly
+                  ></textarea>
+                </div>
+              </div>
             </div>
+            <div class="lowerdiv">
+              <p>Annual targets ( Every 5 years )</p>
+              <div style="display: flex; gap: 12px">
+                <div class="mb-3">
+                  <label for="y1" class="form-label">Year 1</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="y1"
+                    aria-describedby="emailHelp"
+                    readonly
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="y2" class="form-label">Year 2</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="y2"
+                    aria-describedby="emailHelp"
+                    readonly
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="y3" class="form-label">Year 3</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="y3"
+                    aria-describedby="emailHelp"
+                    readonly
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="y4" class="form-label">Year 4</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="y4"
+                    aria-describedby="emailHelp"
+                    readonly
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="y5" class="form-label">Year 5</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="y5"
+                    aria-describedby="emailHelp"
+                    readonly
+                  />
+                </div>
+              </div>
+              <br />
+              <p>Target achieved ( Every 5 years )</p>
+              <div style="display: flex; gap: 12px">
+                <div class="mb-3">
+                  <label for="t1" class="form-label">Year 1</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="t1"
+                    aria-describedby="emailHelp"
+                    readonly
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="t2" class="form-label">Year 2</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="t2"
+                    aria-describedby="emailHelp"
+                    readonly
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="t3" class="form-label">Year 3</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="t3"
+                    aria-describedby="emailHelp"
+                    readonly
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="t4" class="form-label">Year 4</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="t4"
+                    aria-describedby="emailHelp"
+                    readonly
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="t5" class="form-label">Year 5</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="t5"
+                    aria-describedby="emailHelp"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-            <div class="input">
-              <label for="targetFiveYear">Target set for 5 years</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Enter your department name"
-                id="targetFiveYear"
-                name="targetFiveYear"
-              />
-              <!-- <p class="error-message" style="color: red; display: none;"></p> -->
-            </div>
+    <div
+      class="modal fade"
+      id="exampleModal1"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog custom-wide1">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              LAST UPDATED DATE HISTORY - DEPARTMENT OF AGRICULTURE
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
 
-            <div class="input">
-              <label for="lastUpdatedTarget">Last Updated Target</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Enter your department name"
-                id="lastUpdatedTarget"
-                name="lastUpdatedTarget"
-              />
-              <!-- <p class="error-message" style="color: red; display: none;"></p> -->
-            </div>
-
-            <div id="statusDiv">1.2% Increase</div>
-
-            <div class="input">
-              <label for="co_Department">Co-ordinating departments</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Enter your department name"
-                id="co_Department"
-                name="co_Department"
-              />
-              <!-- <p class="error-message" style="color: red; display: none;"></p> -->
-            </div>
-
-            <div class="input">
-              <label for="strategies">Strategies</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Enter your department name"
-                id="strategies"
-                name="strategies"
-              />
-              <!-- <p class="error-message" style="color: red; display: none;"></p> -->
-            </div>
-            <p>Annual Target (Every 5 years)</p>
-            <div class="input">
-              <label for="annualTarget1">Year 1</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="N/A"
-                id="annualTarget1"
-                name="annualTarget1"
-              />
-              <!-- <p class="error-message" style="color: red; display: none;"></p> -->
-            </div>
-            <div class="input">
-              <label for="annualTarget2">Year 2</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="N/A"
-                id="annualTarget2"
-                name="annualTarget2"
-              />
-              <!-- <p class="error-message" style="color: red; display: none;"></p> -->
-            </div>
-            <div class="input">
-              <label for="annualTarget3">Year 3</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="N/A"
-                id="annualTarget3"
-                name="annualTarget3"
-              />
-              <!-- <p class="error-message" style="color: red; display: none;"></p> -->
-            </div>
-            <div class="input">
-              <label for="annualTarget4">Year 4</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="N/A"
-                id="annualTarget4"
-                name="annualTarget4"
-              />
-              <!-- <p class="error-message" style="color: red; display: none;"></p> -->
-            </div>
-            <div class="input">
-              <label for="annualTarget5">Year 5</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="N/A"
-                id="annualTarget5"
-                name="annualTarget5"
-              />
-              <!-- <p class="error-message" style="color: red; display: none;"></p> -->
-            </div>
-            <p>Target achieved (Every Year 5)</p>
-            <div class="input">
-              <label for="achievedYear1">Year 1</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="N/A"
-                id="achievedYear1"
-                name="achievedYear1"
-              />
-              <!-- <p class="error-message" style="color: red; display: none;"></p> -->
-            </div>
-            <div class="input">
-              <label for="achievedYear2">Year 2</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="N/A"
-                id="achievedYear2"
-                name="achievedYear2"
-              />
-              <!-- <p class="error-message" style="color: red; display: none;"></p> -->
-            </div>
-            <div class="input">
-              <label for="achievedYear3">Year 3</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="N/A"
-                id="achievedYear3"
-                name="achievedYear3"
-              />
-              <!-- <p class="error-message" style="color: red; display: none;"></p> -->
-            </div>
-            <div class="input">
-              <label for="achievedYear4">Year 4</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="N/A"
-                id="achievedYear4"
-                name="achievedYear4"
-              />
-              <!-- <p class="error-message" style="color: red; display: none;"></p> -->
-            </div>
-            <div class="input">
-              <label for="achievedYear5">Year 5</label>
-              <input
-                type="text"
-                class="form-control"
-                placeholder="N/A"
-                id="achievedYear5"
-                name="achievedYear5"
-              />
-              <!-- <p class="error-message" style="color: red; display: none;"></p> -->
-            </div>
-            <!-- </div> -->
+          <!-- modal body -->
+          <div class="modal-body" id="modalbody">
+            <div class="timeline" id="timelineDiv"></div>
           </div>
         </div>
       </div>

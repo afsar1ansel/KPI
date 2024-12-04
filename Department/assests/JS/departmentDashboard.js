@@ -3,6 +3,8 @@ let gridApi;
 let expandedRows = {};
 let department;
 
+
+
 const gridOptions = {
   rowData: [],
 
@@ -13,9 +15,9 @@ const gridOptions = {
       // rowDrag: true,
       maxWidth: 190,
       cellRenderer: function (params) {
-        // console.log(params.data);
+        console.log(params.data);
         const dataHead = params.data.kpis;
-        const date = params.data.date;
+        const date = formatUpdatedAt(params.data.updated_at);
 
         return `<div><p>${dataHead}</p><p id="trackerDate">LAST UPDATED: ${date}</p></div>`;
       },
@@ -272,7 +274,7 @@ async function fetchDepartmentkpitracker() {
   // console.log(dataTracker);
   department = dataTracker.department_name;
   // console.log(department);
-  console.log("assigned kpi:", data);
+  // console.log("assigned kpi:", data);
   showkpi(data);
 
   initializeGrid(dataTracker);
@@ -296,6 +298,22 @@ function showkpi(data) {
   const box = document.getElementById("cards");
 
   data.kpi_data.map((kpi, index) => {
+    // console.log(kpi.percentage_changes);
+
+      let icon = "";
+      let color = "";
+
+      if (kpi.percentage_changes.includes("increase")) {
+        icon = "↑"; // Up arrow
+        color = "green";
+      } else if (value.includes("decrease")) {
+        icon = "↓"; // Down arrow
+        color = "red";
+      } else {
+        icon = "→ "; // Right arrow
+        color = "blue";
+      }
+
     const updatedDate = new Date(kpi.updated_at);
     const formattedDate = formatDate(updatedDate);
 
@@ -313,7 +331,7 @@ function showkpi(data) {
               </div>
               <div class="card-body">
                 <div class="card-footer">
-                  <span class="percentage"></span>
+                  <span class="percentage" style="color: ${color};" > ${icon} ${kpi.percentage_changes}</span>
                   <span class="last-updated">LAST UPDATED: ${formattedDate}</span>
                 </div>
               </div>
@@ -328,6 +346,14 @@ function formatDate(date) {
   const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
   const year = date.getFullYear();
   return `${day}/${month}/${year}`;
+}
+
+function formatUpdatedAt(dateString) {
+  const date = new Date(dateString); // Parse the date string
+  const day = String(date.getUTCDate()).padStart(2, "0"); // Get day with leading zero
+  const month = String(date.getUTCMonth() + 1).padStart(2, "0"); // Get month with leading zero
+  const year = date.getUTCFullYear(); // Get year
+  return `${day}/${month}/${year}`; // Format as DD/MM/YYYY
 }
 
 // for edits in kpi tracker
