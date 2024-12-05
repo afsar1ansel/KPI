@@ -44,7 +44,7 @@ const gridOptions = {
       cellRenderer: (params) => {
         let data = JSON.stringify(params.data).replace(/"/g, "&quot;");
         let name = params.data.dept_name;
-        console.log(data);
+        // console.log(data);
         return `<p style="font-weight: 500; cursor: pointer;" 
            data-bs-toggle="modal" data-bs-target="#exampleModal" 
            onclick="handleDepartment('${data}')">${name}</p>`;
@@ -456,10 +456,10 @@ async function handlekpinumbermodal(kpi) {
 
 async function handleDepartment(data){
   data = JSON.parse(data);
-  console.log(data.department_id);
+  // console.log(data);
   try{
     const response = await fetch(
-      `https://staging.thirdeyegfx.in/kpi_app/department/get_details/${data.department_id}/${tok}`,
+      `https://staging.thirdeyegfx.in/kpi_app/department/get_details/${data.dept_master_id}/${tok}`,
       {
         method: "GET",
       }
@@ -467,10 +467,29 @@ async function handleDepartment(data){
     
     const getData = await response.json();
     // datas = await data;
-    console.log(getData);
+    // console.log(getData);
     
-    // setInputvalues(data);
+    setInputvalues(getData);
   }catch(error){
     console.error("Error fetching department status:", error);
   }
+}
+
+function setInputvalues(data){
+  console.log(data)
+  
+  const RegistrantName = document.getElementById("RegistrantName");
+  RegistrantName.value = data.department_details[0].username;
+  const Designation = document.getElementById("Designation");
+  Designation.value = data.department_details[0].designation;
+  const DepartmentalCode = document.getElementById("DepartmentalCode");
+  DepartmentalCode.value = data.department_details[0].department_code;
+  const Division = document.getElementById("Division");
+  Division.value = data.department_details[0].division_name;
+  const District = document.getElementById("District");
+  District.value = data.department_details[0].district_name;
+  const PlaceOfWork = document.getElementById("PlaceOfWork");
+  PlaceOfWork.value = data.department_details[0].place_of_work;
+  const MobileNumber = document.getElementById("MobileNumber");
+  MobileNumber.value = data.department_details[0].mobile_number;
 }
