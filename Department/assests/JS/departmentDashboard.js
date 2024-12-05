@@ -306,7 +306,7 @@ function showkpi(data) {
       if (kpi.percentage_changes.includes("increase")) {
         icon = "↑"; // Up arrow
         color = "green";
-      } else if (value.includes("decrease")) {
+      } else if (kpi.percentage_changes.includes("decrease")) {
         icon = "↓"; // Down arrow
         color = "red";
       } else {
@@ -358,20 +358,9 @@ function formatUpdatedAt(dateString) {
 
 // for edits in kpi tracker
 function makeEditable() {
-
-  // const leftSectionInputs = document
-  //   .querySelector("#modalleft")
-  //   .querySelectorAll("input");
-
-  // const t1 = document.getElementById("t1");
-  // t1.removeAttribute("readonly");
-
   const strategyInput = document.querySelector("#strategies");
   strategyInput.removeAttribute("readonly");
 
-  // leftSectionInputs.forEach((input) => {
-  //   input.removeAttribute("readonly");
-  // });
 
 }
 
@@ -414,7 +403,7 @@ async function saveChanges(id, rowId) {
   // formData.append("y5", updatedData.t5);
 
   for (let i = 1; i <= 5; i++) {
-    if(rowId[`y${i}`] == "0.00"){
+    if(rowId[`y${i}`] == "0.00" || rowId[`y${i}`] == null){
       formData.append(`y${i}`, updatedData[`y${i}`]);
       break;
     }
@@ -442,7 +431,7 @@ function tocheck(rowId) {
   let isused = false;
 
   for (let i = 1; i <= 5; i++) {
-    if (rowId[`y${i}`] == "0.00" && isused == false) {
+    if (rowId[`y${i}`] == "0.00" || rowId[`y${i}`] == null && isused == false) {
       const div = document.getElementById(`edit${i}`);
       if (div) {
         // Ensure the element exists

@@ -44,7 +44,7 @@ const gridOptions = {
       cellRenderer: (params) => {
         let data = JSON.stringify(params.data).replace(/"/g, "&quot;");
         let name = params.data.dept_name;
-        console.log(params);
+        console.log(data);
         return `<p style="font-weight: 500; cursor: pointer;" 
            data-bs-toggle="modal" data-bs-target="#exampleModal" 
            onclick="handleDepartment('${data}')">${name}</p>`;
@@ -451,4 +451,26 @@ async function handlekpinumbermodal(kpi) {
         console.error("Error updating status:", error);
       });
   });
+}
+
+
+async function handleDepartment(data){
+  data = JSON.parse(data);
+  console.log(data.department_id);
+  try{
+    const response = await fetch(
+      `https://staging.thirdeyegfx.in/kpi_app/department/get_details/${data.department_id}/${tok}`,
+      {
+        method: "GET",
+      }
+    );
+    
+    const getData = await response.json();
+    // datas = await data;
+    console.log(getData);
+    
+    // setInputvalues(data);
+  }catch(error){
+    console.error("Error fetching department status:", error);
+  }
 }
