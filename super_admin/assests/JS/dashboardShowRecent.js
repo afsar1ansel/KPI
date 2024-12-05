@@ -339,11 +339,8 @@ function setHistory(data) {
     div1.classList.add("timeline-dot");
     const div2 = document.createElement("div");
     div2.classList.add("timeline-content");
-    div2.innerHTML = `<p id="history1" >
-    <strong
-                      >Updated “Year 1” Target to
-                      <span class="highlight">${name}</span> ( In ${unit} )</strong
-                    >
+    div2.innerHTML = `<p id="history1" >Updated “Year 1” Target to
+                      <span class="highlight">${name}</span> ( In ${unit} )
                   </p>  <p class="meta" id="metah1">${user} ${date}</p>`;
 
     timelineDiv.appendChild(div);

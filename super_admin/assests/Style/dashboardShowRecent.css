@@ -320,16 +320,16 @@
   align-items: flex-start;
   /* margin-bottom: 20px; */
   position: relative;
-  border-left: solid 1px #E5E7E8 !important;
+  border-left: solid 2px #E5E7E8 !important;
 }
 
 .timeline-dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   background-color: #BFBFBF;
   border-radius: 50%;
   position: absolute;
-  left: -4px;
+  left: -6px;
   top: 6px;
 }
 
@@ -340,7 +340,7 @@
 
 p {
   margin: 0;
-  line-height: 1.5;
+  /* line-height: 1.5; */
 }
 
 p.meta {
@@ -348,9 +348,19 @@ p.meta {
   font-size: 0.9rem;
 }
 
+.history1{
+  color: var(--Gray-900, #191B1C);
+font-family: "Public Sans";
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 24px;
+}
+
 .highlight {
-  font-weight: bold;
-  color: #f80000;
+  font-weight: 700;
+  color: rgba(25, 27, 28, 1);
+  font-weight: 800;
 }
 
 
