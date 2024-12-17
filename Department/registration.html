@@ -188,57 +188,35 @@
             </p>
           </div>
         </form>
-        <!-- </div> -->
-        <!-- <div id="modal" class="modal">
 
-          <div class="modal-content">
-            <span id="closeModal" class="close">&times;</span>
-            <div class="modal-head">
-              <img src="./assests/img/greenTik.svg" alt="" />
-              <p>Your Account Has Been Registered !</p>
-              <div>Awaiting Approval</div>
-            </div>
-            <div class="modal-body">
-              <p>Dear Department of Agriculture,</p>
-              <p>
-                Thank you for registering your department with the KSAPCC
-                Monitoring Dashboard. We are pleased to inform you that your
-                account has been successfully created.
-              </p>
-              <p>
-                Your registration is currently under review and pending approval
-                from the KSAPCC administration. Once approved, you will receive
-                a confirmation email with further instructions on accessing your
-                account and utilizing the dashboard for monitoring and
-                reporting.
-              </p>
-              <p>
-                We appreciate your patience during this process. If you have any
-                questions or need assistance, feel free to contact us at
-                [support email].
-              </p>
-              <p>
-                Best regards,<br />KSAPCC Support Team <br />(
-                support@ksapcc@gov.in )
-              </p>
-            </div>
-            <button id="okay">Okay</button>
-          </div>
-        </div> -->
-        <span></span>
-        <!-- toast -->
-        <div class="toast-container position-fixed top-0 end-0 p-3">
-  <div id="toast-error" class="toast align-items-center text-bg-success" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-      <div class="toast-body">
-        <span id="toast-message">Your Request has been sent</span>
-      </div>
-      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
+<div class="captcha">
+  <h3>Complete the Captcha to Continue</h3>
+  <div class="captchaBox">
+    <canvas id="captcha-canvas" width="200" height="70"></canvas>
+    <input
+    type="text"
+    id="captcha-input"
+    placeholder="Enter the captcha code"
+    style="margin: 10px 0; padding: 5px;"
+    />
   </div>
+  <button id="captcha-submit">Submit Captcha</button>
+  <p id="captcha-error" style="color: red; display: none;">Incorrect captcha. Try again!</p>
 </div>
+
       </div>
     </div>
+    <!-- toast -->
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+<div id="toast-error" class="toast align-items-center text-bg-success" role="alert" aria-live="assertive" aria-atomic="true">
+<div class="d-flex">
+  <div class="toast-body">
+    <span id="toast-message">Your Request has been sent</span>
+  </div>
+  <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+</div>
+</div>
+</div>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

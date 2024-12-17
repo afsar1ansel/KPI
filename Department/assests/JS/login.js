@@ -1,3 +1,5 @@
+let isSubmitting = false;
+
 let body = document.querySelector("body");
 let right = document.createElement("div");
 right.setAttribute("class", "right");
@@ -79,8 +81,12 @@ const focusOnFirstError = () => {
 async function handleSubmit(event) {
   event.preventDefault();
 
+  if (isSubmitting) return; 
+  isSubmitting = true;
+
   if (!validateInputs()) {
     focusOnFirstError();
+    isSubmitting = false;
     return;
   }
   console.log("Email:", email.value);
@@ -134,6 +140,7 @@ async function handleSubmit(event) {
     // Re-enable the login button and restore its text
     loginBtn.disabled = false;
     loginBtn.innerHTML = "Login";
+    isSubmitting = false;
   }
 }
 

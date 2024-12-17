@@ -7,6 +7,10 @@ const form = document.getElementById("fomr");
 document.getElementById("login").addEventListener("click", function (event) {
   event.preventDefault();
 
+  const loginButton = event.target; // Capture the button element
+  loginButton.disabled = true; // Disable the button to prevent double-click
+  loginButton.textContent = "Processing..."; // Optional: Provide feedback
+
   const fields = [
     { id: "department_names", name: "Department", type: "select" },
     { id: "Designation", name: "Designation", type: "input" },
@@ -32,6 +36,9 @@ document.getElementById("login").addEventListener("click", function (event) {
       return;
     }
 
+    const sanitizedValue = input.value.replace(/\s+/g, " ").trim();
+    input.value = sanitizedValue;
+
     input.addEventListener("focus", () => {
       errorMessage.style.display = "none";
     });
@@ -45,7 +52,10 @@ document.getElementById("login").addEventListener("click", function (event) {
       errorMessage.textContent = `${field.name} is required.`;
       errorMessage.style.display = "block";
       formIsValid = false;
+      loginButton.disabled = false;
+      loginButton.textContent = "Register →";
     } else {
+      // const loginButton = event.target;
       errorMessage.style.display = "none";
     }
   });
@@ -93,7 +103,7 @@ document.getElementById("login").addEventListener("click", function (event) {
       // confirmPassword: form.elements["password-confirm"].value,
     };
 
-    console.log(formData1);
+    // console.log(formData1);
 
     const formData = new FormData();
     formData.append("department_name_id", formData1.department);
@@ -109,8 +119,10 @@ document.getElementById("login").addEventListener("click", function (event) {
 
     console.log(Array.from(formData.entries()));
 
-    fectchResponse(formData);
+    fectchResponse(formData,loginButton);
+    
   }
+
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -150,7 +162,7 @@ function populateDepartmentDropdown(departments, dropDownId, placeholder) {
 
   selectDropDepartment.innerHTML = `<option>${placeholder}</option>`;
 
-  console.log(departments);
+  // console.log(departments);
 
   departments.forEach((department) => {
     const option = document.createElement("option");
@@ -231,7 +243,7 @@ async function fetchDistrict() {
     }
 
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
 
     if (data.districts) {
       populateDepartmentDropdown(
@@ -266,8 +278,9 @@ async function fetchDepartments(apiUrl, dropDownId, placeholder) {
   }
 }
 
-async function fectchResponse(data) {
-  // console.log(data)
+async function fectchResponse(data, loginButton) {
+  console.log(data);
+
   const response = await fetch(
     `https://staging.thirdeyegfx.in/kpi_app/department/add`,
     {
@@ -284,4 +297,108 @@ async function fectchResponse(data) {
     const toast = new bootstrap.Toast(toastElement);
     toast.show();
   }
+    loginButton.disabled = false;
+  loginButton.textContent = "Register →";
 }
+
+
+// captcha
+document.addEventListener("DOMContentLoaded", function () {
+  const captchaDiv = document.querySelector(".captcha");
+  const formDiv = document.querySelector(".formBox");
+  const captchaButton = document.getElementById("captcha-complete");
+
+  // When captcha is completed
+  captchaButton.addEventListener("click", function () {
+    // Hide captcha and show the form
+    captchaDiv.style.display = "none";
+    formDiv.style.display = "block";
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const captchaDiv = document.querySelector(".captcha");
+  const formDiv = document.querySelector(".formBox");
+  const captchaCanvas = document.getElementById("captcha-canvas");
+  const captchaInput = document.getElementById("captcha-input");
+  const captchaSubmitButton = document.getElementById("captcha-submit");
+  const captchaError = document.getElementById("captcha-error");
+  const ctx = captchaCanvas.getContext("2d");
+
+  // Generate random captcha string
+  function generateCaptcha() {
+    const characters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    let captcha = "";
+    for (let i = 0; i < 6; i++) {
+      captcha += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      );
+    }
+    return captcha;
+  }
+
+  // Draw captcha on canvas
+  function drawCaptcha(text) {
+    ctx.clearRect(0, 0, captchaCanvas.width, captchaCanvas.height); // Clear canvas
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "black";
+    ctx.textBaseline = "middle";
+    ctx.textAlign = "center";
+
+    // Add random noise and distortion
+    const xOffset = captchaCanvas.width / 2;
+    const yOffset = captchaCanvas.height / 2;
+
+    for (let i = 0; i < text.length; i++) {
+      const randomAngle = Math.random() * 0.3 - 0.15; // Small tilt
+      ctx.save();
+      ctx.translate(xOffset - 60 + i * 30, yOffset);
+      ctx.rotate(randomAngle);
+      ctx.fillText(text[i], 0, 0);
+      ctx.restore();
+    }
+
+    // Add random lines for noise
+    for (let i = 0; i < 5; i++) {
+      ctx.beginPath();
+      ctx.moveTo(
+        Math.random() * captchaCanvas.width,
+        Math.random() * captchaCanvas.height
+      );
+      ctx.lineTo(
+        Math.random() * captchaCanvas.width,
+        Math.random() * captchaCanvas.height
+      );
+      ctx.strokeStyle = "rgba(0,0,0,0.5)";
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    }
+  }
+
+  // Generate the initial captcha
+  let captchaCode = generateCaptcha();
+  drawCaptcha(captchaCode);
+
+  // Validate the captcha
+  captchaSubmitButton.addEventListener("click", function () {
+    const userInput = captchaInput.value.trim();
+
+    if (userInput === captchaCode) {
+      // Correct captcha: hide captcha and show form
+      captchaDiv.style.display = "none";
+      formDiv.style.display = "block";
+    } else {
+      // Incorrect captcha: show error and regenerate captcha
+      captchaError.style.display = "block";
+      captchaCode = generateCaptcha();
+      drawCaptcha(captchaCode);
+      captchaInput.value = "";
+    }
+  });
+
+  // Hide error message on input focus
+  captchaInput.addEventListener("focus", function () {
+    captchaError.style.display = "none";
+  });
+});
