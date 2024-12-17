@@ -105,7 +105,16 @@ body {
   text-align: center;
   /* border: solid 1px black; */
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  padding: 40px 20px; 
+  padding: 60px 80px; 
+}
+
+.captcha h3{
+  color: var(--Gray-900, #191B1C);
+font-family: "Public Sans";
+font-size: 20px;
+font-style: normal;
+font-weight: 600;
+line-height: 24px; /* 120% */
 }
 
 #captcha-canvas {
