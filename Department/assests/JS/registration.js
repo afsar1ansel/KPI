@@ -303,102 +303,99 @@ async function fectchResponse(data, loginButton) {
 
 
 // captcha
-document.addEventListener("DOMContentLoaded", function () {
-  const captchaDiv = document.querySelector(".captcha");
-  const formDiv = document.querySelector(".formBox");
-  const captchaButton = document.getElementById("captcha-complete");
+ document.addEventListener("DOMContentLoaded", function () {
+   const captchaDiv = document.querySelector(".captcha");
+   const formDiv = document.querySelector(".formBox");
+   const captchaCanvas = document.getElementById("captcha-canvas");
+   const captchaInput = document.getElementById("captcha-input");
+   const captchaSubmitButton = document.getElementById("captcha-submit");
+   const captchaError = document.getElementById("captcha-error");
+   const ctx = captchaCanvas.getContext("2d");
 
-  // When captcha is completed
-  captchaButton.addEventListener("click", function () {
-    // Hide captcha and show the form
-    captchaDiv.style.display = "none";
-    formDiv.style.display = "block";
-  });
-});
+   if (sessionStorage.getItem("captchaCompleted") === "true") {
+     captchaDiv.style.display = "none";
+     formDiv.style.display = "block";
+   } else {
+     captchaDiv.style.display = "block";
+     formDiv.style.display = "none";
+   }
 
+   // Generate random CAPTCHA 
+   function generateCaptcha() {
+     const characters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+     let captcha = "";
+     for (let i = 0; i < 6; i++) {
+       captcha += characters.charAt(
+         Math.floor(Math.random() * characters.length)
+       );
+     }
+     return captcha;
+   }
 
-document.addEventListener("DOMContentLoaded", function () {
-  const captchaDiv = document.querySelector(".captcha");
-  const formDiv = document.querySelector(".formBox");
-  const captchaCanvas = document.getElementById("captcha-canvas");
-  const captchaInput = document.getElementById("captcha-input");
-  const captchaSubmitButton = document.getElementById("captcha-submit");
-  const captchaError = document.getElementById("captcha-error");
-  const ctx = captchaCanvas.getContext("2d");
+   // Draw CAPTCHA on canvas
+   function drawCaptcha(text) {
+     ctx.clearRect(0, 0, captchaCanvas.width, captchaCanvas.height); // Clear canvas
+     ctx.font = "30px Arial";
+     ctx.fillStyle = "black";
+     ctx.textBaseline = "middle";
+     ctx.textAlign = "center";
 
-  // Generate random captcha string
-  function generateCaptcha() {
-    const characters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-    let captcha = "";
-    for (let i = 0; i < 6; i++) {
-      captcha += characters.charAt(
-        Math.floor(Math.random() * characters.length)
-      );
-    }
-    return captcha;
-  }
+     // Add random distortion and tilt
+     const xOffset = captchaCanvas.width / 2;
+     const yOffset = captchaCanvas.height / 2;
 
-  // Draw captcha on canvas
-  function drawCaptcha(text) {
-    ctx.clearRect(0, 0, captchaCanvas.width, captchaCanvas.height); // Clear canvas
-    ctx.font = "30px Arial";
-    ctx.fillStyle = "black";
-    ctx.textBaseline = "middle";
-    ctx.textAlign = "center";
+     for (let i = 0; i < text.length; i++) {
+       const randomAngle = Math.random() * 0.3 - 0.15; // Small tilt
+       ctx.save();
+       ctx.translate(xOffset - 60 + i * 30, yOffset);
+       ctx.rotate(randomAngle);
+       ctx.fillText(text[i], 0, 0);
+       ctx.restore();
+     }
 
-    // Add random noise and distortion
-    const xOffset = captchaCanvas.width / 2;
-    const yOffset = captchaCanvas.height / 2;
+     // Add random noise lines
+     for (let i = 0; i < 5; i++) {
+       ctx.beginPath();
+       ctx.moveTo(
+         Math.random() * captchaCanvas.width,
+         Math.random() * captchaCanvas.height
+       );
+       ctx.lineTo(
+         Math.random() * captchaCanvas.width,
+         Math.random() * captchaCanvas.height
+       );
+       ctx.strokeStyle = "rgba(0,0,0,0.5)";
+       ctx.lineWidth = 1;
+       ctx.stroke();
+     }
+   }
 
-    for (let i = 0; i < text.length; i++) {
-      const randomAngle = Math.random() * 0.3 - 0.15; // Small tilt
-      ctx.save();
-      ctx.translate(xOffset - 60 + i * 30, yOffset);
-      ctx.rotate(randomAngle);
-      ctx.fillText(text[i], 0, 0);
-      ctx.restore();
-    }
+   // Generate and display the initial CAPTCHA
+   let captchaCode = generateCaptcha();
+   drawCaptcha(captchaCode);
 
-    // Add random lines for noise
-    for (let i = 0; i < 5; i++) {
-      ctx.beginPath();
-      ctx.moveTo(
-        Math.random() * captchaCanvas.width,
-        Math.random() * captchaCanvas.height
-      );
-      ctx.lineTo(
-        Math.random() * captchaCanvas.width,
-        Math.random() * captchaCanvas.height
-      );
-      ctx.strokeStyle = "rgba(0,0,0,0.5)";
-      ctx.lineWidth = 1;
-      ctx.stroke();
-    }
-  }
+   // Validate CAPTCHA input
+   captchaSubmitButton.addEventListener("click", function () {
+     const userInput = captchaInput.value.trim();
 
-  // Generate the initial captcha
-  let captchaCode = generateCaptcha();
-  drawCaptcha(captchaCode);
+     if (userInput === captchaCode) {
+       // Store CAPTCHA completion in sessionStorage
+       sessionStorage.setItem("captchaCompleted", "true");
 
-  // Validate the captcha
-  captchaSubmitButton.addEventListener("click", function () {
-    const userInput = captchaInput.value.trim();
+       // Hide CAPTCHA and show the form
+       captchaDiv.style.display = "none";
+       formDiv.style.display = "block";
+     } else {
+       // Show error and regenerate CAPTCHA
+       captchaError.style.display = "block";
+       captchaCode = generateCaptcha();
+       drawCaptcha(captchaCode);
+       captchaInput.value = "";
+     }
+   });
 
-    if (userInput === captchaCode) {
-      // Correct captcha: hide captcha and show form
-      captchaDiv.style.display = "none";
-      formDiv.style.display = "block";
-    } else {
-      // Incorrect captcha: show error and regenerate captcha
-      captchaError.style.display = "block";
-      captchaCode = generateCaptcha();
-      drawCaptcha(captchaCode);
-      captchaInput.value = "";
-    }
-  });
-
-  // Hide error message on input focus
-  captchaInput.addEventListener("focus", function () {
-    captchaError.style.display = "none";
-  });
-});
+   // Hide error message when the input gains focus
+   captchaInput.addEventListener("focus", function () {
+     captchaError.style.display = "none";
+   });
+ });

@@ -98,7 +98,7 @@ body {
 }
 
 .rightBottom .captcha {
-  display: block; /* Show captcha initially */
+  display: none; /* Show captcha initially */
 }
 /* ------------------------- */
 .captcha {
