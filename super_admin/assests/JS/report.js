@@ -1,5 +1,7 @@
 const { AgCharts } = agCharts;
 
+
+
 const options = {
   container: document.getElementById("myChart"),
   title: {
@@ -8,17 +10,37 @@ const options = {
     border: "1px solid #0F6609",
   },
   data: [
-    { target: "Baseline Target", scale: 2.3 },
-    { target: "Current Status", scale: 6.3 },
-    { target: "5-Year Goal", scale: 16.2 },
+    {
+      base_line: 2.3,
+      current_status: 6.3,
+      five_year_goal: 16.2,
+      target: "score",
+      targetCurrect: "Current Status",
+      targetFiveYear: "5-Year Goal",
+    },
   ],
   series: [
     {
       type: "bar",
       xKey: "target",
-      yKey: "scale",
-      yName: "Scale (Lakh Hectares)",
-      fill: ["#FFD599", "#90EE90", "#0F6609"],
+      yKey: "base_line",
+      yName: "Baseline Target",
+      fill: "#FFD599",
+      
+    },
+    {
+      type: "bar",
+      xKey: "target",
+      yKey: "current_status",
+      yName: "currect status",
+      fill: "#5FA777",
+    },
+    {
+      type: "bar",
+      xKey: "target",
+      yKey: "five_year_goal",
+      yName: "5 year goal",
+      fill: "#0F6609",
     },
   ],
   axes: [
