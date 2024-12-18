@@ -324,7 +324,7 @@ async function fectchResponse(data, loginButton) {
    function generateCaptcha() {
      const characters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
      let captcha = "";
-     for (let i = 0; i < 6; i++) {
+     for (let i = 0; i < 4; i++) {
        captcha += characters.charAt(
          Math.floor(Math.random() * characters.length)
        );
@@ -335,7 +335,7 @@ async function fectchResponse(data, loginButton) {
    // Draw CAPTCHA on canvas
    function drawCaptcha(text) {
      ctx.clearRect(0, 0, captchaCanvas.width, captchaCanvas.height); // Clear canvas
-     ctx.font = "30px Arial";
+     ctx.font = "24px Arial";
      ctx.fillStyle = "black";
      ctx.textBaseline = "middle";
      ctx.textAlign = "center";
@@ -364,7 +364,7 @@ async function fectchResponse(data, loginButton) {
          Math.random() * captchaCanvas.width,
          Math.random() * captchaCanvas.height
        );
-       ctx.strokeStyle = "rgba(0,0,0,0.5)";
+       ctx.strokeStyle = "rgba(0,0,0,0.9)";
        ctx.lineWidth = 1;
        ctx.stroke();
      }
