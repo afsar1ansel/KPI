@@ -1,155 +1,108 @@
-const { AgCharts } = agCharts;
 
 
+// chart js 
 
-const options = {
-  container: document.getElementById("myChart"),
-  title: {
-    text: "KPI 1",
-    color: "#0F6609",
-    border: "1px solid #0F6609",
-  },
-  data: [
-    {
-      base_line: 2.3,
-      current_status: 6.3,
-      five_year_goal: 16.2,
-      target: "score",
-      targetCurrect: "Current Status",
-      targetFiveYear: "5-Year Goal",
+document.addEventListener("DOMContentLoaded", function () {
+
+  const ctx = document.getElementById("myChart");
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: ["Baseline Target", "Current Status", "5 Year Goal"],
+      datasets: [
+        {
+          label: "KPI",
+          data: [18, 13, 3],
+          borderWidth: 1,
+          backgroundColor: [
+            "rgba(255, 213, 153, 1)",
+            "rgba(95, 167, 119, 1)",
+            "rgba(15, 102, 9, 1)",
+          ],
+        },
+      ],
     },
-  ],
-  series: [
-    {
-      type: "bar",
-      xKey: "target",
-      yKey: "base_line",
-      yName: "Baseline Target",
-      fill: "#FFD599",
-      
-    },
-    {
-      type: "bar",
-      xKey: "target",
-      yKey: "current_status",
-      yName: "currect status",
-      fill: "#5FA777",
-    },
-    {
-      type: "bar",
-      xKey: "target",
-      yKey: "five_year_goal",
-      yName: "5 year goal",
-      fill: "#0F6609",
-    },
-  ],
-  axes: [
-    {
-      type: "category",
-      position: "bottom",
-      title: {
-        text: "Target achieved",
-        color: "#0F6609",
+    options: {
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
       },
     },
-    {
-      type: "number",
-      position: "left",
-      title: {
-        text: "Scale (Lakh Hectares)",
-        color: "#0F6609",
-      },
-    },
-  ],
-};
-
-// Chart Options for the second chart
-const options1 = {
-  container: document.getElementById("myChart1"),
-  title: {
-    text: "KPI 2",
-  },
-  data: [
-    { target: "Baseline Target", scale: 2.3 },
-    { target: "Current Status", scale: 6.3 },
-    { target: "5-Year Goal", scale: 16.2 },
-  ],
-  series: [
-    {
-      type: "bar",
-      xKey: "target",
-      yKey: "scale",
-      yName: "Scale (Lakh Hectares)",
-      fill: "#FFD599",
-    },
-  ],
-  axes: [
-    {
-      type: "category",
-      position: "bottom",
-      title: {
-        text: "Target achieved",
-        color: "#0F6609",
-      },
-    },
-    {
-      type: "number",
-      position: "left",
-      title: {
-        text: "Scale (Lakh Hectares)",
-        color: "#0F6609",
-      },
-    },
-  ],
-};
+  });
 
 
-const options2 = {
-  container: document.getElementById("myChart2"),
-  title: {
-    text: "KPI 2",
-  },
-  data: [
-    { target: "Baseline Target", scale: 2.3 },
-    { target: "Current Status", scale: 6.3 },
-    { target: "5-Year Goal", scale: 16.2 },
-  ],
-  series: [
-    {
-      type: "bar",
-      xKey: "target",
-      yKey: "scale",
-      yName: "Scale (Lakh Hectares)",
-      fill: (param) => {
-        console.log({ param });
+  const ctx1 = document.getElementById("myChart1");
+  new Chart(ctx1, {
+    type: "bar",
+    data: {
+      labels: ["Baseline Target", "Current Status", "5 Year Goal"],
+      datasets: [
+        {
+          label: "KPI",
+          data: [12, 19, 3],
+          borderWidth: 1,
+          backgroundColor: [
+            "rgba(255, 213, 153, 1)",
+            "rgba(95, 167, 119, 1)",
+            "rgba(15, 102, 9, 1)",
+          ],
+        },
+      ],
+    },
+    options: {
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
       },
     },
-  ],
-  axes: [
-    {
-      type: "category",
-      position: "bottom",
-      title: {
-        text: "Target achieved",
-        color: "#0F6609",
-      },
-    },
-    {
-      type: "number",
-      position: "left",
-      title: {
-        text: "Scale (Lakh Hectares)",
-        color: "#0F6609",
-      },
-    },
-  ],
-};
+  });
 
-// Create the first chart
-AgCharts.create(options);
+   const ctx2 = document.getElementById("myChart2");
+   new Chart(ctx2, {
+     type: "bar",
+     data: {
+       labels: ["Baseline Target", "Current Status", "5 Year Goal"],
+       datasets: [
+         {
+           label: "KPI",
+           data: [1200, 190, 300],
+           borderWidth: 1,
+           backgroundColor: [
+             "rgba(255, 213, 153, 1)",
+             "rgba(95, 167, 119, 1)",
+             "rgba(15, 102, 9, 1)",
+           ],
+         },
+       ],
+     },
+     options: {
+       plugins: {
+         legend: {
+           display: false,
+         },
+       },
+       scales: {
+         y: {
+           beginAtZero: true,
+         },
+       },
+     },
+   });
+  
 
-// Create the second chart
-AgCharts.create(options1);
 
-AgCharts.create(options2);
+
+});
 

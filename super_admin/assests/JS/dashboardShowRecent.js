@@ -135,8 +135,8 @@ const gridOptions = {
 function updatePaginationSummary(p) {
   const numberPannel = document.querySelector("#paginationNumbers");
   const totalRows = p.api.getDisplayedRowCount();
-  const startRow = p.api.getFirstDisplayedRow() + 1;
-  const endRow = p.api.getLastDisplayedRow() + 1;
+  const startRow = p.api.getFirstDisplayedRowIndex() + 1;
+  const endRow = p.api.getLastDisplayedRowIndex() + 1;
 
   numberPannel.innerHTML = `<div id="paginationNumb"><p>Showing ${startRow} to ${endRow} of ${totalRows} entries</p></div>`;
 }

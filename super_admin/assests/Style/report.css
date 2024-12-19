@@ -72,7 +72,6 @@
   padding: 32px 48px;
   flex-wrap: wrap;
   gap: 0 !important;
-  
 }
 
 .line {
@@ -80,7 +79,7 @@
   /* width: 76vw; */
   margin: 24px 0px;
 }
-.filterDiv{
+.filterDiv {
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -138,7 +137,7 @@
   padding: 24px;
   background-color: white;
   border-radius: 8px;
-  border: none !important; 
+  border: none !important;
 }
 
 .uprCardHead {
@@ -223,21 +222,21 @@
 
 /* detail kpi */
 
-.cardp{
+.cardp {
   margin: 0;
   font-size: 18px;
   font-weight: 600;
   color: #191b1c;
-  border-bottom: solid 1px #e5e7e8; ;
+  border-bottom: solid 1px #e5e7e8;
 }
 
-.detailKpi{
+.detailKpi {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.detailKpiHead{
+.detailKpiHead {
   font-size: 18px;
   font-weight: 600;
   color: #191b1c;
@@ -251,7 +250,6 @@
 
 .kpicard1 {
   width: 24vw !important;
-  
 }
 
 .uprCardBody .cardbodyitems {
@@ -293,11 +291,87 @@
 /* graph */
 
 .graphbox {
-  width: 95%;
-  height: 400px;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  flex-wrap: wrap;
   gap: 20px;
   /* border: solid 1px red; */
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
+.graphbox div {
+  /* border: solid 1px black; */
+  /* display: flex;
+  flex-direction: column;
+  justify-content: end; */
+}
+
+#myChart1 {
+  /* width: 24vw !important; */
+  /* height: 400px !important; */
+}
+
+.chart-container{
+  border-radius: 8px;
+background: #FFF;
+padding: 10px;
+width: 22vw;
+/* height: 20vw; */
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: space-between;
+}
+
+/* Top title for the chart */
+.chart-title {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  /* border: #0f6609 solid 1px; */
+  width: 80%;
+  margin: auto;
+  margin-bottom: 20px;
+  background-color: #edfff3;
+  color: rgba(15, 102, 9, 1);
+}
+
+/* Row for the canvas and vertical label */
+.chart-row {
+  display: flex;
+  flex-direction: row; /* Align canvas and vertical label in a row */
+  align-items: center;
+}
+
+/* Vertical label styling */
+.vertical-label {
+  writing-mode: vertical-rl; /* Rotates the text vertically */
+  transform: rotate(180deg);
+  margin-right: 8px;
+  color: var(--Green-2, #0f6609);
+  font-family: "Public Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.graphBase-label{
+  color: var(--Green-2, #0f6609);
+  width: 100%;
+  font-family: "Public Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* Canvas styling */
+canvas {
+  /* border: 1px solid #ccc; */
+  width: 93% !important;
+}

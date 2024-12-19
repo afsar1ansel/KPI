@@ -1,5 +1,6 @@
 const tok = localStorage.getItem("authToken");
 let gridApi;
+let gridApi1;
 async function fetchdetails(tok) {
   try {
     const response = await fetch(
@@ -133,16 +134,18 @@ const gridOptions = {
 
 // for showing pagination control
 function updatePaginationSummary(p) {
+  // console.log(p)
   const numberPannel = document.querySelector("#paginationNumbers");
   const totalRows = p.api.getDisplayedRowCount();
-  const startRow = p.api.getFirstDisplayedRow() + 1;
-  const endRow = p.api.getLastDisplayedRow() + 1;
+  const startRow = p.api.getFirstDisplayedRowIndex() + 1;
+  const endRow = p.api.getLastDisplayedRowIndex() + 1;
 
   numberPannel.innerHTML = `<div id="paginationNumb"><p>Showing ${startRow} to ${endRow} of ${totalRows} entries</p> <a href="dashBoardShowRecent.html" > <p id="showAll">Show all entries</p></a></div>`;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
   fetchdetails(tok);
+  fetchdetailsPending(tok);
 });
 
 async function handleDetails(data) {
@@ -357,140 +360,49 @@ function setHistory(data) {
 // SECOND GRID FUCNTION 2
 
 
+async function fetchdetailsPending(tok) {
+  console.log(tok);
+  try {
+    const response = await fetch(
+      `https://staging.thirdeyegfx.in/kpi_app/superadmin_dashboard/get_pending_updates/${tok}`,
+      {
+        method: "GET",
+      }
+    );
+
+    const data = await response.json();
+    datas = await data;
+    console.log(data);
+    // deptId = data.department_status[0].dept_master_id;
+    initializeGrid1(data);
+  } catch (error) {
+    console.error("Error fetching department status:", error);
+    return null;
+  }
+}
+
+function initializeGrid1(data) {
+  console.log(data);
+  gridOptions1.rowData = data.department_kpi_updates;
+  const gridDiv = document.querySelector("#myGrid1");
+  if (!gridApi1) {
+    gridApi1 = agGrid.createGrid(gridDiv, gridOptions1);
+  }
+}
+
 
 
 const gridOptions1 = {
   // Row Data: The data to be displayed.
-  rowData: [
-    {
-      id: 1,
-      "DEPARTMENT NAME": "Department of Agriculture",
-      "REQUIRED UPDATED DEADLINE": "24/10/2024",
-      "DEADLINE STATUS": "Pending from 100 days",
-    },
-    {
-      id: 2,
-      "DEPARTMENT NAME": "Department of Finance",
-      "REQUIRED UPDATED DEADLINE": "30/10/2024",
-      "DEADLINE STATUS": "Pending from 95 days",
-    },
-    {
-      id: 3,
-      "DEPARTMENT NAME": "Department of Education",
-      "REQUIRED UPDATED DEADLINE": "10/11/2024",
-      "DEADLINE STATUS": "Pending from 80 days",
-    },
-    {
-      id: 4,
-      "DEPARTMENT NAME": "Department of Health",
-      "REQUIRED UPDATED DEADLINE": "15/11/2024",
-      "DEADLINE STATUS": "Pending from 75 days",
-    },
-    {
-      id: 5,
-      "DEPARTMENT NAME": "Department of Transportation",
-      "REQUIRED UPDATED DEADLINE": "20/11/2024",
-      "DEADLINE STATUS": "Pending from 70 days",
-    },
-    {
-      id: 6,
-      "DEPARTMENT NAME": "Department of Housing",
-      "REQUIRED UPDATED DEADLINE": "05/12/2024",
-      "DEADLINE STATUS": "Pending from 55 days",
-    },
-    {
-      id: 7,
-      "DEPARTMENT NAME": "Department of Energy",
-      "REQUIRED UPDATED DEADLINE": "12/12/2024",
-      "DEADLINE STATUS": "Pending from 48 days",
-    },
-    {
-      id: 8,
-      "DEPARTMENT NAME": "Department of Environment",
-      "REQUIRED UPDATED DEADLINE": "18/12/2024",
-      "DEADLINE STATUS": "Pending from 42 days",
-    },
-    {
-      id: 9,
-      "DEPARTMENT NAME": "Department of Foreign Affairs",
-      "REQUIRED UPDATED DEADLINE": "25/12/2024",
-      "DEADLINE STATUS": "Pending from 35 days",
-    },
-    {
-      id: 10,
-      "DEPARTMENT NAME": "Department of Justice",
-      "REQUIRED UPDATED DEADLINE": "01/01/2025",
-      "DEADLINE STATUS": "Pending from 30 days",
-    },
-    {
-      id: 11,
-      "DEPARTMENT NAME": "Department of Labor",
-      "REQUIRED UPDATED DEADLINE": "15/01/2025",
-      "DEADLINE STATUS": "Pending from 20 days",
-    },
-    {
-      id: 12,
-      "DEPARTMENT NAME": "Department of Public Safety",
-      "REQUIRED UPDATED DEADLINE": "22/01/2025",
-      "DEADLINE STATUS": "Pending from 15 days",
-    },
-    {
-      id: 13,
-      "DEPARTMENT NAME": "Department of Tourism",
-      "REQUIRED UPDATED DEADLINE": "02/02/2025",
-      "DEADLINE STATUS": "Pending from 10 days",
-    },
-    {
-      id: 14,
-      "DEPARTMENT NAME": "Department of Defense",
-      "REQUIRED UPDATED DEADLINE": "10/02/2025",
-      "DEADLINE STATUS": "Pending from 5 days",
-    },
-    {
-      id: 15,
-      "DEPARTMENT NAME": "Department of Communication",
-      "REQUIRED UPDATED DEADLINE": "18/02/2025",
-      "DEADLINE STATUS": "Pending from 3 days",
-    },
-    {
-      id: 16,
-      "DEPARTMENT NAME": "Department of Science and Technology",
-      "REQUIRED UPDATED DEADLINE": "25/02/2025",
-      "DEADLINE STATUS": "Pending from 2 days",
-    },
-    {
-      id: 17,
-      "DEPARTMENT NAME": "Department of Social Welfare",
-      "REQUIRED UPDATED DEADLINE": "05/03/2025",
-      "DEADLINE STATUS": "Pending from 1 day",
-    },
-    {
-      id: 18,
-      "DEPARTMENT NAME": "Department of Commerce",
-      "REQUIRED UPDATED DEADLINE": "12/03/2025",
-      "DEADLINE STATUS": "Pending from 0 days",
-    },
-    {
-      id: 19,
-      "DEPARTMENT NAME": "Department of Agriculture",
-      "REQUIRED UPDATED DEADLINE": "20/03/2025",
-      "DEADLINE STATUS": "Pending from 1 day",
-    },
-    {
-      id: 20,
-      "DEPARTMENT NAME": "Department of Urban Development",
-      "REQUIRED UPDATED DEADLINE": "30/03/2025",
-      "DEADLINE STATUS": "Pending from 5 days",
-    },
-  ],
+  rowData: [],
   columnDefs: [
-    { field: "DEPARTMENT NAME", headerName: "DEPARTMENT NAME" },
+    { field: "department_name", headerName: "DEPARTMENT NAME" },
     {
-      field: "REQUIRED UPDATED DEADLINE",
+      field: "update_deadline",
       headerName: "REQUIRED UPDATED DEADLINE",
     },
     {
-      field: "DEADLINE STATUS",
+      field: "deadline_status",
       headerName: "DEADLINE STATUS",
       cellStyle: { color: "red" },
     },
@@ -498,6 +410,7 @@ const gridOptions1 = {
       field: "id",
       headerName: "ACTION",
       cellRenderer: function (params) {
+        // console.log(params);
         const data = JSON.stringify(params.data).replace(/"/g, "&quot;");
         return `
       <button
@@ -542,10 +455,11 @@ const gridOptions1 = {
   suppressPaginationPanel: true,
 };
 
-document.addEventListener("DOMContentLoaded", function () {
-  const gridDiv = document.querySelector("#myGrid1");
-  gridApi1 = agGrid.createGrid(gridDiv, gridOptions1);
-});
+// document.addEventListener("DOMContentLoaded", function () {
+//   // const gridDiv = document.querySelector("#myGrid1");
+//   // gridApi1 = agGrid.createGrid(gridDiv, gridOptions1);
+  
+// });
 
 function updateCustomPagination1(data) {
   const totalPages = data.api.paginationGetTotalPages();
@@ -599,45 +513,8 @@ function updatePaginationSummary1(p) {
   // console.log(p)
   const numberPannel = document.querySelector("#paginationNumbers1");
   const totalRows = p.api.getDisplayedRowCount();
-  const startRow = p.api.getFirstDisplayedRow() + 1;
-  const endRow = p.api.getLastDisplayedRow() + 1;
+  const startRow = p.api.getFirstDisplayedRowIndex() + 1;
+  const endRow = p.api.getLastDisplayedRowIndex() + 1;
 
   numberPannel.innerHTML = `<div id="paginationNumb" ><p>Showing ${startRow} to ${endRow} of ${totalRows} entries</p> <a href="dashboardShowPending.html" > <p id="showAll">Show all entries</p></a></div>`;
 }
-
-// show all entries
-
-// const recentDiv = document.getElementById("recent");
-// const pendingDiv = document.getElementById("pending");
-// const backButton = document.getElementById("back");
-// const analytics = document.getElementsByClassName("analytics");
-
-//   function showallrecent() {
-//     console.log("clicked1");
-//     recentDiv.classList.remove("hidden");
-//     pendingDiv.classList.add("hidden");
-//     backButton.classList.remove("hidden");
-//     analytics[0].classList.add("hidden");
-
-//      gridOptions.paginationPageSize = 10; // Change pagination size
-//      gridApi.paginationSetPageSize(10); // Apply the change to grid
-//      gridApi.paginationGoToPage(0); // Navigate to the first page
-//      gridApi.refreshCells();
-//   }
-
-//   function showallpending() {
-//     // console.log("clicked");
-//     pendingDiv.classList.remove("hidden");
-//     recentDiv.classList.add("hidden");
-//     backButton.classList.remove("hidden");
-//     analytics[0].classList.add("hidden");
-//   }
-
-// backButton.addEventListener("click", () => {
-//   console.log("clicked");
-//   // pageNumber = 5;
-//   recentDiv.classList.remove("hidden");
-//   pendingDiv.classList.remove("hidden");
-//   backButton.classList.add("hidden");
-//   analytics[0].classList.remove("hidden");
-// });
