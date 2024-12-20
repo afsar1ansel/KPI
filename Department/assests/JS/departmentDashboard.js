@@ -15,7 +15,7 @@ const gridOptions = {
       // rowDrag: true,
       maxWidth: 190,
       cellRenderer: function (params) {
-        console.log(params.data);
+        // console.log(params.data);
         const dataHead = params.data.kpis;
         const date = formatUpdatedAt(params.data.updated_at);
 

@@ -361,7 +361,7 @@ function setHistory(data) {
 
 
 async function fetchdetailsPending(tok) {
-  console.log(tok);
+  // console.log(tok);
   try {
     const response = await fetch(
       `https://staging.thirdeyegfx.in/kpi_app/superadmin_dashboard/get_pending_updates/${tok}`,
@@ -372,7 +372,7 @@ async function fetchdetailsPending(tok) {
 
     const data = await response.json();
     datas = await data;
-    console.log(data);
+    // console.log(data);
     // deptId = data.department_status[0].dept_master_id;
     initializeGrid1(data);
   } catch (error) {
@@ -382,15 +382,33 @@ async function fetchdetailsPending(tok) {
 }
 
 function initializeGrid1(data) {
-  console.log(data);
+  // console.log(data);
   gridOptions1.rowData = data.department_kpi_updates;
   const gridDiv = document.querySelector("#myGrid1");
   if (!gridApi1) {
     gridApi1 = agGrid.createGrid(gridDiv, gridOptions1);
   }
 }
+ 
+async function sendReminder(data) {
+  console.log(data)
 
+  const formData = new FormData();
+  formData.append("department_kpi_id", data.department_kpi_id);
+  formData.append("token", tok);
+  console.log(Object.fromEntries(formData));
 
+  try{
+    const response = await fetch(`https://staging.thirdeyegfx.in/kpi_app/remind_update`,{
+      method:"POST",
+      body: formData
+    })
+    const data = await response.json();
+    console.log(data);
+  }catch(error){
+    console.log(error)
+  }
+}
 
 const gridOptions1 = {
   // Row Data: The data to be displayed.
@@ -416,7 +434,7 @@ const gridOptions1 = {
       <button
         type="button"
         class="btn btn-outline-success rounded-pill"
-        onclick="handleDetails(${data})"
+        onclick="sendReminder(${data})"
       >
         Send Update Remider
       </button>
@@ -455,11 +473,6 @@ const gridOptions1 = {
   suppressPaginationPanel: true,
 };
 
-// document.addEventListener("DOMContentLoaded", function () {
-//   // const gridDiv = document.querySelector("#myGrid1");
-//   // gridApi1 = agGrid.createGrid(gridDiv, gridOptions1);
-  
-// });
 
 function updateCustomPagination1(data) {
   const totalPages = data.api.paginationGetTotalPages();
