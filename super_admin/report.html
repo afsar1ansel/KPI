@@ -193,7 +193,7 @@
         <div class="filterDiv">
           <div class="filter">
             <div class="dep">
-              <div style="display: flex; gap: 8px">
+              <div style="display: flex; gap: 8px;margin-left: 5px;">
                 <svg
                   width="20"
                   height="20"
@@ -210,12 +210,12 @@
               </div>
               <div class="mb-3">
                 <select id="Select" class="form-select">
-                  <option>Agriculture</option>
+                  <!-- <option>Agriculture</option> -->
                 </select>
               </div>
             </div>
             <div class="dep">
-              <div style="display: flex; gap: 8px">
+              <div style="display: flex; gap: 8px; margin-left: 5px;">
                 <svg
                   width="20"
                   height="20"
@@ -228,63 +228,24 @@
                     fill="black"
                   />
                 </svg>
-                <p>Date Range Selector</p>
+                <p>Year Range Selector</p>
               </div>
               <div
                 class="mb-3"
                 style="
                   display: flex;
-                  gap: 8px;
                   width: 100%;
-                  /* border: solid red 1px; */
                 "
               >
-                <input
-                  type="text"
-                  style="
-                    width: 50%;
-                    margin-left: 12px;
-                    padding: 4px 0px 4px 12px;
-                  "
-                  name="dateStart"
-                  id="dateStart"
-                  onfocus="(this.type='date')"
-                  onblur="if(!this.value)this.type='text'"
-                  placeholder="from date"
-                />
-                <input
-                  type="text"
-                  style="width: 50%; padding: 4px 0px 4px 12px"
-                  name="dateEnd"
-                  id="dateEnd"
-                  onfocus="(this.type='date')"
-                  onblur="if(!this.value)this.type='text'"
-                  placeholder="to date"
-                />
-              </div>
-            </div>
-            <div class="dep">
-              <div style="display: flex; gap: 8px">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M14.1667 8.36583C10.9508 8.36583 8.33333 10.9825 8.33333 14.1992C8.33333 17.3975 10.9508 20 14.1667 20C17.3825 20 20 17.3833 20 14.1667C20 10.9683 17.3825 8.36583 14.1667 8.36583ZM14.1667 18.3333C11.8692 18.3333 10 16.4783 10 14.1992C10 11.9017 11.8692 10.0325 14.1667 10.0325C16.4642 10.0325 18.3333 11.8875 18.3333 14.1667C18.3333 16.4642 16.4642 18.3333 14.1667 18.3333ZM15.5892 14.4108C15.915 14.7367 15.915 15.2633 15.5892 15.5892C15.4267 15.7517 15.2133 15.8333 15 15.8333C14.7867 15.8333 14.5733 15.7517 14.4108 15.5892L13.5775 14.7558C13.4208 14.5992 13.3333 14.3875 13.3333 14.1667V12.5C13.3333 12.04 13.7058 11.6667 14.1667 11.6667C14.6275 11.6667 15 12.04 15 12.5V13.8217L15.5892 14.4108ZM20 5.83333V7.5C20 7.96 19.6275 8.33333 19.1667 8.33333C18.7058 8.33333 18.3333 7.96 18.3333 7.5V5.83333C18.3333 4.455 17.2117 3.33333 15.8333 3.33333H4.16667C2.78833 3.33333 1.66667 4.455 1.66667 5.83333V6.66667H9.16667C9.62667 6.66667 10 7.04 10 7.5C10 7.96 9.62667 8.33333 9.16667 8.33333H1.66667V15.8333C1.66667 17.2117 2.78833 18.3333 4.16667 18.3333H7.5C7.96 18.3333 8.33333 18.7067 8.33333 19.1667C8.33333 19.6267 7.96 20 7.5 20H4.16667C1.86917 20 0 18.1308 0 15.8333V5.83333C0 3.53583 1.86917 1.66667 4.16667 1.66667H5V0.833333C5 0.373333 5.37333 0 5.83333 0C6.29333 0 6.66667 0.373333 6.66667 0.833333V1.66667H13.3333V0.833333C13.3333 0.373333 13.7058 0 14.1667 0C14.6275 0 15 0.373333 15 0.833333V1.66667H15.8333C18.1308 1.66667 20 3.53583 20 5.83333Z"
-                    fill="black"
-                  />
-                </svg>
-                <p>Time Period Selector</p>
-              </div>
-              <div class="mb-3">
-                <select id="Select" class="form-select">
-                  <option>Monthly</option>
+                <select name="dateStart" class="form-select" id="dateStart">
+                  <option value="">Start Year</option>
                 </select>
+               <select name="dateEnd" class="form-select" id="dateEnd">
+                 <option value="">End Year</option>
+               </select>
               </div>
             </div>
+            <button id="applyButton">Apply</button>
           </div>
         </div>
         <div class="tableContainer">
@@ -296,6 +257,31 @@
             <p class="timeData">12 : 30</p>
           </div>
           <div class="line"></div>
+           <div class="cordinateDepartmentBox">
+            <div class="uprCardHead">
+              <p>Coordinate Department</p>
+            </div>
+            <div class="uprCardBody">
+              <div class="secondCardBody">
+                <h3>Water Resources, Environment Department</h3>
+                <p>
+                  Contributing to 1.50 Lakh hectares through water conservation
+                </p>
+              </div>
+              <div class="secondCardBody">
+                <h3>Water Resources, Environment Department</h3>
+                <p>
+                  Contributing to 1.50 Lakh hectares through water conservation
+                </p>
+              </div>
+              <div class="secondCardBody">
+                <h3>Water Resources, Environment Department</h3>
+                <p>
+                  Contributing to 1.50 Lakh hectares through water conservation
+                </p>
+              </div>
+            </div>
+          </div>
           <div class="uprCard">
             <div class="card">
               <div class="uprCardHead">
@@ -343,33 +329,9 @@
               </div>
             </div>
           </div>
-          <div class="cordinateDepartmentBox">
-            <div class="uprCardHead">
-              <p>Coordinate Department</p>
-            </div>
-            <div class="uprCardBody">
-              <div class="secondCardBody">
-                <h3>Water Resources, Environment Department</h3>
-                <p>
-                  Contributing to 1.50 Lakh hectares through water conservation
-                </p>
-              </div>
-              <div class="secondCardBody">
-                <h3>Water Resources, Environment Department</h3>
-                <p>
-                  Contributing to 1.50 Lakh hectares through water conservation
-                </p>
-              </div>
-              <div class="secondCardBody">
-                <h3>Water Resources, Environment Department</h3>
-                <p>
-                  Contributing to 1.50 Lakh hectares through water conservation
-                </p>
-              </div>
-            </div>
-          </div>
+         
           <div class="line"></div>
-          <div class="detailKpi">
+          <!-- <div class="detailKpi">
             <p class="detailKpiHead">Details KPI Progress</p>
             <div>
               <div class="card kpicard1">
@@ -443,7 +405,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="line"></div>
           <div class="graphbox">
             <div class="chart-container">
@@ -454,7 +416,7 @@
               </div>
               <div class="graphBase-label">TARGET ACHIEVED</div>
             </div>
-            <div class="chart-container">
+            <!-- <div class="chart-container">
               <div class="chart-title">KPI 2</div>
               <div class="chart-row">
                 <div class="vertical-label">LAKH HECTARES</div>
@@ -469,7 +431,7 @@
                 <canvas id="myChart2" height="200"></canvas>
               </div>
               <div class="graphBase-label">TARGET ACHIEVED</div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
