@@ -152,6 +152,7 @@
               border-color: #5fa777;
               border-radius: 32px 0 0 32px;
             "
+            id="downloadButton"
           >
             <i class="bi bi-file-earmark-arrow-down"></i>
             Download Report
@@ -169,7 +170,7 @@
             "
           ></button>
           <ul class="dropdown-menu">
-            <li>
+            <!-- <li>
               <a class="dropdown-item" href="#">
                 <img src="./assests/img/csv.svg" alt="" /> Download CSV</a
               >
@@ -178,7 +179,7 @@
               <a class="dropdown-item" href="#">
                 <img src="./assests/img/pdf.svg" alt="" /> Download Excel</a
               >
-            </li>
+            </li> -->
             <li>
               <a class="dropdown-item" href="#">
                 <img src="./assests/img/xls.svg" alt="" /> Download PDF</a
@@ -250,9 +251,9 @@
         </div>
         <div class="tableContainer">
           <div class="dateTime">
-            <p>department name</p>
+            <p id="DepartmentName">Department</p>
             <p>|</p>
-            <p id="table_dateData"></p>
+            <p id="table_dateData">Date</p>
           </div>
           <div class="line"></div>
           <div class="kpidetailBox" id="kpidetailBox">

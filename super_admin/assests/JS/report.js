@@ -1,72 +1,5 @@
-let data1 = {
-    all_kpis: [
-      {
-        baseline_status: "30.00",
-        created_at: "Tue, 12 Nov 2024 11:11:39 GMT",
-        current_status: "null",
-        kpi_id: 3,
-        kpis: "Analyse 40 more dpartment revenue.",
-        next_year_target: "28.10",
-        t5: "30.50",
-        unit_of_measurement: "Liters",
-        updated_at: "Tue, 12 Nov 2024 11:11:39 GMT",
-        y1: null,
-        y1_year: null,
-        y2: null,
-        y2_year: null,
-        y3: null,
-        y3_year: null,
-        y4: null,
-        y4_year: null,
-        y5: null,
-        y5_year: null,
-      },
-      {
-        baseline_status: "30.00",
-        created_at: "Wed, 06 Nov 2024 12:59:18 GMT",
-        current_status: "20.00",
-        kpi_id: 2,
-        kpis: "updated kpi",
-        next_year_target: "28.70",
-        t5: "30.50",
-        unit_of_measurement: "Liters",
-        updated_at: "Wed, 27 Nov 2024 12:36:37 GMT",
-        y1: "20.00",
-        y1_year: 2022,
-        y2: null,
-        y2_year: null,
-        y3: null,
-        y3_year: null,
-        y4: null,
-        y4_year: null,
-        y5: null,
-        y5_year: null,
-      },
-    ],
-    most_recent_kpi: {
-      baseline_status: "30.00",
-      created_at: "Tue, 12 Nov 2024 11:11:39 GMT",
-      current_target: "null",
-      kpi_id: 3,
-      kpis: "Analyse 40 more dpartment revenue.",
-      next_year_target: "28.10",
-      t5: "30.50",
-      unit_of_measurement: "Liters",
-      updated_at: "Tue, 12 Nov 2024 11:11:39 GMT",
-      y1: null,
-      y1_year: null,
-      y2: null,
-      y2_year: null,
-      y3: null,
-      y3_year: null,
-      y4: null,
-      y4_year: null,
-      y5: null,
-      y5_year: null,
-    },
-  };
  
-
+let dataObj;
 const tok = localStorage.getItem("authToken");
 function populateYears(selectElement, startYear, endYear) {
   selectElement.innerHTML = ""; // Clear existing options
@@ -122,6 +55,7 @@ async function filterData(department, startYear, endYear) {
   form.append("token", tok);
 
   // console.log(Object.fromEntries(form));
+  dataObj = form;
 
   try {
     const response = await fetch(
@@ -135,32 +69,38 @@ async function filterData(department, startYear, endYear) {
     const data = await response.json();
     // console.log(data);
 
-    setReportData(data.department_report);
+    setReportData(data.department_report,form);
   } catch (error) {
     console.error("Error filtering data:", error);
   }
 }
 
-function setReportData(data) {
+function setReportData(data,form) {
   console.log(data);
-  
+ console.log(Object.fromEntries(form));
+//  console.log(form.min_year,form.max_year);
   // table date
-  //  const time = document.getElementById("time");
-  //  const fromT = formatDate(data.all_kpis[0].created_at);
-  //  const toT = formatDate(data.all_kpis[0].updated_at);
-  //  time.innerHTML = `${fromT} to ${toT}`;
+   const time = document.getElementById("table_dateData");
+   time.innerHTML = "";
+   const fromT = form.get("min_year");
+   const toT = form.get("max_year");
+   console.log(fromT,toT);
+   time.innerHTML = `${fromT} to ${toT}`;
 
+  const name = document.getElementById("DepartmentName");
+  name.innerHTML = "";
+  name.innerHTML = data.department_name
 
-   const div = document.getElementById("kpidetailBox");
+  const div = document.getElementById("kpidetailBox");
   //  const div = document.getElementById("kpidetailBox");
-    data.all_kpis.forEach((item) => {
-      const t1 = formatDateful(item.created_at);
-      const t2 = formatDateful(item.created_at);
-      console.log(item)
-       const box = document.createElement("div");
-       box.classList.add("kpicardsDiv");
+  data.all_kpis.forEach((item) => {
+    const t1 = formatDateful(item.created_at);
+    const t2 = formatDateful(item.created_at);
+    console.log(item);
+    const box = document.createElement("div");
+    box.classList.add("kpicardsDiv");
 
-       box.innerHTML = `<div class="kpidetailBox1">
+    box.innerHTML = `<div class="kpidetailBox1">
               <div class="kpiDetailHeader">kpi 1</div>
               <div class="kpiNameDate">
                 <h3 class="kpiName">${item.kpis}</h3>
@@ -192,37 +132,35 @@ function setReportData(data) {
             </div>
              <div class="kpidetailBox2">
               <div class="kpiDetail2boxes">
-                <div class="kpiDetailHeader">kpi 1</div>
+                <div class="kpiDetailHeader">${item.y1_year}</div>
                 <h3>${item.y1}</h3>
                 <p> Target achieved</p>
               </div>
 
                <div class="kpiDetail2boxes">
-                <div class="kpiDetailHeader">kpi 1</div>
+                <div class="kpiDetailHeader">${item.y2_year}</div>
                 <h3>${item.y2}</h3>
                 <p> Target achieved</p>
               </div>
 
                <div class="kpiDetail2boxes">
-                <div class="kpiDetailHeader">kpi 1</div>
+                <div class="kpiDetailHeader">${item.y3_year}</div>
                 <h3>${item.y3}</h3>
                 <p> Target achieved</p>
               </div>
 
                <div class="kpiDetail2boxes">
-                <div class="kpiDetailHeader">kpi 1</div>
+                <div class="kpiDetailHeader">${item.y4_year}</div>
                 <h3>${item.y4}</h3>
                 <p> Target achieved</p>
               </div>
             </div>`;
 
-      div.appendChild(box);
+    div.appendChild(box);
+  });
 
-    })
-   
   graphSet(data);
-    
-  }
+}
   
   // graphSet();
 
@@ -382,3 +320,35 @@ function formatDateful(dateString) {
   // return `${year}`;
 }
 
+
+// download 
+
+const btn = document.getElementById("downloadButton");
+
+btn.addEventListener("click", function () {
+  console.log("Download button clicked");
+
+downloadFetch();
+})
+
+async function downloadFetch() {
+
+  console.log(Object.fromEntries(dataObj))
+
+  try{
+    const response = await fetch(`https://staging.thirdeyegfx.in/kpi_app/get_dept_report_pdf`, {
+      method: "POST",
+      body: dataObj,
+    })
+
+    const data = await response.blob();
+    const url = URL.createObjectURL(data);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "report.pdf";
+    a.click();
+
+  }catch(error){
+    console.log(error)
+  }
+}
