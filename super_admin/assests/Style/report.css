@@ -156,6 +156,41 @@
   padding: 10px 0;
 }
 
+.kpiNameDate .kpiName {
+  color: var(--Calendar-Label-Black, #191B1C);;
+  text-align: center;
+  font-family: "Public Sans";
+  font-size: 1.1vw;
+  font-style: normal;
+  font-weight: 600;
+  /* line-height: 24px; */
+  padding: 0;
+  margin: 0;
+}
+
+#cardtime{
+  color: var(--secondary-colour, #8B8B8B);
+font-family: "Public Sans";
+font-size: 0.73vw;
+font-style: normal;
+font-weight: 400;
+/* line-height: 20px; */
+}
+
+#kpiStats .big_cardStats{
+  color: var(--Gray-900, #191B1C);
+text-align: center;
+font-family: "Public Sans";
+font-size: 1.04vw;
+font-style: normal;
+font-weight: 600;
+line-height: 28px;
+}
+
+#kpiStats p{
+  color: #4A5154;
+}
+
 .kpidetailBox2 {
   width: 25vw;
   /* height: 100%; */

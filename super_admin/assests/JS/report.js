@@ -145,45 +145,47 @@ function setReportData(data) {
   console.log(data);
   
   // table date
-   const time = document.getElementById("table_dateData");
-   const fromT = formatDate(data.all_kpis[0].created_at);
-   const toT = formatDate(data.all_kpis[0].updated_at);
-   time.innerHTML = `${fromT} to ${toT}`;
+  //  const time = document.getElementById("time");
+  //  const fromT = formatDate(data.all_kpis[0].created_at);
+  //  const toT = formatDate(data.all_kpis[0].updated_at);
+  //  time.innerHTML = `${fromT} to ${toT}`;
 
 
    const div = document.getElementById("kpidetailBox");
   //  const div = document.getElementById("kpidetailBox");
     data.all_kpis.forEach((item) => {
-      // cards
+      const t1 = formatDateful(item.created_at);
+      const t2 = formatDateful(item.created_at);
+      console.log(item)
        const box = document.createElement("div");
        box.classList.add("kpicardsDiv");
 
        box.innerHTML = `<div class="kpidetailBox1">
               <div class="kpiDetailHeader">kpi 1</div>
               <div class="kpiNameDate">
-                <h3>name</h3>
-                <p>date | date</p>
+                <h3 class="kpiName">${item.kpis}</h3>
+                <p id="Cardtime">created at:${t1} | Updated at:${t2}</p>
               </div>
               <div class="kpiBoxline"></div>
-              <div class="kpiBigStats">
-                <div class="kpiStats">
-                <h2>31.50  Unit</h2>
+              <div class="kpiBigStats" id="kpiStats">
+                <div class="kpiStats" >
+                <h2 class="big_cardStats">${item.baseline_status} ${item.unit_of_measurement}</h2>
                 <p> Baseline State</p>
                 </div>
                 <div class="horizontalLine"></div>
                 <div class="kpiStats">
-                <h2>31.50 Unit</h2>
+                <h2 class="big_cardStats">${item.current_status} ${item.unit_of_measurement}</h2>
                 <p> Current State</p>
                 </div>
                 <div class="horizontalLine"></div>
                 <div class="kpiStats">
-                <h2>31.50  measureUnit</h2>
+                <h2 class="big_cardStats">${item.next_year_target} ${item.unit_of_measurement}</h2>
                 <p> Next year target</p>
                 </div>
                 <div class="horizontalLine"></div>
                 <div class="kpiStats">
-                <h2>31.50  measureUnit</h2>
-                <p> Target for next 5 years</p>
+                <h2 class="big_cardStats">${item.t5} ${item.unit_of_measurement}</h2>
+                <p>5 years Target</p>
                 </div>
               </div>
 
@@ -191,25 +193,25 @@ function setReportData(data) {
              <div class="kpidetailBox2">
               <div class="kpiDetail2boxes">
                 <div class="kpiDetailHeader">kpi 1</div>
-                <h3>33.20 unit</h3>
+                <h3>${item.y1}</h3>
                 <p> Target achieved</p>
               </div>
 
                <div class="kpiDetail2boxes">
                 <div class="kpiDetailHeader">kpi 1</div>
-                <h3>33.20 unit</h3>
+                <h3>${item.y2}</h3>
                 <p> Target achieved</p>
               </div>
 
                <div class="kpiDetail2boxes">
                 <div class="kpiDetailHeader">kpi 1</div>
-                <h3>33.20 unit</h3>
+                <h3>${item.y3}</h3>
                 <p> Target achieved</p>
               </div>
 
                <div class="kpiDetail2boxes">
                 <div class="kpiDetailHeader">kpi 1</div>
-                <h3>33.20 unit</h3>
+                <h3>${item.y4}</h3>
                 <p> Target achieved</p>
               </div>
             </div>`;
@@ -252,7 +254,7 @@ function graphSet(data) {
    new Chart(ctx, {
      type: "bar",
      data: {
-       labels: ["y1_year", "y2_year", "y3_year", "y4_year", "y5_year"],
+       labels: ["year 1", "year 2", "year 3", "year 4", "year 5"],
        datasets: [
          {
            label: "KPI",
@@ -366,6 +368,17 @@ function formatDate(dateString) {
   const month = String(date.getMonth() + 1).padStart(2, "0"); // Get month (0-based) and pad
   const year = date.getFullYear();
   // return `${day}/${month}/${year}`;
+ 
   return `${year}`;
+}
+
+function formatDateful(dateString) {
+  const date = new Date(dateString); // Parse the date string
+  const day = String(date.getDate()).padStart(2, "0"); // Get day and pad with leading zero
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Get month (0-based) and pad
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+
+  // return `${year}`;
 }
 
