@@ -250,188 +250,28 @@
         </div>
         <div class="tableContainer">
           <div class="dateTime">
-            <p>Department of Agriculture</p>
+            <p>department name</p>
             <p>|</p>
-            <p class="dateData">30/10/2021 to 30/10/2021</p>
-            <p>|</p>
-            <p class="timeData">12 : 30</p>
+            <p id="table_dateData"></p>
           </div>
           <div class="line"></div>
-           <div class="cordinateDepartmentBox">
-            <div class="uprCardHead">
-              <p>Coordinate Department</p>
-            </div>
-            <div class="uprCardBody">
-              <div class="secondCardBody">
-                <h3>Water Resources, Environment Department</h3>
-                <p>
-                  Contributing to 1.50 Lakh hectares through water conservation
-                </p>
-              </div>
-              <div class="secondCardBody">
-                <h3>Water Resources, Environment Department</h3>
-                <p>
-                  Contributing to 1.50 Lakh hectares through water conservation
-                </p>
-              </div>
-              <div class="secondCardBody">
-                <h3>Water Resources, Environment Department</h3>
-                <p>
-                  Contributing to 1.50 Lakh hectares through water conservation
-                </p>
-              </div>
-            </div>
+          <div class="kpidetailBox" id="kpidetailBox">
           </div>
-          <div class="uprCard">
-            <div class="card">
-              <div class="uprCardHead">
-                <p>Baseline Target Status</p>
-              </div>
-              <div class="uprCardBody">
-                <div>
-                  <h2>33.20 Lakh Ha.</h2>
-                  <p>Baseline Target</p>
-                </div>
-                <div>
-                  <h2>32.70 Lakh Ha.</h2>
-                  <p>Current</p>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="uprCardHead">
-                <p>5-Year Goal Progress</p>
-              </div>
-              <div class="uprCardBody">
-                <div>
-                  <h2>33.20 Lakh Ha.</h2>
-                  <p>5-Year Target</p>
-                </div>
-                <div>
-                  <h2>32.70 Lakh Ha.</h2>
-                  <p>Current</p>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="uprCardHead">
-                <p>Annual Target Achievement</p>
-              </div>
-              <div class="uprCardBody">
-                <div>
-                  <h2>33.20 Lakh Ha.</h2>
-                  <p>Annual Target for Year 1</p>
-                </div>
-                <div>
-                  <h2>32.70 Lakh Ha.</h2>
-                  <p>Achieved</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          
          
           <div class="line"></div>
-          <!-- <div class="detailKpi">
-            <p class="detailKpiHead">Details KPI Progress</p>
-            <div>
-              <div class="card kpicard1">
-                <div class="uprCardHead">
-                  <p>PROGRESS OF KPI 1</p>
-                </div>
-                <p class="cardp">Promotion of Climate-Smart Crops</p>
-                <div class="uprCardBody">
-                  <div class="cardbodyitems">
-                    <h2>33.20 Lakh Ha.</h2>
-                    <p>Current</p>
-                  </div>
-                  <div class="cardbodyitems">
-                    <h2>32.70 Lakh Ha.</h2>
-                    <p>Targer</p>
-                  </div>
-                </div>
-              </div>
-              <div class="card kpicard2">
-                <div class="uprCardHead">
-                  <p>PROGRESS OF KPI 2</p>
-                </div>
-                <p class="cardp">Weather based agro-met advisory services</p>
-                <div class="uprCardBody">
-                  <div class="cardbodyitems">
-                    <h2>33.20 Lakh Ha.</h2>
-                    <p>current</p>
-                  </div>
-                  <div class="cardbodyitems">
-                    <h2>32.70 Lakh Ha.</h2>
-                    <p>Target for Year 2</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="card kpicard3">
-                <div class="uprCardHead">
-                  <p>PROGRESS OF KPI 1</p>
-                </div>
-                <p class="cardp">Promotion of use of organic resources</p>
-
-                <div class="uprCardBody">
-                  <div class="cardbodyitems">
-                    <h2>33.20 Lakh Ha.</h2>
-                    <p>current</p>
-                  </div>
-                  <div class="cardbodyitems">
-                    <h2>32.70 Lakh Ha.</h2>
-                    <p>Target for Year 3</p>
-                  </div>
-                </div>
-              </div>
-              <div class="card kpicard4">
-                <div class="uprCardHead">
-                  <p>Baseline Target Status</p>
-                </div>
-                <p class="cardp">
-                  Promotion of water harvesting structures through water harvest
-                </p>
-
-                <div class="uprCardBody">
-                  <div class="cardbodyitems">
-                    <h2>13246 No.</h2>
-                    <p>Current</p>
-                  </div>
-                  <div class="cardbodyitems">
-                    <h2>13246 No.</h2>
-                    <p>Target for Year 4</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> -->
           <div class="line"></div>
-          <div class="graphbox">
-            <div class="chart-container">
-              <div class="chart-title">KPI 1</div>
-              <div class="chart-row">
-                <div class="vertical-label">LAKH HECTARES</div>
-                <canvas id="myChart" height="200"></canvas>
-              </div>
-              <div class="graphBase-label">TARGET ACHIEVED</div>
-            </div>
+          <div class="graphbox" id="graphbox">
+            
             <!-- <div class="chart-container">
-              <div class="chart-title">KPI 2</div>
+              <div class="chart-title">KPI 1</div>
               <div class="chart-row">
                 <div class="vertical-label">LAKH HECTARES</div>
                 <canvas id="myChart1" height="200"></canvas>
               </div>
               <div class="graphBase-label">TARGET ACHIEVED</div>
-            </div>
-            <div class="chart-container">
-              <div class="chart-title">KPI 3</div>
-              <div class="chart-row">
-                <div class="vertical-label">LAKH HECTARES</div>
-                <canvas id="myChart2" height="200"></canvas>
-              </div>
-              <div class="graphBase-label">TARGET ACHIEVED</div>
             </div> -->
+
           </div>
         </div>
       </div>

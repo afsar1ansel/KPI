@@ -85,7 +85,7 @@ async function fetchNotifications() {
     const res = await fetch(`https://staging.thirdeyegfx.in/kpi_app/get_superadmin_notifications/${token}`);
 
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
 
     setNotifications(data);
 
@@ -96,22 +96,32 @@ async function fetchNotifications() {
 
 
 function setNotifications(data) {
-  console.log(data.notifications);
+  // console.log(data.notifications);
 
+  let icon;
   const notificationList = document.getElementById("notificationList");
   notificationList.innerHTML = "";
 
   data.notifications.forEach((notification) => {
-    let icon;
-    if(notification.notif_type == 0){
-     icon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-  <path d="M12 24C14.3734 24 16.6935 23.2962 18.6668 21.9776C20.6402 20.6591 22.1783 18.7849 23.0865 16.5922C23.9948 14.3995 24.2324 11.9867 23.7694 9.65892C23.3064 7.33115 22.1635 5.19295 20.4853 3.51472C18.807 1.83649 16.6689 0.693605 14.3411 0.230582C12.0133 -0.232441 9.60051 0.00519943 7.4078 0.913451C5.21508 1.8217 3.34094 3.35977 2.02236 5.33316C0.703788 7.30655 0 9.62663 0 12C0.00344108 15.1815 1.26883 18.2318 3.51852 20.4815C5.76821 22.7312 8.81846 23.9966 12 24ZM12 5C12.2967 5 12.5867 5.08798 12.8334 5.2528C13.08 5.41762 13.2723 5.65189 13.3858 5.92598C13.4993 6.20007 13.5291 6.50167 13.4712 6.79264C13.4133 7.08361 13.2704 7.35088 13.0607 7.56066C12.8509 7.77044 12.5836 7.9133 12.2926 7.97118C12.0017 8.02906 11.7001 7.99935 11.426 7.88582C11.1519 7.77229 10.9176 7.58003 10.7528 7.33336C10.588 7.08669 10.5 6.79668 10.5 6.5C10.5 6.10218 10.658 5.72065 10.9393 5.43934C11.2206 5.15804 11.6022 5 12 5ZM11 10H12C12.5304 10 13.0391 10.2107 13.4142 10.5858C13.7893 10.9609 14 11.4696 14 12V18C14 18.2652 13.8946 18.5196 13.7071 18.7071C13.5196 18.8946 13.2652 19 13 19C12.7348 19 12.4804 18.8946 12.2929 18.7071C12.1054 18.5196 12 18.2652 12 18V12H11C10.7348 12 10.4804 11.8946 10.2929 11.7071C10.1054 11.5196 10 11.2652 10 11C10 10.7348 10.1054 10.4804 10.2929 10.2929C10.4804 10.1054 10.7348 10 11 10Z" fill="#898300"/>
-</svg>`;
-    }else if(notification.notif_type == 1){
-      icon = `<p>new</p>`
-       
-    }
     const div = document.createElement("div");
+
+    if (notification.notif_type == 0) {
+      div.classList.add("notificationColorRed");
+      icon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+<path d="M12 2.25C10.0716 2.25 8.18657 2.82183 6.58319 3.89317C4.97982 4.96451 3.73013 6.48726 2.99218 8.26884C2.25422 10.0504 2.06114 12.0108 2.43735 13.9021C2.81355 15.7934 3.74215 17.5307 5.10571 18.8943C6.46928 20.2579 8.20656 21.1865 10.0979 21.5627C11.9892 21.9389 13.9496 21.7458 15.7312 21.0078C17.5127 20.2699 19.0355 19.0202 20.1068 17.4168C21.1782 15.8134 21.75 13.9284 21.75 12C21.747 9.41506 20.7188 6.93684 18.891 5.10901C17.0632 3.28118 14.5849 2.25299 12 2.25ZM16.6436 10.2927L11.1431 15.5427C11.0032 15.6758 10.8176 15.75 10.6245 15.75C10.4315 15.75 10.2458 15.6758 10.106 15.5427L7.35645 12.9177C7.2128 12.7801 7.12965 12.5911 7.12525 12.3923C7.12084 12.1934 7.19555 12.0009 7.33297 11.8571C7.47038 11.7133 7.65927 11.6299 7.85813 11.6252C8.05699 11.6206 8.24957 11.695 8.39356 11.8323L10.6245 13.9629L15.6065 9.20728C15.7504 9.07004 15.943 8.99558 16.1419 9.00023C16.3407 9.00489 16.5296 9.08828 16.667 9.2321C16.8045 9.37592 16.8792 9.56841 16.8748 9.76727C16.8704 9.96614 16.7872 10.1551 16.6436 10.2927Z" fill="#0FAF62"/>
+</svg>`;
+    } else if (notification.notif_type == 1) {
+      div.classList.add("notificationColorYellow");
+      icon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+  <path d="M9 12.0006H15" stroke="#005CE8" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M9 15.0006H15" stroke="#005CE8" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M5.25 3.75056H18.75C18.9489 3.75056 19.1397 3.82958 19.2803 3.97023C19.421 4.11089 19.5 4.30165 19.5 4.50056V18.7506C19.5 19.3473 19.2629 19.9196 18.841 20.3416C18.419 20.7635 17.8467 21.0006 17.25 21.0006H6.75C6.15326 21.0006 5.58097 20.7635 5.15901 20.3416C4.73705 19.9196 4.5 19.3473 4.5 18.7506V4.50056C4.5 4.30165 4.57902 4.11089 4.71967 3.97023C4.86032 3.82958 5.05109 3.75056 5.25 3.75056Z" stroke="#005CE8" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M7.5 2.25056V5.25056" stroke="#005CE8" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M12 2.25056V5.25056" stroke="#005CE8" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M16.5 2.25056V5.25056" stroke="#005CE8" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
+    }
+
     div.classList.add("notificationLIstBox");
     div.innerHTML = `<div><div class="notIcon" >${icon}</div><p>${notification.content}</p></div>
 <div class="notificationTime"><p>${notification.created_at}</p></div>`;

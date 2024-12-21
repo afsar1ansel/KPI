@@ -153,9 +153,15 @@ line-height: 20px; /* 142.857% */
     /* border: solid 1px red; */
     display: flex;
     text-align: start;
-    align-items: center;
+    /* align-items: start; */
     gap: 10px;
 }
+
+.notificationLIstBox div p{
+  /* border: solid 1px red; */
+  text-align: start;
+}
+
 
 #notificationList img{
   width: 40px !important;
@@ -163,7 +169,7 @@ line-height: 20px; /* 142.857% */
 }
 
 #notificationList .notIcon{
-    background: #FFFDD5;
+    /* background: #FFFDD5; */
     display: flex;
 padding: 12px;
 align-items: flex-start;
@@ -177,4 +183,12 @@ height: 50px;
     border-bottom: solid 1px #E5E7E8;
     display: flex;
     justify-content: flex-end;
+}
+
+.notificationColorYellow .notIcon{
+   background: rgba(240, 246, 255, 1);
+}
+
+.notificationColorRed .notIcon{
+  background-color: rgba(231, 247, 239, 1);
 }

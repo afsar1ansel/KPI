@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      .header {
+        width: 100%;
+        margin-bottom: 10px;
+        /* border: solid 1px red; */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px;
+      }
+
+      /* .header  {
+            text-align: center;
+            padding: 5px;
+            border: 1px solid #ddd; 
+        } */
+
+      .report-title {
+        /* border: solid 1px red; */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .kpi-name {
+        color: var(--Calendar-Label-Black, #191b1c);
+
+        /* Body/Regular/400 */
+        font-family: "Public Sans";
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px; /* 142.857% */
+      }
+      .header img {
+        height: 50px; /* Make all logos the same size */
+      }
+
+      .footer {
+        border: solid 1px red;
+        text-align: center;
+        font-size: 10px;
+        margin-top: 130px;
+        color: gray;
+
+      }
+
+      .page-break {
+        page-break-after: always; /* Ensure new page for each KPI */
+      }
+
+      .chart {
+        text-align: center;
+        margin: 20px;
+      }
+
+      .kpi-section {
+        border: solid 1px green;
+      }
+
+    </style>
+  </head>
+  <body>
+    {% for kpi, chart_path in kpis_with_charts %}
+    <!-- Repeatable Header Table -->
+    <div class="header">
+      <img src="static/images/logo3.png" alt="Logo 3" />
+      <div>
+        <img src="static/images/logo1.png" alt="Logo 1" />
+        <img src="static/images/logo2.png" alt="Logo 2" />
+      </div>
+    </div>
+
+    <!-- Report Title -->
+    <div class="report-title">
+      <h1>Department of {{ department_name }}</h1>
+      <p>Report as per {{ report_generation_time }}</p>
+    </div>
+    <hr />
+
+    <!-- KPI Section -->
+    <div class="kpi-section">
+      <h3>
+        KPI {{ loop.index }}: <span class="kpi-name">{{ kpi['kpis'] }}</span>
+      </h3>
+      <table>
+        <thead>
+          <tr>
+            <th colspan="5">Year on Year values of KPI</th>
+          </tr>
+          <tr>
+            <th>{{ kpi['y1_year'] or 'N/A' }}</th>
+            <th>{{ kpi['y2_year'] or 'N/A' }}</th>
+            <th>{{ kpi['y3_year'] or 'N/A' }}</th>
+            <th>{{ kpi['y4_year'] or 'N/A' }}</th>
+            <th>{{ kpi['y5_year'] or 'N/A' }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ kpi['y1'] or 'null' }}</td>
+            <td>{{ kpi['y2'] or 'null' }}</td>
+            <td>{{ kpi['y3'] or 'null' }}</td>
+            <td>{{ kpi['y4'] or 'null' }}</td>
+            <td>{{ kpi['y5'] or 'null' }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Chart -->
+      <div class="chart">
+        <img
+          src="{{ chart_path }}"
+          alt="KPI Chart"
+          style="width: 80%; height: auto; margin: 0 auto; display: block"
+        />
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>
+        This report is based on data entered by department members; please verify discrepancies with respective departments
+      </p>
+      <p>Copyright ©2024 KSAPCC Monitoring Dashboard. All rights reserved. Confidential and Proprietary.</p>
+      <p style="text-align: end;">Page {{ loop.index }} of {{ kpis_with_charts|length }}</p>
+    </div>
+
+    <!-- Page Break -->
+    <div class="page-break"></div>
+    {% endfor %}
+  </body>
+</html>

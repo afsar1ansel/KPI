@@ -1,6 +1,7 @@
 #notificationList{
   /* border: solid 1px green !important; */
   width: 350px !important;
+  padding: 10px;
 }
 
 #notificationList p{
@@ -25,7 +26,7 @@ line-height: 20px; /* 142.857% */
 }
 
 #notificationList .notIcon{
-    background: #FFFDD5;
+   
     display: flex;
 padding: 12px;
 align-items: flex-start;
@@ -33,6 +34,14 @@ gap: 10px;
 border-radius: 50%;
 width: 50px;
 height: 50px;
+}
+
+.notificationColorYellow .notIcon{
+   background: #FFFDD5;
+}
+
+.notificationColorRed .notIcon{
+  background-color: rgba(240, 246, 255, 1);
 }
 
 .notificationTime{
