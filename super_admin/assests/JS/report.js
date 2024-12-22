@@ -92,6 +92,7 @@ function setReportData(data,form) {
   name.innerHTML = data.department_name
 
   const div = document.getElementById("kpidetailBox");
+  div.innerHTML = "";
   //  const div = document.getElementById("kpidetailBox");
   data.all_kpis.forEach((item) => {
     const t1 = formatDateful(item.created_at);
@@ -169,15 +170,17 @@ function graphSet(data) {
   const graphData = data.all_kpis;
 
   const box = document.getElementById("graphbox");
+  box.innerHTML = "";
 
   graphData.forEach((item, index) => {
     console.log(index)
 
     const boxG = document.createElement("div");
+    boxG.innerHTML = "";
     boxG.classList.add("graph_boxG");
 
     boxG.innerHTML = `<div class="chart-container">
-              <div class="chart-title">KPI 1</div>
+              <div class="chart-title">KPI ${index + 1}</div>
               <div class="chart-row">
                 <div class="vertical-label">LAKH HECTARES</div>
                 <canvas id="myChart${index + 1}" height="200"></canvas>
