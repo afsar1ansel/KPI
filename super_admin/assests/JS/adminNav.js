@@ -10,8 +10,7 @@ if (!token) {
       await fetchAdminData();
     }
     updateNavBar();
-  fetchNotifications();
-
+    fetchNotifications();
   });
 
   async function fetchAdminData() {
@@ -82,26 +81,23 @@ if (!token) {
       </div>
     </nav>
   `;
+  }
 }
-
-}
-
 
 async function fetchNotifications() {
-
   try {
-    const res = await fetch(`https://staging.thirdeyegfx.in/kpi_app/get_superadmin_notifications/${token}`);
+    const res = await fetch(
+      `https://staging.thirdeyegfx.in/kpi_app/get_superadmin_notifications/${token}`
+    );
 
     const data = await res.json();
     // console.log(data);
 
     setNotifications(data);
-
-  }catch (error) {
+  } catch (error) {
     console.error("Error fetching notifications:", error);
   }
 }
-
 
 function setNotifications(data) {
   // console.log(data.notifications);
@@ -137,4 +133,3 @@ function setNotifications(data) {
     notificationList.appendChild(div);
   });
 }
-

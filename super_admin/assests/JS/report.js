@@ -1,4 +1,3 @@
- 
 let dataObj;
 const tok = localStorage.getItem("authToken");
 function populateYears(selectElement, startYear, endYear) {
@@ -29,7 +28,7 @@ startYearDropdown.addEventListener("change", function () {
   if (selectedStartYear) {
     populateYears(endYearDropdown, selectedStartYear, endYearRange);
   } else {
-    endYearDropdown.innerHTML = ""; 
+    endYearDropdown.innerHTML = "";
     const defaultOption = document.createElement("option");
     defaultOption.value = "";
     defaultOption.text = "Select End Year";
@@ -69,27 +68,27 @@ async function filterData(department, startYear, endYear) {
     const data = await response.json();
     // console.log(data);
 
-    setReportData(data.department_report,form);
+    setReportData(data.department_report, form);
   } catch (error) {
     console.error("Error filtering data:", error);
   }
 }
 
-function setReportData(data,form) {
+function setReportData(data, form) {
   console.log(data);
- console.log(Object.fromEntries(form));
-//  console.log(form.min_year,form.max_year);
+  console.log(Object.fromEntries(form));
+  //  console.log(form.min_year,form.max_year);
   // table date
-   const time = document.getElementById("table_dateData");
-   time.innerHTML = "";
-   const fromT = form.get("min_year");
-   const toT = form.get("max_year");
-   console.log(fromT,toT);
-   time.innerHTML = `${fromT} to ${toT}`;
+  const time = document.getElementById("table_dateData");
+  time.innerHTML = "";
+  const fromT = form.get("min_year");
+  const toT = form.get("max_year");
+  console.log(fromT, toT);
+  time.innerHTML = `${fromT} to ${toT}`;
 
   const name = document.getElementById("DepartmentName");
   name.innerHTML = "";
-  name.innerHTML = data.department_name
+  name.innerHTML = data.department_name;
 
   const div = document.getElementById("kpidetailBox");
   div.innerHTML = "";
@@ -162,8 +161,8 @@ function setReportData(data,form) {
 
   graphSet(data);
 }
-  
-  // graphSet();
+
+// graphSet();
 
 function graphSet(data) {
   console.log(data);
@@ -173,7 +172,7 @@ function graphSet(data) {
   box.innerHTML = "";
 
   graphData.forEach((item, index) => {
-    console.log(index)
+    console.log(index);
 
     const boxG = document.createElement("div");
     boxG.innerHTML = "";
@@ -190,44 +189,39 @@ function graphSet(data) {
 
     box.appendChild(boxG);
 
-
     const ctx = document.getElementById(`myChart${index + 1}`);
-   new Chart(ctx, {
-     type: "bar",
-     data: {
-       labels: ["year 1", "year 2", "year 3", "year 4", "year 5"],
-       datasets: [
-         {
-           label: "KPI",
-           data: [item.y1, item.y2, item.y3, item.y4, item.y5],
-           borderWidth: 1,
-           backgroundColor: [
-             "rgba(255, 213, 153, 1)",
-             "rgba(95, 167, 119, 1)",
-             "rgba(15, 102, 9, 1)",
-           ],
-         },
-       ],
-     },
-     options: {
-       plugins: {
-         legend: {
-           display: false,
-         },
-       },
-       scales: {
-         y: {
-           beginAtZero: true,
-         },
-       },
-     },
-   });
+    new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: ["year 1", "year 2", "year 3", "year 4", "year 5"],
+        datasets: [
+          {
+            label: "KPI",
+            data: [item.y1, item.y2, item.y3, item.y4, item.y5],
+            borderWidth: 1,
+            backgroundColor: [
+              "rgba(255, 213, 153, 1)",
+              "rgba(95, 167, 119, 1)",
+              "rgba(15, 102, 9, 1)",
+            ],
+          },
+        ],
+      },
+      options: {
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
   });
-
 }
-
-
-
 
 // chart js
 
@@ -263,7 +257,6 @@ document.addEventListener("DOMContentLoaded", function () {
   //     },
   //   },
   // });
-
 });
 
 fetchDepartmentDetails();
@@ -285,7 +278,6 @@ async function fetchDepartmentDetails() {
 
 function setDropDown(data) {
   // console.log(data)
- 
 
   const select = document.getElementById("Select");
   select.innerHTML = "";
@@ -302,14 +294,13 @@ function setDropDown(data) {
   });
 }
 
-
 function formatDate(dateString) {
   const date = new Date(dateString); // Parse the date string
   const day = String(date.getDate()).padStart(2, "0"); // Get day and pad with leading zero
   const month = String(date.getMonth() + 1).padStart(2, "0"); // Get month (0-based) and pad
   const year = date.getFullYear();
   // return `${day}/${month}/${year}`;
- 
+
   return `${year}`;
 }
 
@@ -323,26 +314,27 @@ function formatDateful(dateString) {
   // return `${year}`;
 }
 
-
-// download 
+// download
 
 const btn = document.getElementById("downloadButton");
 
 btn.addEventListener("click", function () {
   console.log("Download button clicked");
 
-downloadFetch();
-})
+  downloadFetch();
+});
 
 async function downloadFetch() {
+  console.log(Object.fromEntries(dataObj));
 
-  console.log(Object.fromEntries(dataObj))
-
-  try{
-    const response = await fetch(`https://staging.thirdeyegfx.in/kpi_app/get_dept_report_pdf`, {
-      method: "POST",
-      body: dataObj,
-    })
+  try {
+    const response = await fetch(
+      `https://staging.thirdeyegfx.in/kpi_app/get_dept_report_pdf`,
+      {
+        method: "POST",
+        body: dataObj,
+      }
+    );
 
     const data = await response.blob();
     const url = URL.createObjectURL(data);
@@ -350,8 +342,7 @@ async function downloadFetch() {
     a.href = url;
     a.download = "report.pdf";
     a.click();
-
-  }catch(error){
-    console.log(error)
+  } catch (error) {
+    console.log(error);
   }
 }
