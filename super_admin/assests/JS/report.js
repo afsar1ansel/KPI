@@ -102,7 +102,7 @@ function setReportData(data,form) {
     box.classList.add("kpicardsDiv");
 
     box.innerHTML = `<div class="kpidetailBox1">
-              <div class="kpiDetailHeader">kpi 1</div>
+              <div class="kpiDetailHeader">Kpi 1</div>
               <div class="kpiNameDate">
                 <h3 class="kpiName">${item.kpis}</h3>
                 <p id="Cardtime">created at:${t1} | Updated at:${t2}</p>
