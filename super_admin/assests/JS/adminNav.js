@@ -52,7 +52,7 @@ if (!token) {
     document.getElementById("adminNav").innerHTML = `
     <nav class="navBar">
       <div class="logo">
-        <img src="../Department/assests/img/green_logo.svg" alt="" />
+        <img src="../Department/assests/img/greenLogo.svg" alt="" />
         <div class="tagText">
           <h1>KSAPCC</h1>
           <h3>Monitoring</h3>
