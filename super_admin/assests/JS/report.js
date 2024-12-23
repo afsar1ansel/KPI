@@ -93,7 +93,7 @@ function setReportData(data, form) {
   const div = document.getElementById("kpidetailBox");
   div.innerHTML = "";
   //  const div = document.getElementById("kpidetailBox");
-  data.all_kpis.forEach((item) => {
+  data.all_kpis.forEach((item, index) => {
     const t1 = formatDateful(item.created_at);
     const t2 = formatDateful(item.created_at);
     console.log(item);
@@ -101,7 +101,7 @@ function setReportData(data, form) {
     box.classList.add("kpicardsDiv");
 
     box.innerHTML = `<div class="kpidetailBox1">
-              <div class="kpiDetailHeader">Kpi 1</div>
+              <div class="kpiDetailHeader">KPI ${index + 1}</div>
               <div class="kpiNameDate">
                 <h3 class="kpiName">${item.kpis}</h3>
                 <p id="Cardtime">created at:${t1} | Updated at:${t2}</p>
