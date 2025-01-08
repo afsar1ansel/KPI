@@ -207,32 +207,42 @@ async function fetchUnitDetails(){
 
 // Populate Dropdown
 function populateDropdown(data, dropdownId, dataKey, textKey, valueKey = null) {
-  // console.log(dataKey);
   const dropdown = document.getElementById(dropdownId);
   dropdown.innerHTML = "";
 
   const defaultOption = document.createElement("option");
   defaultOption.text = "Select an Option";
+  defaultOption.value = "";
   dropdown.appendChild(defaultOption);
 
   data[dataKey].forEach((item) => {
     const option = document.createElement("option");
+    
     if (dataKey == "department_names") {
       option.text = `${item.dept_name} | ( ${item.dept_code})`;
+      option.value = item.id;
     } else {
-      option.text = item[textKey];
+      // console.log(item)
+      if (item.dist_id) {
+        option.text = item[textKey];
+        option.value = item.dist_id;
+      }else if (item.div_id) {
+        option.text = item[textKey];
+        option.value = item.div_id;
+      }else if (item.uom) {
+        option.text = item[textKey];
+        option.value = item.uom;
+      }
     }
-    if (valueKey) option.value = item[valueKey];
     dropdown.appendChild(option);
   });
 }
 
+
+  
+
 async function handleAddClick(url, data) {
-  // console.log(event);
-  console.log(Object.fromEntries(data));
-
-
-  showToast("Data added successfully!", "danger");
+ 
 
   try {
     // const payload = typeof data === "string" ? data : JSON.stringify(data);
@@ -244,8 +254,10 @@ async function handleAddClick(url, data) {
       }
     );
     const res = await response.json();
+    console.log(res)
     if (res.errflag == 0) {
       showToast("Data added successfully!", "success");
+      alert("Data added successfully!");
     }else{
       showToast("something went wrong!", "danger");
     }
@@ -253,37 +265,203 @@ async function handleAddClick(url, data) {
     console.error("Error adding data:", error);
   }
 }
-      // showToast("Data added successfully!", "success");
 
 
+      // showToast("something about trying" , "success")
 
 function showToast(message, type) {
+  console.log("here");
+
+  // Get the toast container and the template toast
   const toastContainer = document.getElementById("toastContainer");
-  const toastElement = document.getElementById("toast");
+  const toastTemplate = document.getElementById("toast");
 
+  // Clone the template for a new toast
+  const toastElement = toastTemplate.cloneNode(true);
+  toastElement.style.display = "block"; // Ensure the toast is visible
+  toastElement.id = ""; // Clear the ID to avoid duplicates
+
+  // Update the message in the cloned toast
   const toastBody = toastElement.querySelector(".toast-body");
-  const closeButton = toastElement.querySelector(".btn-close");
-
   toastBody.textContent = message;
 
-  let toastClass = "text-bg-success";
-  if (type === "danger") toastClass = "text-bg-danger"; 
-  toastElement.className = `toast align-items-center ${toastClass} border-0`;
+  // Update the toast's class based on the type
+  let toastClass = "text-bg-primary"; // Default
+  if (type === "success") toastClass = "text-bg-success";
+  if (type === "danger") toastClass = "text-bg-danger";
+  toastElement.classList.replace("text-bg-primary", toastClass);
 
-  const toast = new bootstrap.Toast(toastElement, { autohide: false });
+  // Append the new toast to the container
+  toastContainer.appendChild(toastElement);
+
+  // Initialize and show the toast
+  const toast = new bootstrap.Toast(toastElement, {
+    autohide: true,
+    delay: 3000,
+  });
   toast.show();
 
-  const autoHideTimeout = setTimeout(() => {
-    toast.hide();
-  }, 3000);
-
-  closeButton.onclick = () => {
-    clearTimeout(autoHideTimeout); 
-    toast.hide();
-  };
-
+  // Add event listener to remove the toast from DOM after hiding
   toastElement.addEventListener("hidden.bs.toast", () => {
-    toastElement.className = `toast align-items-center ${toastClass} border-0`;
+    toastElement.remove();
   });
 }
 
+
+
+// delete
+
+const dropdown = document.getElementById("disabledSelect");
+const dropdown1 = document.getElementById("districtSelect");
+const dropdown2 = document.getElementById("DivisionsSelect");
+const dropdown3 = document.getElementById("unitSelect");
+const deleteBox = document.querySelector(".DeleteBox");
+
+const deleteDepartment = document.getElementById("deleteDistrictBox");
+
+const deleteDivision = document.getElementById("deleteDivisionBox");
+const deleteUnit = document.getElementById("deleteUnitBox");
+
+
+
+  dropdown.addEventListener("change", function () {
+    // console.log(dropdown);
+    if (dropdown.value) {
+      // Show the DeleteBox div by changing its display style to flex
+      deleteBox.style.display = "flex";
+    } else {
+      // Hide the DeleteBox div if no option is selected
+      deleteBox.style.display = "none";
+    }
+  });
+
+  dropdown1.addEventListener("change", function () {
+    console.log(dropdown1);
+    if (dropdown1.value) {
+      // Show the DeleteBox div by changing its display style to flex
+      deleteDepartment.style.display = "flex";
+    } else {
+      // Hide the deleteDepartment div if no option is selected
+      deleteDepartment.style.display = "none";
+    }
+  });
+
+  dropdown2.addEventListener("change", function () {
+    console.log(dropdown2);
+    if (dropdown2.value) {
+      // Show the DeleteBox div by changing its display style to flex
+      deleteDivision.style.display = "flex";
+    } else {
+      // Hide the deleteDivision div if no option is selected
+      deleteDivision.style.display = "none";
+    }
+  });
+
+  dropdown3.addEventListener("change", function () {
+    console.log(dropdown3);
+    if (dropdown3.value) {
+      // Show the DeleteBox div by changing its display style to flex
+      deleteUnit.style.display = "flex";
+    } else {
+      // Hide the deleteUnit div if no option is selected
+      deleteUnit.style.display = "none";
+    }
+  });
+
+document
+  .getElementById("deleteDepartment")
+  .addEventListener("click", function (e) {
+    e.preventDefault();
+    // Get the selected option from the dropdown
+    const dropdown = document.getElementById("disabledSelect");
+    // console.log(dropdown)
+    const selectedValue = dropdown.value; // Get the value of the selected option
+
+
+    deleteMaster(
+      "https://staging.thirdeyegfx.in/kpi_app/dept_masters/delete",
+      "dept_id",
+      selectedValue
+    );
+  });
+
+  document
+  .getElementById("deleteDistrict")
+  .addEventListener("click", function (e) {
+    e.preventDefault();
+    // Get the selected option from the dropdown
+    const dropdown = document.getElementById("districtSelect");
+    const selectedValue = dropdown.value; // Get the value of the selected option
+    const selectedText = dropdown.options[dropdown.selectedIndex].text; // Get the text of the selected option
+
+    deleteMaster(
+      "https://staging.thirdeyegfx.in/kpi_app/district_master/delete",
+      "dist_id",
+      selectedValue
+    );
+
+  })
+
+  document
+  .getElementById("deleteDivision")
+  .addEventListener("click", function (e) {
+    e.preventDefault();
+    // Get the selected option from the dropdown
+    const dropdown = document.getElementById("DivisionsSelect");
+    const selectedValue = dropdown.value; // Get the value of the selected option
+ 
+
+      deleteMaster(
+        "https://staging.thirdeyegfx.in/kpi_app/division_master/delete",
+        "div_id",
+        selectedValue
+      );
+  })
+
+  document
+  .getElementById("deleteUnit")
+  .addEventListener("click", function (e) {
+    e.preventDefault();
+    // Get the selected option from the dropdown
+    const dropdown = document.getElementById("unitSelect");
+    const selectedValue = dropdown.value; // Get the value of the selected option
+
+
+     deleteMaster(
+       "https://staging.thirdeyegfx.in/kpi_app/uom_master/delete",
+       "uom_id",
+       selectedValue
+     );
+  })
+
+
+async function deleteMaster(url, field, id) {
+  const formData = new FormData();
+  formData.append(field, id);
+  formData.append("token", tok);
+  // console.log(Object.fromEntries(formData));
+  // console.log(url, field , id)
+
+  try {
+    const res = await fetch(`${url}`, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+    // console.log(data.errflag);
+
+    if (data.errflag == 0) {
+      showToast("Item deleted successfully!", "success");
+      console.log("Delete successful:", data);
+      window.location.reload();
+      return data;
+    } else {
+      showToast("Failed to delete item!", "danger");
+      console.error("Error response:", data.message || "Unknown error");
+    }
+  } catch (error) {
+    showToast("An error occurred while deleting the item.", "danger");
+    console.error("Fetch error:", error);
+  }
+}
