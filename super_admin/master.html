@@ -81,7 +81,7 @@
               <select id="disabledSelect" class="form-select"></select>
             </div>
             <div class="DeleteBox" style="display: none;">
-            <button id="deleteDepartment" class="btn btn-success">delete department</button>
+            <button id="deleteDepartment" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" >delete department</button>
             </div>
             <div class="mb-3">
               <label for="departmentInput" class="form-label"
@@ -118,7 +118,7 @@
               <select id="districtSelect" class="form-select"></select>
             </div>
              <div class="DeleteBox" id="deleteDistrictBox" style="display: none;">
-            <button id="deleteDistrict" class="btn btn-success">delete department</button>
+            <button id="deleteDistrict" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">delete District</button>
             </div>
             <div class="mb-3">
               <label for="districtInput" class="form-label"
@@ -145,7 +145,7 @@
               <select id="DivisionsSelect" class="form-select"></select>
             </div>
             <div class="DeleteBox" id="deleteDivisionBox" style="display: none;">
-            <button id="deleteDivision" class="btn btn-success">delete department</button>
+            <button id="deleteDivision" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">delete division</button>
             </div>
             <div class="mb-3">
               <label for="divisionInput" class="form-label">Add division</label>
@@ -169,7 +169,7 @@
               <select id="unitSelect" class="form-select"></select>
             </div>
              <div class="DeleteBox" id="deleteUnitBox" style="display: none;">
-            <button id="deleteUnit" class="btn btn-success">delete department</button>
+            <button id="deleteUnit" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">delete Unit</button>
             </div>
             <div class="mb-3">
               <label for="unitInput" class="form-label">Add Unit</label>
@@ -204,6 +204,31 @@
   </div>
 </div>
 
+
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you about delete this item ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="confirmDelete">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 

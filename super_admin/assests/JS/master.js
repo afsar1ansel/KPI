@@ -368,6 +368,8 @@ const deleteUnit = document.getElementById("deleteUnitBox");
     }
   });
 
+  
+// ------------------------------- department ----------------- 
 document
   .getElementById("deleteDepartment")
   .addEventListener("click", function (e) {
@@ -376,14 +378,31 @@ document
     const dropdown = document.getElementById("disabledSelect");
     // console.log(dropdown)
     const selectedValue = dropdown.value; // Get the value of the selected option
+    
 
+    // console.log(selectedValue)
 
-    deleteMaster(
-      "https://staging.thirdeyegfx.in/kpi_app/dept_masters/delete",
-      "dept_id",
-      selectedValue
-    );
+    document
+      .getElementById("confirmDelete")
+      .addEventListener("click", async function () {
+        const modal = bootstrap.Modal.getInstance(
+          document.getElementById("exampleModal")
+        );
+        modal.hide();
+
+        deleteMaster(
+          "https://staging.thirdeyegfx.in/kpi_app/dept_masters/delete",
+          "dept_id",
+          selectedValue
+        );
+      });
+
+  
   });
+
+
+  // --------------------------------- district -----------------
+
 
   document
   .getElementById("deleteDistrict")
@@ -394,13 +413,27 @@ document
     const selectedValue = dropdown.value; // Get the value of the selected option
     const selectedText = dropdown.options[dropdown.selectedIndex].text; // Get the text of the selected option
 
-    deleteMaster(
-      "https://staging.thirdeyegfx.in/kpi_app/district_master/delete",
-      "dist_id",
-      selectedValue
-    );
+   
+
+    document
+      .getElementById("confirmDelete")
+      .addEventListener("click", async function () {
+        const modal = bootstrap.Modal.getInstance(
+          document.getElementById("exampleModal")
+        );
+        modal.hide();
+
+        deleteMaster(
+          "https://staging.thirdeyegfx.in/kpi_app/district_master/delete",
+          "dist_id",
+          selectedValue
+        );
+      });
 
   })
+
+
+// --------------------------------- division ----------------- 
 
   document
   .getElementById("deleteDivision")
@@ -411,28 +444,58 @@ document
     const selectedValue = dropdown.value; // Get the value of the selected option
  
 
-      deleteMaster(
-        "https://staging.thirdeyegfx.in/kpi_app/division_master/delete",
-        "div_id",
-        selectedValue
-      );
+       document
+         .getElementById("confirmDelete")
+         .addEventListener("click", async function () {
+           const modal = bootstrap.Modal.getInstance(
+             document.getElementById("exampleModal")
+           );
+           modal.hide();
+
+           deleteMaster(
+             "https://staging.thirdeyegfx.in/kpi_app/division_master/delete",
+             "div_id",
+             selectedValue
+           );
+         });
+
   })
+
+
+
+// --------------------------------- unit -----------------
 
   document
   .getElementById("deleteUnit")
   .addEventListener("click", function (e) {
     e.preventDefault();
-    // Get the selected option from the dropdown
+    
     const dropdown = document.getElementById("unitSelect");
-    const selectedValue = dropdown.value; // Get the value of the selected option
+    const selectedValue = dropdown.value; 
 
 
-     deleteMaster(
-       "https://staging.thirdeyegfx.in/kpi_app/uom_master/delete",
-       "uom_id",
-       selectedValue
-     );
+     document
+       .getElementById("confirmDelete")
+       .addEventListener("click", async function () {
+         const modal = bootstrap.Modal.getInstance(
+           document.getElementById("exampleModal")
+         );
+         modal.hide();
+
+          deleteMaster(
+            "https://staging.thirdeyegfx.in/kpi_app/uom_master/delete",
+            "uom_id",
+            selectedValue
+          );
+       });
+
   })
+
+
+
+
+// mdoal
+
 
 
 async function deleteMaster(url, field, id) {
